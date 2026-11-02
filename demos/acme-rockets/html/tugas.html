@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acme Rockets | Space Exploration</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          screens: {
+            'widescreen': { 'raw': '(min-aspect-ratio: 3/2)' },
+            'tallscreen': { 'raw': '(max-aspect-ratio: 13/20)' },
+          },
+          keyframes: {
+            'open-menu': {
+              '0%': { transform: 'scaleY(0)' },
+              '80%': { transform: 'scaleY(1.15)' },
+              '100%': { transform: 'scaleY(1)' },
+            },
+          },
+          animation: {
+            'open-menu': 'open-menu 0.4s ease-in-out forwards',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Animasi Hamburger Icon menjadi tanda silang (X) */
+    .toggle-btn div {
+      transition: all 0.4s ease-in-out;
+    }
+    .toggle-btn.active div {
+      background-color: transparent !important;
+      transform: rotate(720deg);
+    }
+    .toggle-btn.active div::before {
+      transform: translateY(0) rotate(45deg);
+    }
+    .toggle-btn.active div::after {
+      transform: translateY(0) rotate(-45deg);
+    }
+
+    /* Tanda petik dekoratif testimonial */
+    .quote-box::before {
+      content: '\201C';
+      font-family: Georgia, serif;
+      position: absolute;
+      top: -0.8rem;
+      left: 1.2rem;
+      font-size: 6rem;
+      line-height: 1;
+      opacity: 0.2;
+    }
+    .quote-box::after {
+      content: '\201D';
+      font-family: Georgia, serif;
+      position: absolute;
+      bottom: -3rem;
+      right: 1.5rem;
+      font-size: 6rem;
+      line-height: 1;
+      opacity: 0.2;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-slate-50 dark:bg-black text-slate-900 dark:text-white transition-colors duration-300">
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="bg-teal-700 text-white sticky top-0 z-20 shadow-md">
+    <section class="max-w-5xl mx-auto p-4 flex justify-between items-center">
+      <h1 class="text-3xl font-bold tracking-tight">
+        <a href="#hero" class="flex items-center gap-2 hover:opacity-90">
+          <span>🚀</span> Acme Rockets
+        </a>
+      </h1>
+
+      <div class="flex items-center gap-4">
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex space-x-8 text-lg font-medium" aria-label="main">
+          <a href="#rockets" class="hover:text-teal-200 transition-colors">Our Rockets</a>
+          <a href="#testimonials" class="hover:text-teal-200 transition-colors">Testimonials</a>
+          <a href="#contact" class="hover:text-teal-200 transition-colors">Contact Us</a>
+        </nav>
+
+        <!-- Toggle Mode Gelap / Terang -->
+        <button id="theme-toggle" class="p-2 rounded-lg bg-teal-800 hover:bg-teal-600 transition-colors cursor-pointer text-xl" title="Ubah Tema">
+          <span id="theme-icon">🌙</span>
+        </button>
+
+        <!-- Tombol Hamburger Mobile -->
+        <button id="hamburger-button" class="toggle-btn md:hidden relative w-8 h-8 cursor-pointer focus:outline-none" aria-label="Menu Mobile">
+          <div class="bg-white w-8 h-1 rounded absolute top-4 -mt-0.5 before:content-[''] before:bg-white before:w-8 before:h-1 before:rounded before:absolute before:-translate-x-4 before:-translate-y-2.5 before:transition-all before:duration-400 after:content-[''] after:bg-white after:w-8 after:h-1 after:rounded after:absolute after:-translate-x-4 after:translate-y-2.5 after:transition-all after:duration-400"></div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Dropdown Menu Mobile -->
+    <section id="mobile-menu" class="absolute top-[68px] bg-slate-900 dark:bg-black w-full text-2xl font-semibold flex-col justify-center origin-top animate-open-menu hidden shadow-xl border-t border-slate-800">
+      <nav class="flex flex-col min-h-[calc(100vh-68px)] items-center py-8 divide-y divide-slate-800" aria-label="mobile">
+        <a href="#hero" class="w-full text-center py-5 hover:bg-teal-800 transition-colors mobile-link">Home</a>
+        <a href="#rockets" class="w-full text-center py-5 hover:bg-teal-800 transition-colors mobile-link">Our Rockets</a>
+        <a href="#testimonials" class="w-full text-center py-5 hover:bg-teal-800 transition-colors mobile-link">Testimonials</a>
+        <a href="#contact" class="w-full text-center py-5 hover:bg-teal-800 transition-colors mobile-link">Contact Us</a>
+        <a href="#footer" class="w-full text-center py-5 hover:bg-teal-800 transition-colors mobile-link">Legal</a>
+      </nav>
+    </section>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6">
+
+    <!-- 1. HERO SECTION -->
+    <section id="hero" class="flex flex-col-reverse justify-center sm:flex-row items-center gap-10 py-16 scroll-mt-40 min-h-[calc(100vh-68px)]">
+      <article class="sm:w-1/2 text-center sm:text-left">
+        <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+          We Boldly Go <span class="text-teal-600 dark:text-teal-400">Where No Rocket</span> Has Gone Before...
+        </h2>
+        <p class="text-xl sm:text-2xl mt-6 text-slate-700 dark:text-slate-300">
+          We're building rockets for the next century today. From the Moon to Mars, Jupiter, and beyond.
+        </p>
+        <p class="text-xl sm:text-2xl mt-4 font-medium text-teal-700 dark:text-teal-300">
+          Think Acme Rockets.
+        </p>
+        <div class="mt-8 flex justify-center sm:justify-start gap-4">
+          <a href="#rockets" class="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg hover:shadow-teal-500/20 transition-all">
+            Lihat Roket
+          </a>
+          <a href="#contact" class="border border-slate-400 dark:border-slate-700 hover:border-teal-500 px-6 py-3 rounded-xl font-semibold transition-all">
+            Hubungi Kami
+          </a>
+        </div>
+      </article>
+
+      <!-- Gambar Roket Astronot -->
+      <div class="w-4/5 sm:w-1/2 flex justify-center">
+        <img src="/rocketman.png" alt="Astronot di atas roket Acme" class="w-64 sm:w-80 md:w-96 drop-shadow-2xl hover:-translate-y-3 transition-transform duration-500 cursor-pointer">
+      </div>
+    </section>
+
+    <hr class="border-slate-300 dark:border-slate-800 my-8">
+
+    <!-- 2. ROCKETS SECTION -->
+    <section id="rockets" class="py-12 scroll-mt-20">
+      <h2 class="text-4xl font-bold text-center sm:text-5xl mb-4 text-slate-900 dark:text-white">
+        Our Rockets
+      </h2>
+      <p class="text-center text-slate-600 dark:text-slate-400 max-w-xl mx-auto mb-12">
+        Pilih armada roket mutakhir Acme yang siap membawa penjelajahan luar angkasa Anda ke level berikutnya.
+      </p>
+
+      <ul class="list-none flex flex-col md:flex-row items-center justify-center gap-8">
+        <!-- Kartu 1: Explorer -->
+        <li class="w-full sm:w-2/3 md:w-1/3 flex flex-col items-center border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl hover:scale-105 transition-all">
+          <div class="text-6xl mb-4 bg-teal-50 dark:bg-slate-800 p-4 rounded-2xl">🛰️</div>
+          <h3 class="text-3xl font-bold text-slate-900 dark:text-white">Explorer</h3>
+          <p class="text-3xl font-bold text-teal-600 dark:text-teal-400 my-2">$</p>
+          <p class="text-center text-slate-600 dark:text-slate-400">Affordable Exploration</p>
+          <span class="mt-6 inline-block text-xs font-semibold px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-600 dark:text-slate-300">Entry Level</span>
+        </li>
+
+        <!-- Kartu 2: Adventurer -->
+        <li class="w-full sm:w-2/3 md:w-1/3 flex flex-col items-center border-2 border-teal-500 bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-2xl hover:scale-105 transition-all relative">
+          <span class="absolute -top-3.5 bg-teal-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Best Seller</span>
+          <div class="text-6xl mb-4 bg-teal-50 dark:bg-slate-800 p-4 rounded-2xl">🚀</div>
+          <h3 class="text-3xl font-bold text-slate-900 dark:text-white">Adventurer</h3>
+          <p class="text-3xl font-bold text-teal-600 dark:text-teal-400 my-2">$$</p>
+          <p class="text-center text-slate-600 dark:text-slate-400">Best Selling Rocket!</p>
+          <span class="mt-6 inline-block text-xs font-semibold px-3 py-1 bg-teal-50 dark:bg-teal-950/60 rounded-full text-teal-700 dark:text-teal-300">Popular Choice</span>
+        </li>
+
+        <!-- Kartu 3: Infinity -->
+        <li class="w-full sm:w-2/3 md:w-1/3 flex flex-col items-center border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl hover:scale-105 transition-all">
+          <div class="text-6xl mb-4 bg-teal-50 dark:bg-slate-800 p-4 rounded-2xl">🛸</div>
+          <h3 class="text-3xl font-bold text-slate-900 dark:text-white">Infinity</h3>
+          <p class="text-3xl font-bold text-teal-600 dark:text-teal-400 my-2">$$$</p>
+          <p class="text-center text-slate-600 dark:text-slate-400">Luxury Starship</p>
+          <span class="mt-6 inline-block text-xs font-semibold px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-600 dark:text-slate-300">Ultimate Luxury</span>
+        </li>
+      </ul>
+    </section>
+
+    <hr class="border-slate-300 dark:border-slate-800 my-8">
+
+    <!-- 3. TESTIMONIALS SECTION -->
+    <section id="testimonials" class="py-12 scroll-mt-20">
+      <h2 class="text-4xl font-bold text-center sm:text-5xl mb-12 text-slate-900 dark:text-white">
+        Testimonials
+      </h2>
+
+      <div class="space-y-10">
+        <!-- Testimoni 1 -->
+        <figure class="max-w-3xl mx-auto">
+          <blockquote class="bg-teal-700 dark:bg-slate-900 p-8 sm:p-12 rounded-3xl relative quote-box text-white shadow-xl">
+            <p class="text-xl sm:text-2xl text-left leading-relaxed">
+              Acme has always been there for me. Their rockets are out of this world and help me catch up with that pesky roadrunner!
+            </p>
+          </blockquote>
+          <figcaption class="italic text-lg sm:text-xl text-right mt-3 text-slate-600 dark:text-slate-400">
+            &#8212; Wile E. Coyote, <span class="not-italic font-semibold">Genius</span>
+          </figcaption>
+        </figure>
+
+        <!-- Testimoni 2 -->
+        <figure class="max-w-3xl mx-auto">
+          <blockquote class="bg-teal-700 dark:bg-slate-900 p-8 sm:p-12 rounded-3xl relative quote-box text-white shadow-xl">
+            <p class="text-xl sm:text-2xl text-left leading-relaxed">
+              The Acme Infinity is an absolute marvel of modern engineering! <span class="italic text-teal-200">This makes me very, very angry</span> &#8212; that I didn't get one sooner!
+            </p>
+          </blockquote>
+          <figcaption class="italic text-lg sm:text-xl text-right mt-3 text-slate-600 dark:text-slate-400">
+            &#8212; Marvin the Martian &amp; K-9
+          </figcaption>
+        </figure>
+
+        <!-- Testimoni 3 -->
+        <figure class="max-w-3xl mx-auto">
+          <blockquote class="bg-teal-700 dark:bg-slate-900 p-8 sm:p-12 rounded-3xl relative quote-box text-white shadow-xl">
+            <p class="text-xl sm:text-2xl text-left leading-relaxed">
+              I knew I not only wanted &#8212; <span class="italic text-teal-200">I needed</span> &#8212; Acme's Infinity Rocket for my intergalactic missions! To infinity and beyond!
+            </p>
+          </blockquote>
+          <figcaption class="italic text-lg sm:text-xl text-right mt-3 text-slate-600 dark:text-slate-400">
+            &#8212; Buzz Lightyear
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <hr class="border-slate-300 dark:border-slate-800 my-8">
+
+    <!-- 4. CONTACT US SECTION -->
+    <section id="contact" class="py-12 scroll-mt-20">
+      <h2 class="text-4xl font-bold text-center sm:text-5xl mb-4 text-slate-900 dark:text-white">
+        Contact Us
+      </h2>
+      <p class="text-center text-slate-600 dark:text-slate-400 mb-10">
+        Punya pertanyaan seputar armada roket kami? Kirimkan pesan Anda di bawah ini:
+      </p>
+
+      <form id="contact-form" class="max-w-xl mx-auto flex flex-col gap-6 bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
+        <div>
+          <label for="subject" class="block font-semibold mb-2">Subject:</label>
+          <input type="text" id="subject" name="subject" required minlength="3" maxlength="60" placeholder="Contoh: Pertanyaan Pemesanan Explorer"
+            class="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+        </div>
+
+        <div>
+          <label for="message" class="block font-semibold mb-2">Message:</label>
+          <textarea name="message" id="message" rows="5" required placeholder="Tuliskan detail pertanyaan atau pesanan Anda..."
+            class="w-full text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-300 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all"></textarea>
+        </div>
+
+        <button type="submit" class="bg-teal-700 hover:bg-teal-600 active:bg-teal-800 text-white font-bold p-4 rounded-xl shadow-lg hover:shadow-teal-500/25 transition-all cursor-pointer">
+          Submit Message
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="footer" class="bg-teal-800 text-white text-base mt-20 border-t border-teal-900">
+    <section class="max-w-5xl mx-auto p-8 flex flex-col sm:flex-row justify-between items-center sm:items-start gap-8">
+      <address class="not-italic text-center sm:text-left text-slate-200">
+        <h2 class="font-bold text-xl text-white mb-2">Acme Rocket Powered Products, Inc.</h2>
+        555 Astro Way<br>
+        Fairfield, NJ 07004-1234<br>
+        Email: <a href="mailto:inquiries@acmerockets.com" class="underline hover:text-teal-200">Inquiries@AcmeRockets.com</a><br>
+        Phone: <a href="tel:+15555555555" class="underline hover:text-teal-200">(555) 555-5555</a>
+      </address>
+
+      <nav class="flex flex-col gap-2 text-center sm:text-left text-slate-200" aria-label="footer">
+        <h3 class="font-bold text-white mb-1">Quick Links</h3>
+        <a href="#rockets" class="hover:text-teal-200 transition-colors">Our Rockets</a>
+        <a href="#testimonials" class="hover:text-teal-200 transition-colors">Testimonials</a>
+        <a href="#contact" class="hover:text-teal-200 transition-colors">Contact Us</a>
+      </nav>
+
+      <div class="text-center sm:text-right text-slate-300 flex flex-col gap-2">
+        <p>Copyright &copy; <span id="year">2026</span></p>
+        <p>Acme Rockets. All Rights Reserved.</p>
+      </div>
+    </section>
+  </footer>
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Mobile Menu Toggle Logic
+      const hamburgerBtn = document.getElementById('hamburger-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      const toggleMenu = () => {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('flex');
+        hamburgerBtn.classList.toggle('active');
+      };
+
+      hamburgerBtn.addEventListener('click', toggleMenu);
+      mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+      // 2. Dark / Light Mode Switcher
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+      const html = document.documentElement;
+
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        html.classList.add('dark');
+        themeIcon.textContent = '☀️';
+      }
+
+      themeToggle.addEventListener('click', () => {
+        html.classList.toggle('dark');
+        const isDark = html.classList.contains('dark');
+        themeIcon.textContent = isDark ? '☀️' : '🌙';
+      });
+
+      // 3. Dynamic Copyright Year
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // 4. Form Submit Notification
+      const form = document.getElementById('contact-form');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Terima kasih! Pesan Anda berhasil terkirim ke Acme Rockets.');
+        form.reset();
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+{
+  "foodMenu": [
+    {
+      "id": 1,
+      "name": "Nasi Goreng Spesial Toko",
+      "category": "utama",
+      "price": 26000,
+      "estMinutes": 8,
+      "icon": "fa-bowl-rice",
+      "desc": "Ayam suwir, telur mata sapi, acar segar, dan kerupuk udang renyah.",
+      "tag": "Favorit",
+      "soldToday": 34
+    },
+    {
+      "id": 2,
+      "name": "Ayam Bakar Madu Pedas",
+      "category": "utama",
+      "price": 30000,
+      "estMinutes": 12,
+      "icon": "fa-drumstick-bite",
+      "desc": "Ayam bakar baluran bumbu madu gurih pedas khas rempah nusantara.",
+      "tag": "Terlaris",
+      "soldToday": 28
+    },
+    {
+      "id": 3,
+      "name": "Mie Goreng Jawa Nyemek",
+      "category": "utama",
+      "price": 24000,
+      "estMinutes": 7,
+      "icon": "fa-utensils",
+      "desc": "Mie telur kenyal dengan suwiran ayam, sawi hijau, dan kuah kental gurih.",
+      "tag": "",
+      "soldToday": 19
+    },
+    {
+      "id": 4,
+      "name": "Soto Daging Gurih Santan",
+      "category": "utama",
+      "price": 32000,
+      "estMinutes": 10,
+      "icon": "fa-bowl-food",
+      "desc": "Daging sapi empuk bumbu rempah kelapa gurih disajikan dengan emping.",
+      "tag": "Rekomendasi",
+      "soldToday": 22
+    },
+    {
+      "id": 5,
+      "name": "Tahu & Tempe Mendoan Crispy",
+      "category": "kudapan",
+      "price": 16000,
+      "estMinutes": 5,
+      "icon": "fa-bread-slice",
+      "desc": "Porsi 4 pcs tempe mendoan hangat dengan cocolan sambal kecap rawit pedas.",
+      "tag": "",
+      "soldToday": 41
+    },
+    {
+      "id": 6,
+      "name": "Pisang Bakar Keju Cokelat",
+      "category": "kudapan",
+      "price": 18000,
+      "estMinutes": 6,
+      "icon": "fa-cheese",
+      "desc": "Pisang raja bakar dengan parutan keju cheddar melimpah dan susu kental cokelat.",
+      "tag": "",
+      "soldToday": 15
+    },
+    {
+      "id": 7,
+      "name": "Es Teh Manis Melati Jumbo",
+      "category": "minuman",
+      "price": 6000,
+      "estMinutes": 2,
+      "icon": "fa-glass-water",
+      "desc": "Seduhan daun teh wangi melati dingin segar ukuran jumbo pemuas dahaga.",
+      "tag": "Segar",
+      "soldToday": 65
+    },
+    {
+      "id": 8,
+      "name": "Kopi Susu Gula Aren Toko",
+      "category": "minuman",
+      "price": 19000,
+      "estMinutes": 3,
+      "icon": "fa-mug-hot",
+      "desc": "Espresso robusta lokal dipadu susu kental dan sirup gula aren murni.",
+      "tag": "Khas",
+      "soldToday": 30
+    }
+  ],
+  "counters": [
+    {
+      "id": 1,
+      "name": "Meja Pengambilan 01",
+      "type": "Dapur Utama",
+      "status": "open",
+      "officerName": "Chef Anton",
+      "currentTicketCode": "M-001"
+    },
+    {
+      "id": 2,
+      "name": "Meja Pengambilan 02",
+      "type": "Dapur Cepat & Kudapan",
+      "status": "open",
+      "officerName": "Siti Rahma",
+      "currentTicketCode": "M-002"
+    },
+    {
+      "id": 3,
+      "name": "Bar Minuman & Kopi",
+      "type": "Station Minuman",
+      "status": "open",
+      "officerName": "Doni Pratama",
+      "currentTicketCode": "-"
+    },
+    {
+      "id": 4,
+      "name": "Kasir & Bungkus (Takeaway)",
+      "type": "Station Kasir",
+      "status": "open",
+      "officerName": "Lina Marlina",
+      "currentTicketCode": "T-001"
+    }
+  ],
+  "queues": [
+    {
+      "id": 101,
+      "ticketCode": "M-001",
+      "queueNumber": 1,
+      "status": "serving",
+      "counterId": 1,
+      "userId": 99,
+      "userName": "Bu Nita (Meja 03)",
+      "calledAt": "08:05:12",
+      "recallCount": 1,
+      "items": [
+        {
+          "id": 2,
+          "name": "Ayam Bakar Madu Pedas",
+          "qty": 2,
+          "price": 30000
+        },
+        {
+          "id": 7,
+          "name": "Es Teh Manis Melati Jumbo",
+          "qty": 2,
+          "price": 6000
+        }
+      ],
+      "totalAmount": 72000
+    },
+    {
+      "id": 102,
+      "ticketCode": "M-002",
+      "queueNumber": 2,
+      "status": "waiting",
+      "counterId": null,
+      "userId": 1,
+      "userName": "Rian Saputra (Meja 08)",
+      "calledAt": null,
+      "recallCount": 0,
+      "items": [
+        {
+          "id": 1,
+          "name": "Nasi Goreng Spesial Toko",
+          "qty": 1,
+          "price": 26000
+        },
+        {
+          "id": 7,
+          "name": "Es Teh Manis Melati Jumbo",
+          "qty": 2,
+          "price": 6000
+        }
+      ],
+      "totalAmount": 38000
+    },
+    {
+      "id": 103,
+      "ticketCode": "M-003",
+      "queueNumber": 3,
+      "status": "waiting",
+      "counterId": null,
+      "userId": 98,
+      "userName": "Pak Hendra (Meja 05)",
+      "calledAt": null,
+      "recallCount": 0,
+      "items": [
+        {
+          "id": 4,
+          "name": "Soto Daging Gurih Santan",
+          "qty": 1,
+          "price": 32000
+        },
+        {
+          "id": 5,
+          "name": "Tahu & Tempe Mendoan Crispy",
+          "qty": 1,
+          "price": 16000
+        }
+      ],
+      "totalAmount": 48000
+    }
+  ],
+  "activeCall": {
+    "ticketCode": "M-001",
+    "customerName": "Bu Nita (Meja 03)",
+    "serviceName": "Pesanan Selesai Dimasak",
+    "counterName": "Meja Pengambilan 01",
+    "itemsPreview": "2x Ayam Bakar Madu Pedas, 2x Es Teh Manis Jumbo",
+    "calledAt": "08:05:12"
+  }
+}

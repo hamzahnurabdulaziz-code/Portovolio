@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Royale Residence - Hunian Elite & Mewah</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            100: '#FAF3DD',
+                            300: '#E9D48B',
+                            400: '#E5C158',
+                            500: '#D4AF37',
+                            600: '#B89320',
+                            700: '#917112',
+                        },
+                        dark: {
+                            950: '#070A0F',
+                            900: '#0B0F17',
+                            800: '#131A26',
+                            700: '#1E2738',
+                            600: '#2A364F',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF0C2 0%, #D4AF37 50%, #AA820A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border {
+            border-image: linear-gradient(135deg, #D4AF37, #FBE8A6, #917112) 1;
+        }
+        .glass-card {
+            background: rgba(19, 26, 38, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+        .glass-nav {
+            background: rgba(11, 15, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-dark-900 text-slate-200 font-sans antialiased selection:bg-gold-500 selection:text-dark-900 overflow-x-hidden">
+
+    <!-- Sticky Header Navbar -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-gold-500/20 transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-full border border-gold-500/50 flex items-center justify-center bg-gradient-to-br from-gold-500/20 to-transparent group-hover:border-gold-400 transition-colors">
+                        <i class="fa-solid fa-crown text-gold-400 text-lg"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif text-xl font-bold tracking-wider text-white">GRAND ROYALE</span>
+                        <span class="text-[10px] uppercase tracking-[0.25em] text-gold-400 font-medium">Residence</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
+                    <a href="#about" class="text-slate-300 hover:text-gold-400 transition-colors">Tentang Kami</a>
+                    <a href="#tipe-rumah" class="text-slate-300 hover:text-gold-400 transition-colors">Tipe Rumah</a>
+                    <a href="#fasilitas" class="text-slate-300 hover:text-gold-400 transition-colors">Fasilitas Eksklusif</a>
+                    <a href="#lokasi" class="text-slate-300 hover:text-gold-400 transition-colors">Lokasi Strategis</a>
+                    <a href="#kalkulator" class="text-slate-300 hover:text-gold-400 transition-colors">Simulasi KPR</a>
+                </nav>
+
+                <!-- CTA Button Header -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <a href="https://wa.me/628132172119?text=Halo%20Grand%20Royale%20Residence,%20saya%20ingin%20konsultasi%20unit%20rumah." target="_blank" class="px-4 py-2 text-xs font-semibold rounded-full border border-green-500/50 bg-green-500/10 text-green-400 hover:bg-green-500 hover:text-white transition-all flex items-center space-x-2">
+                        <i class="fa-brands fa-whatsapp text-sm"></i>
+                        <span>0813-2172-119</span>
+                    </a>
+                    <a href="#kunjungan" class="px-5 py-2.5 text-xs font-semibold uppercase tracking-wider rounded-full bg-gradient-to-r from-gold-600 via-gold-500 to-gold-400 text-dark-950 hover:shadow-lg hover:shadow-gold-500/20 transition-all transform hover:-translate-y-0.5">
+                        <i class="fa-regular fa-calendar-check mr-2"></i>Private Tour
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" type="button" class="text-slate-300 hover:text-white focus:outline-none p-2" aria-label="Toggle menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card border-b border-gold-500/20 px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" class="block px-3 py-2 text-base font-medium text-slate-200 hover:text-gold-400">Tentang Kami</a>
+            <a href="#tipe-rumah" class="block px-3 py-2 text-base font-medium text-slate-200 hover:text-gold-400">Tipe Rumah</a>
+            <a href="#fasilitas" class="block px-3 py-2 text-base font-medium text-slate-200 hover:text-gold-400">Fasilitas Eksklusif</a>
+            <a href="#lokasi" class="block px-3 py-2 text-base font-medium text-slate-200 hover:text-gold-400">Lokasi Strategis</a>
+            <a href="#kalkulator" class="block px-3 py-2 text-base font-medium text-slate-200 hover:text-gold-400">Simulasi KPR</a>
+            <a href="https://wa.me/628132172119?text=Halo%20Grand%20Royale%20Residence,%20saya%20ingin%20konsultasi%20unit%20rumah." target="_blank" class="flex items-center justify-center space-x-2 w-full text-center px-4 py-3 rounded-full border border-green-500/50 bg-green-500/10 text-green-400 font-semibold text-xs tracking-wider">
+                <i class="fa-brands fa-whatsapp text-base"></i>
+                <span>WhatsApp: 0813-2172-119</span>
+            </a>
+            <a href="#kunjungan" class="block w-full text-center px-4 py-3 text-xs font-semibold uppercase tracking-wider rounded-full bg-gold-500 text-dark-950">
+                Private Tour VIP
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+        <!-- Background Image with Gradient Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80" alt="Grand Royale Luxury Villa" class="w-full h-full object-cover object-center filter brightness-75 scale-105 transform animate-pulse transition-duration-10000" style="animation-duration: 12s;">
+            <div class="absolute inset-0 bg-gradient-to-r from-dark-950 via-dark-950/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-dark-950/60"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="max-w-3xl">
+                <!-- Tagline Badge -->
+                <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 mb-6 backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-gold-400 animate-ping"></span>
+                    <span class="text-xs uppercase tracking-widest text-gold-400 font-semibold">The Pinnacle of Luxury Living</span>
+                </div>
+
+                <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-none mb-6">
+                    Simbol Kemewahan & <span class="gold-gradient-text block mt-2">Kenyamanan Sejati</span>
+                </h1>
+
+                <p class="text-base sm:text-lg text-slate-300 mb-8 max-w-2xl leading-relaxed">
+                    Koleksi hunian tropis modern terbatas yang dirancang khusus untuk memenuhi standar hidup kelas dunia. Dilengkapi dengan fasilitas resort private, keamanan pintar AI 24/7, dan lanskap alam bernuansa asri.
+                </p>
+
+                <!-- CTA Actions -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-12">
+                    <a href="#kunjungan" class="px-8 py-4 rounded-full bg-gradient-to-r from-gold-600 via-gold-500 to-gold-400 text-dark-950 font-bold text-sm uppercase tracking-wider hover:shadow-xl hover:shadow-gold-500/30 transition-all text-center transform hover:-translate-y-1">
+                        <i class="fa-solid fa-gem mr-2"></i> Jadwalkan VIP Viewing
+                    </a>
+                    <a href="https://wa.me/628132172119?text=Halo%20Grand%20Royale%20Residence,%20saya%20ingin%20konsultasi%20mengenai%20unit%20rumah." target="_blank" class="px-6 py-4 rounded-full border border-green-500/50 bg-green-500/10 hover:bg-green-600 hover:text-white text-green-400 font-semibold text-sm tracking-wider transition-all backdrop-blur-sm flex items-center justify-center space-x-2 text-center">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>WhatsApp: 0813-2172-119</span>
+                    </a>
+                    <button onclick="downloadEBrochure()" class="px-6 py-4 rounded-full border border-gold-500/40 bg-dark-800/60 hover:bg-gold-500/10 text-white font-semibold text-sm tracking-wider transition-all backdrop-blur-sm flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-file-pdf text-gold-400"></i>
+                        <span>E-Brochure</span>
+                    </button>
+                </div>
+
+                <!-- Feature Highlights Badges -->
+                <div class="grid grid-cols-3 gap-4 border-t border-slate-800 pt-8">
+                    <div>
+                        <p class="text-2xl sm:text-3xl font-serif font-bold text-gold-400">100%</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider mt-1">Underground Utilities</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl sm:text-3xl font-serif font-bold text-gold-400">24/7</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider mt-1">AI Smart Security</p>
+                    </div>
+                    <div>
+                        <p class="text-2xl sm:text-3xl font-serif font-bold text-gold-400">45%</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider mt-1">Green Living Area</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <a href="#about" class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 flex flex-col items-center text-slate-400 hover:text-gold-400 transition-colors">
+            <span class="text-[10px] uppercase tracking-widest mb-2">Jelajahi</span>
+            <i class="fa-solid fa-chevron-down animate-bounce text-sm"></i>
+        </a>
+    </section>
+
+    <!-- Overview & Value Proposition Section -->
+    <section id="about" class="py-24 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                
+                <!-- Left Column - Image Stack -->
+                <div class="relative">
+                    <div class="relative z-10 rounded-2xl overflow-hidden border border-gold-500/20 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="Grand Royale Architecture" class="w-full h-[450px] object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="absolute -bottom-8 -right-8 w-2/3 rounded-2xl overflow-hidden border-2 border-gold-500/40 shadow-2xl z-20 hidden sm:block">
+                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80" alt="Interior Luxury" class="w-full h-56 object-cover">
+                    </div>
+                    <div class="absolute -top-6 -left-6 w-32 h-32 border-t-2 border-l-2 border-gold-500/40 rounded-tl-3xl"></div>
+                </div>
+
+                <!-- Right Column - Text Content -->
+                <div>
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold-500/10 text-gold-400 text-xs font-semibold uppercase tracking-widest mb-4">
+                        Masterpiece Architecture
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                        Definisi Baru Dalam <br><span class="gold-gradient-text">Gaya Hidup Eksklusif</span>
+                    </h2>
+                    <p class="text-slate-300 mb-6 leading-relaxed">
+                        Grand Royale Residence menghadirkan harmoni sempurna antara kemewahan arsitektur kontemporer, lanskap alam tropis yang hijau, dan privasi tanpa kompromi. Setiap unit dirancang dengan langit-langit tinggi, sistem rumah pintar (Smart Home System), dan pencahayaan alami yang melimpah.
+                    </p>
+                    <p class="text-slate-400 text-sm mb-8 leading-relaxed">
+                        Terletak di kawasan berkembang paling bergengsi dengan aksesibilitas terbaik menuju pusat bisnis (CBD), sekolah internasional bertaraf global, serta fasilitas kesehatan kelas atas.
+                    </p>
+
+                    <!-- Feature Checkmarks Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400">
+                                <i class="fa-solid fa-shield-halved text-xs"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">One-Gate System & AI CCTV</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400">
+                                <i class="fa-solid fa-leaf text-xs"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">Solar Panel Ready & Eco Energy</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400">
+                                <i class="fa-solid fa-swimming-pool text-xs"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">Private Clubhouse & Pool</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400">
+                                <i class="fa-solid fa-wifi text-xs"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-200">Fiber Optic & Smart Home</span>
+                        </div>
+                    </div>
+
+                    <a href="#tipe-rumah" class="inline-flex items-center space-x-2 text-gold-400 font-semibold text-sm hover:text-gold-300 transition-colors group">
+                        <span>Lihat Pilihan Tipe Unit</span>
+                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unit Types Section -->
+    <section id="tipe-rumah" class="py-24 bg-dark-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-400 text-xs font-semibold uppercase tracking-widest bg-gold-500/10 px-4 py-1.5 rounded-full border border-gold-500/20">Koleksi Tipe Unit</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-4 mb-4">Rancangan Spesial Untuk Anda</h2>
+                <p class="text-slate-400 text-sm sm:text-base">Pilihlah tipe hunian yang mencerminkan pencapaian dan karakter hidup keluarga Anda.</p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex justify-center mb-12">
+                <div class="inline-flex p-1.5 rounded-full bg-dark-900 border border-gold-500/20" id="unit-tabs">
+                    <button onclick="switchUnit('royale')" id="tab-royale" class="px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-gold-500 text-dark-950 shadow-md">
+                        The Royale (Villa Type)
+                    </button>
+                    <button onclick="switchUnit('grand')" id="tab-grand" class="px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all">
+                        The Grand Mansion
+                    </button>
+                    <button onclick="switchUnit('emperor')" id="tab-emperor" class="px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all">
+                        The Emperor Suite
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dynamic Unit Card Container -->
+            <div id="unit-display" class="glass-card rounded-3xl overflow-hidden border border-gold-500/20 p-6 lg:p-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Unit Gallery Slide -->
+                    <div class="lg:col-span-7 relative group">
+                        <div class="rounded-2xl overflow-hidden shadow-2xl border border-slate-700/50 relative">
+                            <img id="unit-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Tipe Rumah" class="w-full h-[380px] sm:h-[480px] object-cover transition-all duration-500">
+                            <div class="absolute top-4 left-4 bg-dark-950/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-gold-500/30 text-gold-400 text-xs font-bold uppercase tracking-wider">
+                                Recommended
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Unit Details & Specifications -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div>
+                            <span id="unit-subtitle" class="text-gold-400 text-xs font-bold uppercase tracking-widest">3 Lantai • Private Lift</span>
+                            <h3 id="unit-title" class="font-serif text-3xl font-bold text-white mt-1">The Royale Villa</h3>
+                            <p id="unit-desc" class="text-slate-300 text-sm mt-3 leading-relaxed">
+                                Hunian tropis ultra-mewah 3 lantai lengkap dengan infinity pool pribadi, privat lift, serta garasi berkapasitas 4 mobil.
+                            </p>
+                        </div>
+
+                        <!-- Price Tag -->
+                        <div class="p-4 rounded-xl bg-dark-900/80 border border-gold-500/20">
+                            <span class="text-xs text-slate-400 uppercase tracking-wider block">Mulai Dari</span>
+                            <span id="unit-price" class="text-2xl sm:text-3xl font-serif font-bold text-gold-400">Rp 4.8 Miliar</span>
+                        </div>
+
+                        <!-- Specifications Grid -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-3 rounded-lg bg-dark-900/50 border border-slate-800">
+                                <span class="text-[11px] text-slate-400 uppercase block">Luas Tanah (LT)</span>
+                                <span id="unit-lt" class="text-base font-semibold text-white">250 m²</span>
+                            </div>
+                            <div class="p-3 rounded-lg bg-dark-900/50 border border-slate-800">
+                                <span class="text-[11px] text-slate-400 uppercase block">Luas Bangunan (LB)</span>
+                                <span id="unit-lb" class="text-base font-semibold text-white">380 m²</span>
+                            </div>
+                            <div class="p-3 rounded-lg bg-dark-900/50 border border-slate-800">
+                                <span class="text-[11px] text-slate-400 uppercase block">Kamar Tidur</span>
+                                <span id="unit-kt" class="text-base font-semibold text-white">4 + 2 Utama</span>
+                            </div>
+                            <div class="p-3 rounded-lg bg-dark-900/50 border border-slate-800">
+                                <span class="text-[11px] text-slate-400 uppercase block">Kamar Mandi</span>
+                                <span id="unit-km" class="text-base font-semibold text-white">5 + 1 Ensuite</span>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="pt-4 flex flex-col sm:flex-row gap-3">
+                            <button onclick="openFloorplanModal()" class="flex-1 py-3 px-4 rounded-xl border border-gold-500/40 text-gold-400 hover:bg-gold-500/10 font-medium text-xs uppercase tracking-wider transition-colors flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-map"></i>
+                                <span>Denah / Floorplan</span>
+                            </button>
+                            <a href="#kunjungan" onclick="selectUnitForBooking('The Royale Villa')" class="flex-1 py-3 px-4 rounded-xl bg-gold-500 text-dark-950 font-bold text-xs uppercase tracking-wider hover:bg-gold-400 transition-colors text-center flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-calendar-day"></i>
+                                <span>Minat Tipe Ini</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Masterplan & Virtual Experience Section -->
+    <section class="py-24 bg-dark-950 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-gold-400 text-xs font-semibold uppercase tracking-widest bg-gold-500/10 px-4 py-1.5 rounded-full border border-gold-500/20">Lanskap & Siteplan</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white">Kawasan Hijau Bernilai Seni Tinggi</h2>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Dirancang oleh konsultan lanskap internasional, kawasan ini mengintegrasikan danau buatan eksklusif, area pejalan kaki terlindung pepohonan rindang, serta jalur sepeda terpisah.
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 shrink-0 mt-1">
+                                <i class="fa-solid fa-tree"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-base">Private Botanical Garden</h4>
+                                <p class="text-slate-400 text-xs mt-0.5">Taman tematik seluas 2.5 Hektar dengan udara bersih bebas emisi.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 shrink-0 mt-1">
+                                <i class="fa-solid fa-water"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-base">Serenity Lake & Jogging Loop</h4>
+                                <p class="text-slate-400 text-xs mt-0.5">Danau refleksi dengan lintasan jogging ramah sendi sepanjang 1.5 KM.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center text-gold-400 shrink-0 mt-1">
+                                <i class="fa-solid fa-bolt text-gold-400"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-semibold text-base">Underground Smart Infrastructure</h4>
+                                <p class="text-slate-400 text-xs mt-0.5">Kabel listrik, optik, dan pengolahan air bersih modern tanpa kabel mengantung.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Masterplan Interactive Image Card -->
+                <div class="lg:col-span-7">
+                    <div class="relative rounded-3xl overflow-hidden border border-gold-500/30 shadow-2xl group">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80" alt="Masterplan Perumahan Elite" class="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-90">
+                        <div class="absolute inset-0 bg-dark-950/40"></div>
+                        
+                        <!-- Overlay Hotspots -->
+                        <div class="absolute top-1/3 left-1/4">
+                            <span class="relative flex h-6 w-6">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-6 w-6 bg-gold-500 text-dark-950 font-bold text-[10px] items-center justify-center cursor-pointer" title="Clubhouse">1</span>
+                            </span>
+                        </div>
+
+                        <div class="absolute top-1/2 right-1/3">
+                            <span class="relative flex h-6 w-6">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-6 w-6 bg-gold-500 text-dark-950 font-bold text-[10px] items-center justify-center cursor-pointer" title="Main Gate">2</span>
+                            </span>
+                        </div>
+
+                        <div class="absolute bottom-1/4 left-1/2">
+                            <span class="relative flex h-6 w-6">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-6 w-6 bg-gold-500 text-dark-950 font-bold text-[10px] items-center justify-center cursor-pointer" title="Lake Park">3</span>
+                            </span>
+                        </div>
+
+                        <!-- Legend Box -->
+                        <div class="absolute bottom-4 left-4 right-4 sm:right-auto glass-card p-4 rounded-xl border border-gold-500/30 text-xs flex space-x-4">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-gold-500 text-dark-950 font-bold text-[10px] flex items-center justify-center">1</span>
+                                <span class="text-slate-200">Clubhouse & Spa</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-gold-500 text-dark-950 font-bold text-[10px] flex items-center justify-center">2</span>
+                                <span class="text-slate-200">Main Gate & AI Gate</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-gold-500 text-dark-950 font-bold text-[10px] flex items-center justify-center">3</span>
+                                <span class="text-slate-200">Private Lake Park</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section id="fasilitas" class="py-24 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-400 text-xs font-semibold uppercase tracking-widest bg-gold-500/10 px-4 py-1.5 rounded-full border border-gold-500/20">Fasilitas Resort Bintang Lima</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-4 mb-4">Kemewahan Tanpa Batas Di Dalam Perumahan</h2>
+                <p class="text-slate-400 text-sm sm:text-base">Nikmati kemudahan dan gaya hidup kelas dunia setiap hari bersama keluarga.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Amenity Card 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden border border-gold-500/10 hover:border-gold-500/40 transition-all group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80" alt="Grand Clubhouse" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="w-10 h-10 rounded-xl bg-gold-500/20 flex items-center justify-center text-gold-400 mb-4">
+                            <i class="fa-solid fa-building-columns text-lg"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-white mb-2">Grand Private Clubhouse</h3>
+                        <p class="text-slate-400 text-sm">Pusat sosialisasi eksklusif dengan lounge mewah, cigar room, dan ruang rapat privat untuk penghuni.</p>
+                    </div>
+                </div>
+
+                <!-- Amenity Card 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden border border-gold-500/10 hover:border-gold-500/40 transition-all group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1572331165267-854da2b10ccc?auto=format&fit=crop&w=800&q=80" alt="Infinity Pool" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="w-10 h-10 rounded-xl bg-gold-500/20 flex items-center justify-center text-gold-400 mb-4">
+                            <i class="fa-solid fa-water-ladder text-lg"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-white mb-2">Olympic Infinity Pool</h3>
+                        <p class="text-slate-400 text-sm">Kolam renang berukuran standar olimpiade dengan Jacuzzi hangat dan area berjemur bernuansa resort.</p>
+                    </div>
+                </div>
+
+                <!-- Amenity Card 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden border border-gold-500/10 hover:border-gold-500/40 transition-all group">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Fitness & Wellness" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="w-10 h-10 rounded-xl bg-gold-500/20 flex items-center justify-center text-gold-400 mb-4">
+                            <i class="fa-solid fa-dumbbell text-lg"></i>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-white mb-2">Wellness & Fitness Center</h3>
+                        <p class="text-slate-400 text-sm">Pusat kebugaran modern lengkap dengan peralatan Technogym, ruang sauna, dan studio yoga privat.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Location Section -->
+    <section id="lokasi" class="py-24 bg-dark-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Location Checklist Left -->
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-gold-400 text-xs font-semibold uppercase tracking-widest bg-gold-500/10 px-4 py-1.5 rounded-full border border-gold-500/20">Aksesibilitas Prima</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white">Di Jantung Konektivitas Perkotaan</h2>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Grand Royale Residence memiliki lokasi strategis dengan akses instan menuju pintu tol utama, bandara internasional, pusat perbelanjaan mewah, serta rumah sakit standar internasional.
+                    </p>
+
+                    <div class="space-y-3 pt-2">
+                        <!-- Location item 1 -->
+                        <div class="p-4 rounded-xl bg-dark-900/60 border border-slate-700/60 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-road-spikes text-gold-400"></i>
+                                <span class="text-sm font-semibold text-white">Gerbang Tol Utama (CBD Direct)</span>
+                            </div>
+                            <span class="text-xs text-gold-400 font-bold bg-gold-500/10 px-3 py-1 rounded-full">3 Menit</span>
+                        </div>
+                        <!-- Location item 2 -->
+                        <div class="p-4 rounded-xl bg-dark-900/60 border border-slate-700/60 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-graduation-cap text-gold-400"></i>
+                                <span class="text-sm font-semibold text-white">Global International School</span>
+                            </div>
+                            <span class="text-xs text-gold-400 font-bold bg-gold-500/10 px-3 py-1 rounded-full">5 Menit</span>
+                        </div>
+                        <!-- Location item 3 -->
+                        <div class="p-4 rounded-xl bg-dark-900/60 border border-slate-700/60 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-bag-shopping text-gold-400"></i>
+                                <span class="text-sm font-semibold text-white">Grand Mall & Lifestyle Center</span>
+                            </div>
+                            <span class="text-xs text-gold-400 font-bold bg-gold-500/10 px-3 py-1 rounded-full">8 Menit</span>
+                        </div>
+                        <!-- Location item 4 -->
+                        <div class="p-4 rounded-xl bg-dark-900/60 border border-slate-700/60 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-plane text-gold-400"></i>
+                                <span class="text-sm font-semibold text-white">Bandara Internasional</span>
+                            </div>
+                            <span class="text-xs text-gold-400 font-bold bg-gold-500/10 px-3 py-1 rounded-full">20 Menit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Frame Right -->
+                <div class="lg:col-span-6">
+                    <div class="glass-card rounded-3xl p-3 border border-gold-500/30 overflow-hidden shadow-2xl">
+                        <div class="w-full h-[400px] rounded-2xl overflow-hidden relative">
+                            <!-- Simulated Map UI -->
+                            <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1000&q=80" alt="Map View" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-dark-950/30"></div>
+                            
+                            <!-- Location Pin Overlay -->
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+                                <div class="px-3 py-1 rounded-full bg-gold-500 text-dark-950 font-bold text-xs shadow-lg mb-1">
+                                    Grand Royale Residence
+                                </div>
+                                <div class="w-8 h-8 rounded-full bg-gold-500 text-dark-950 flex items-center justify-center animate-bounce shadow-xl">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KPR Interactive Calculator Section -->
+    <section id="kalkulator" class="py-24 bg-dark-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-400 text-xs font-semibold uppercase tracking-widest bg-gold-500/10 px-4 py-1.5 rounded-full border border-gold-500/20">Estimasi Finansial</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-4 mb-4">Simulasi KPR & Perhitungan</h2>
+                <p class="text-slate-400 text-sm sm:text-base">Hitung estimasi angsuran bulanan hunian impian Anda secara cepat dan presisi.</p>
+            </div>
+
+            <div class="glass-card max-w-4xl mx-auto rounded-3xl p-6 sm:p-10 border border-gold-500/20">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <!-- Calculator Inputs -->
+                    <div class="space-y-6">
+                        <!-- Input Harga -->
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Harga Properti (Rp)</label>
+                            <input type="number" id="calc-price" value="4800000000" step="100000000" oninput="calculateKPR()" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
+                            <span class="text-[11px] text-slate-400 mt-1 block" id="calc-price-formatted">Rp 4.800.000.000</span>
+                        </div>
+
+                        <!-- Input Uang Muka DP -->
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold uppercase text-slate-300 mb-2">
+                                <span>Uang Muka / DP (%)</span>
+                                <span id="calc-dp-percent-val" class="text-gold-400 font-bold">20%</span>
+                            </div>
+                            <input type="range" id="calc-dp" min="10" max="50" value="20" step="5" oninput="calculateKPR()" class="w-full accent-gold-500">
+                            <span class="text-[11px] text-slate-400 mt-1 block" id="calc-dp-amount">Nilai DP: Rp 960.000.000</span>
+                        </div>
+
+                        <!-- Input Tenor (Tahun) -->
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Jangka Waktu (Tenor)</label>
+                            <select id="calc-tenor" onchange="calculateKPR()" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
+                                <option value="5">5 Tahun (60 Bulan)</option>
+                                <option value="10">10 Tahun (120 Bulan)</option>
+                                <option value="15" selected>15 Tahun (180 Bulan)</option>
+                                <option value="20">20 Tahun (240 Bulan)</option>
+                                <option value="25">25 Tahun (300 Bulan)</option>
+                            </select>
+                        </div>
+
+                        <!-- Input Suku Bunga (%) -->
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Estimasi Suku Bunga (% / Tahun)</label>
+                            <input type="number" id="calc-rate" value="6.5" step="0.1" oninput="calculateKPR()" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-gold-500 transition-colors">
+                        </div>
+                    </div>
+
+                    <!-- Calculator Output Card -->
+                    <div class="bg-gradient-to-br from-dark-950 to-dark-800 rounded-2xl p-6 border border-gold-500/30 space-y-6">
+                        <div class="text-center pb-4 border-b border-slate-800">
+                            <span class="text-xs uppercase text-slate-400 tracking-wider">Estimasi Angsuran Per Bulan</span>
+                            <div id="calc-monthly-installment" class="text-3xl sm:text-4xl font-serif font-bold gold-gradient-text mt-2">
+                                Rp 33.412.000
+                            </div>
+                            <span class="text-[11px] text-slate-500 mt-1 block">*Perhitungan estimasi diluar biaya admin & asuransi</span>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Total Pinjaman Pokok:</span>
+                                <span id="calc-loan-amount" class="text-slate-200 font-semibold">Rp 3.840.000.000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Total Uang Muka (DP):</span>
+                                <span id="calc-dp-summary" class="text-slate-200 font-semibold">Rp 960.000.000</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-slate-400">Estimasi Suku Bunga:</span>
+                                <span id="calc-rate-summary" class="text-slate-200 font-semibold">6.5% Fixed</span>
+                            </div>
+                        </div>
+
+                        <a href="#kunjungan" class="block w-full py-3.5 rounded-xl bg-gold-500 text-dark-950 font-bold text-xs uppercase tracking-wider text-center hover:bg-gold-400 transition-colors shadow-lg">
+                            Konsultasi Finansial Dengan Advisor
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials / Media Endorsement -->
+    <section class="py-24 bg-dark-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-400 text-xs font-semibold uppercase tracking-widest bg-gold-500/10 px-4 py-1.5 rounded-full border border-gold-500/20">Kepercayaan Penghuni</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-4">Apa Kata Pemilik Hunian</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="glass-card p-6 rounded-2xl border border-gold-500/15 flex flex-col justify-between">
+                    <p class="text-slate-300 text-sm italic leading-relaxed mb-6">
+                        "Keputusan terbaik keluarga kami memilih Grand Royale. Keamanan ketat, lingkungan sangat tenang, dan fasilitas clubhouse membuat akhir pekan terasa seperti liburan di resort."
+                    </p>
+                    <div class="flex items-center space-x-4 border-t border-slate-800 pt-4">
+                        <div class="w-12 h-12 rounded-full bg-gold-500/20 border border-gold-500/40 flex items-center justify-center font-bold text-gold-400">
+                            AH
+                        </div>
+                        <div>
+                            <h4 class="text-white font-semibold text-sm">Bpk. Alexander H.</h4>
+                            <p class="text-slate-400 text-xs">Penghuni Tipe Royale</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="glass-card p-6 rounded-2xl border border-gold-500/15 flex flex-col justify-between">
+                    <p class="text-slate-300 text-sm italic leading-relaxed mb-6">
+                        "Kualitas bangunan luar biasa presisi. Konsep eco-green dan panel surya bawa pengaruh positif untuk efisiensi energi hunian. Sangat recommended!"
+                    </p>
+                    <div class="flex items-center space-x-4 border-t border-slate-800 pt-4">
+                        <div class="w-12 h-12 rounded-full bg-gold-500/20 border border-gold-500/40 flex items-center justify-center font-bold text-gold-400">
+                            VS
+                        </div>
+                        <div>
+                            <h4 class="text-white font-semibold text-sm">Ibu Victoria S.</h4>
+                            <p class="text-slate-400 text-xs">Penghuni Tipe Grand Mansion</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="glass-card p-6 rounded-2xl border border-gold-500/15 flex flex-col justify-between">
+                    <p class="text-slate-300 text-sm italic leading-relaxed mb-6">
+                        "Aksesibilitas ke jalan tol dan pusat bisnis sangat cepat. Nilai investasi properti di sini berkembang sangat signifikan dalam 2 tahun terakhir."
+                    </p>
+                    <div class="flex items-center space-x-4 border-t border-slate-800 pt-4">
+                        <div class="w-12 h-12 rounded-full bg-gold-500/20 border border-gold-500/40 flex items-center justify-center font-bold text-gold-400">
+                            RD
+                        </div>
+                        <div>
+                            <h4 class="text-white font-semibold text-sm">Dr. Raymond D.</h4>
+                            <p class="text-slate-400 text-xs">Penghuni Tipe Emperor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Generation Form / VIP Booking Section -->
+    <section id="kunjungan" class="py-24 bg-dark-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-card rounded-3xl p-8 sm:p-14 border border-gold-500/30 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-5 space-y-6">
+                        <span class="text-gold-400 text-xs font-semibold uppercase tracking-widest bg-gold-500/10 px-4 py-1.5 rounded-full border border-gold-500/20">Layanan VIP Dedicated</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white leading-tight">Jadwalkan Private Tour Lokasi</h2>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Nikmati pengalaman inspeksi privat unit show-unit bersama Property Specialist senior kami. Dilengkapi layanan antar-jemput mobil premium dan refreshments eksklusif.
+                        </p>
+
+                        <div class="space-y-4 pt-2 text-xs">
+                            <div class="flex items-center space-x-3 text-slate-300">
+                                <i class="fa-solid fa-circle-check text-gold-400 text-base"></i>
+                                <span>Penjelasan Komprehensif Masterplan & Legalitas</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-slate-300">
+                                <i class="fa-solid fa-circle-check text-gold-400 text-base"></i>
+                                <span>Simulasi Skema Pembayaran & Promo Early Bird</span>
+                            </div>
+                            <div class="flex items-center space-x-3 text-slate-300">
+                                <i class="fa-solid fa-circle-check text-gold-400 text-base"></i>
+                                <span>Layanan Konsultasi Arsitektur Privat Gratis</span>
+                            </div>
+                        </div>
+
+                        <!-- Direct WhatsApp Contact Box -->
+                        <div class="p-4 rounded-2xl bg-dark-900/90 border border-green-500/30 flex items-center justify-between shadow-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 text-lg">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Fast Response VIP</p>
+                                    <p class="text-white font-bold text-sm tracking-wide">0813-2172-119</p>
+                                </div>
+                            </div>
+                            <a href="https://wa.me/628132172119?text=Halo%20Marketing%20Grand%20Royale,%20saya%20ingin%20konsultasi%20langsung%20via%20WhatsApp." target="_blank" class="px-4 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold text-xs flex items-center space-x-1.5 transition-all shadow-md hover:shadow-green-500/20">
+                                <span>Chat Sales</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="lg:col-span-7">
+                        <form id="booking-form" onsubmit="handleFormSubmit(event)" class="space-y-4 bg-dark-900/90 p-6 sm:p-8 rounded-2xl border border-slate-800">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Nama Lengkap *</label>
+                                    <input type="text" required placeholder="Contoh: Bpk. Budi Santoso" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Nomor WhatsApp *</label>
+                                    <input type="tel" required placeholder="0812-XXXX-XXXX" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Email</label>
+                                    <input type="email" placeholder="nama@email.com" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Pilihan Tipe Unit</label>
+                                    <select id="form-unit-select" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                                        <option value="The Royale Villa">The Royale (Villa Type)</option>
+                                        <option value="The Grand Mansion">The Grand Mansion</option>
+                                        <option value="The Emperor Suite">The Emperor Suite</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Rencana Tanggal Kunjungan</label>
+                                    <input type="date" required class="w-full bg-dark-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Waktu Kunjungan</label>
+                                    <select class="w-full bg-dark-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                                        <option value="Sesi Pagi (10:00 - 12:00)">Sesi Pagi (10:00 - 12:00)</option>
+                                        <option value="Sesi Siang (13:00 - 15:00)">Sesi Siang (13:00 - 15:00)</option>
+                                        <option value="Sesi Sore (15:30 - 17:30)">Sesi Sore (15:30 - 17:30)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Catatan / Permintaan Khusus</label>
+                                <textarea rows="2" placeholder="Sebutkan jika membutuhkan penjemputan VIP..." class="w-full bg-dark-950 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-gold-500"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-gold-600 via-gold-500 to-gold-400 text-dark-950 font-bold text-sm uppercase tracking-wider hover:shadow-xl hover:shadow-gold-500/20 transition-all">
+                                Confirmed VIP Reservation <i class="fa-solid fa-paper-plane ml-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark-950 text-slate-400 border-t border-gold-500/20 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+                <!-- Col 1: Brand Info -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full border border-gold-500/50 flex items-center justify-center bg-gold-500/10">
+                            <i class="fa-solid fa-crown text-gold-400 text-lg"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-serif text-xl font-bold text-white tracking-wider">GRAND ROYALE</span>
+                            <span class="text-[10px] uppercase tracking-[0.25em] text-gold-400 font-medium">Residence</span>
+                        </div>
+                    </div>
+                    <p class="text-xs leading-relaxed text-slate-400 max-w-sm">
+                        Komplek perumahan elite mewah standar internasional yang memadukan keasrian alam tropis dengan privasi serta fasilitas premium berkelas bintang lima.
+                    </p>
+                    <div class="flex space-x-3 pt-2">
+                        <a href="#" class="w-9 h-9 rounded-full bg-dark-900 border border-slate-800 flex items-center justify-center hover:border-gold-500 hover:text-gold-400 transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-dark-900 border border-slate-800 flex items-center justify-center hover:border-gold-500 hover:text-gold-400 transition-colors">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-dark-900 border border-slate-800 flex items-center justify-center hover:border-gold-500 hover:text-gold-400 transition-colors">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigation Links -->
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Navigasi Utama</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#about" class="hover:text-gold-400 transition-colors">Tentang Kami</a></li>
+                        <li><a href="#tipe-rumah" class="hover:text-gold-400 transition-colors">Koleksi Tipe Rumah</a></li>
+                        <li><a href="#fasilitas" class="hover:text-gold-400 transition-colors">Fasilitas Resort</a></li>
+                        <li><a href="#lokasi" class="hover:text-gold-400 transition-colors">Peta & Akses</a></li>
+                        <li><a href="#kalkulator" class="hover:text-gold-400 transition-colors">Kalkulator KPR</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Marketing Office -->
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Galeri Pemasaran</h4>
+                    <p class="text-xs leading-relaxed text-slate-400 mb-2">
+                        Grand Royale Sales Gallery,<br>
+                        Jl. Boulevard Royale No. 1, CBD Area
+                    </p>
+                    <p class="text-xs text-slate-400">Buka Setiap Hari: 08.30 - 19.00 WIB</p>
+                </div>
+
+                <!-- Col 4: Contact -->
+                <div>
+                    <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Kontak Hotline</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li class="flex items-center space-x-2">
+                            <i class="fa-solid fa-phone text-gold-400"></i>
+                            <span>(021) 8888-9999</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fa-brands fa-whatsapp text-green-400"></i>
+                            <a href="https://wa.me/628132172119?text=Halo%20Grand%20Royale%20Residence,%20saya%20tertarik%20mendapatkan%20informasi%20brosur%20dan%20private%20tour." target="_blank" class="text-slate-300 hover:text-green-400 transition-colors font-medium">0813-2172-119</a>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="fa-solid fa-envelope text-gold-400"></i>
+                            <span>vip@grandroyale.co.id</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright -->
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500">
+                <p>&copy; 2026 Grand Royale Residence. Hak Cipta Dilindungi Undang-Undang.</p>
+                <div class="flex space-x-4 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-slate-400">Kebijakan Privasi</a>
+                    <span>•</span>
+                    <a href="#" class="hover:text-slate-400">Syarat & Ketentuan</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp CTA Button -->
+    <a href="https://wa.me/628132172119?text=Halo%20Grand%20Royale%20Residence,%20saya%20tertarik%20mendapatkan%20informasi%20brosur%20dan%20private%20tour." target="_blank" class="fixed bottom-6 right-6 z-40 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:bg-green-600 transition-all flex items-center justify-center group transform hover:scale-110" aria-label="WhatsApp 08132172119">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out text-xs font-bold uppercase tracking-wider pl-0 group-hover:pl-2">
+            Chat WhatsApp (0813-2172-119)
+        </span>
+    </a>
+
+    <!-- Floorplan Modal -->
+    <div id="floorplan-modal" class="fixed inset-0 z-50 hidden bg-dark-950/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-card max-w-3xl w-full rounded-2xl border border-gold-500/30 overflow-hidden p-6 relative">
+            <button onclick="closeFloorplanModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="modal-title" class="font-serif text-2xl font-bold text-white mb-2">Denah Layout Unit</h3>
+            <p id="modal-subtitle" class="text-slate-400 text-xs mb-6">Tata letak ruangan yang efisien dan mengutamakan sirkulasi udara alami.</p>
+            
+            <div class="bg-white rounded-xl p-4 overflow-hidden flex justify-center items-center">
+                <img id="modal-img" src="https://placehold.co/800x600/131A26/D4AF37?text=Layout+Denah+Lantai+1+%26+2" alt="Denah Rumah" class="max-h-[60vh] object-contain">
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeFloorplanModal()" class="px-6 py-2 rounded-xl bg-gold-500 text-dark-950 font-bold text-xs uppercase">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast Message Container -->
+    <div id="toast-msg" class="fixed bottom-6 left-6 z-50 hidden glass-card border border-gold-500/40 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center space-x-3">
+        <i class="fa-solid fa-circle-check text-gold-400 text-xl"></i>
+        <span id="toast-text" class="text-xs font-medium">Pesan Anda berhasil terkirim!</span>
+    </div>
+
+    <script>
+        // Data Tipe Unit Rumah
+        const units = {
+            royale: {
+                title: 'The Royale Villa',
+                subtitle: '3 Lantai • Private Lift & Pool',
+                desc: 'Hunian tropis ultra-mewah 3 lantai lengkap dengan infinity pool pribadi, privat lift, serta garasi berkapasitas 4 mobil.',
+                price: 'Rp 4.8 Miliar',
+                priceNum: 4800000000,
+                lt: '250 m²',
+                lb: '380 m²',
+                kt: '4 + 2 Utama',
+                km: '5 + 1 Ensuite',
+                img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+                floorplan: 'https://placehold.co/800x600/131A26/D4AF37?text=Denah+Layout+The+Royale+Villa'
+            },
+            grand: {
+                title: 'The Grand Mansion',
+                subtitle: '2 Lantai • Courtyard Garden',
+                desc: 'Desain minimalis modern bertema terbuka dengan taman dalam rumah (courtyard), ceiling setinggi 4.5 meter, dan carport 3 mobil.',
+                price: 'Rp 3.5 Miliar',
+                priceNum: 3500000000,
+                lt: '180 m²',
+                lb: '260 m²',
+                kt: '4 Kamar Tidur',
+                km: '4 Kamar Mandi',
+                img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+                floorplan: 'https://placehold.co/800x600/131A26/D4AF37?text=Denah+Layout+The+Grand+Mansion'
+            },
+            emperor: {
+                title: 'The Emperor Suite',
+                subtitle: '3 Lantai • Rooftop Terrace & Spa',
+                desc: 'Tipe terbesar dengan area rooftop terrace pribadi untuk gathering, spa suite di kamar utama, dan perpustakaan privat.',
+                price: 'Rp 7.2 Miliar',
+                priceNum: 7200000000,
+                lt: '360 m²',
+                lb: '520 m²',
+                kt: '5 + 2 Master Suite',
+                km: '6 + 2 Bathroom',
+                img: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80',
+                floorplan: 'https://placehold.co/800x600/131A26/D4AF37?text=Denah+Layout+The+Emperor+Suite'
+            }
+        };
+
+        let currentActiveUnit = 'royale';
+
+        // Function Switch Tab Unit
+        function switchUnit(type) {
+            currentActiveUnit = type;
+            const data = units[type];
+
+            // Update Active Buttons Style
+            ['royale', 'grand', 'emperor'].forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === type) {
+                    btn.className = "px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all bg-gold-500 text-dark-950 shadow-md";
+                } else {
+                    btn.className = "px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-all";
+                }
+            });
+
+            // Update Content with Fade effect
+            const displayCard = document.getElementById('unit-display');
+            displayCard.style.opacity = '0.5';
+
+            setTimeout(() => {
+                document.getElementById('unit-title').innerText = data.title;
+                document.getElementById('unit-subtitle').innerText = data.subtitle;
+                document.getElementById('unit-desc').innerText = data.desc;
+                document.getElementById('unit-price').innerText = data.price;
+                document.getElementById('unit-lt').innerText = data.lt;
+                document.getElementById('unit-lb').innerText = data.lb;
+                document.getElementById('unit-kt').innerText = data.kt;
+                document.getElementById('unit-km').innerText = data.km;
+                document.getElementById('unit-img').src = data.img;
+
+                // Sync Price with KPR Calculator
+                document.getElementById('calc-price').value = data.priceNum;
+                calculateKPR();
+
+                displayCard.style.opacity = '1';
+            }, 200);
+        }
+
+        // Function Mortgage Calculator
+        function calculateKPR() {
+            const price = parseFloat(document.getElementById('calc-price').value) || 0;
+            const dpPercent = parseFloat(document.getElementById('calc-dp').value) || 20;
+            const tenorYears = parseInt(document.getElementById('calc-tenor').value) || 15;
+            const interestRate = parseFloat(document.getElementById('calc-rate').value) || 6.5;
+
+            // Calculations
+            const dpAmount = price * (dpPercent / 100);
+            const loanPrincipal = price - dpAmount;
+            const monthlyRate = (interestRate / 100) / 12;
+            const totalMonths = tenorYears * 12;
+
+            let monthlyInstallment = 0;
+            if (monthlyRate > 0) {
+                monthlyInstallment = (loanPrincipal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+            } else {
+                monthlyInstallment = loanPrincipal / totalMonths;
+            }
+
+            // Update UI
+            document.getElementById('calc-price-formatted').innerText = formatRupiah(price);
+            document.getElementById('calc-dp-percent-val').innerText = `${dpPercent}%`;
+            document.getElementById('calc-dp-amount').innerText = `Nilai DP: ${formatRupiah(dpAmount)}`;
+            document.getElementById('calc-monthly-installment').innerText = formatRupiah(Math.round(monthlyInstallment));
+            document.getElementById('calc-loan-amount').innerText = formatRupiah(loanPrincipal);
+            document.getElementById('calc-dp-summary').innerText = formatRupiah(dpAmount);
+            document.getElementById('calc-rate-summary').innerText = `${interestRate}% Fixed`;
+        }
+
+        // Helper Currency Format
+        function formatRupiah(number) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
+        }
+
+        // Modal Functions
+        function openFloorplanModal() {
+            const data = units[currentActiveUnit];
+            document.getElementById('modal-title').innerText = `Denah Layout - ${data.title}`;
+            document.getElementById('modal-img').src = data.floorplan;
+            document.getElementById('floorplan-modal').classList.remove('hidden');
+        }
+
+        function closeFloorplanModal() {
+            document.getElementById('floorplan-modal').classList.add('hidden');
+        }
+
+        function selectUnitForBooking(unitName) {
+            document.getElementById('form-unit-select').value = unitName;
+        }
+
+        // Form Submit Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            showToast('Terima kasih! Tim VIP Advisor kami akan segera menghubungi WhatsApp Anda.');
+            e.target.reset();
+        }
+
+        // Download Brochure Function
+        function downloadEBrochure() {
+            showToast('Mengunduh E-Brochure Resmi Grand Royale (PDF)...');
+        }
+
+        // Toast Message Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast-msg');
+            document.getElementById('toast-text').innerText = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Initialize KPR Calculation on Load
+        window.onload = function() {
+            calculateKPR();
+        };
+    </script>
+</body>
+</html>

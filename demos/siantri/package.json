@@ -1,0 +1,19 @@
+{
+  "name": "siantri-resto",
+  "version": "1.0.0",
+  "description": "Sistem Antrean Pesanan & Daftar Makanan Toko Real-Time Multi-Device",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "antrean",
+    "queue",
+    "resto",
+    "toko",
+    "realtime"
+  ],
+  "author": "SiAntri",
+  "license": "ISC"
+}

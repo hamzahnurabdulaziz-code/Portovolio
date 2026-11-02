@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiAntri Pedagang - Sistem Antrean Pasar & UMKM Terpadu</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        }
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .font-mono-num {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-emerald-600 selection:text-white">
+
+    <!-- Top Global Switcher & Quick Navigation Bar -->
+    <header class="bg-slate-900/90 border-b border-slate-800 backdrop-blur sticky top-0 z-40 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <!-- Brand & App Identity -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="app.switchView('visitor')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 via-orange-600 to-emerald-600 flex items-center justify-center shadow-lg shadow-orange-500/20">
+                    <i class="fa-solid fa-utensils text-white text-lg"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-extrabold tracking-tight text-white">SiAntri <span class="text-amber-400">Resto & Toko</span></span>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">MENU MAKANAN LIVE</span>
+                    </div>
+                    <p class="text-xs text-slate-400">Sistem Antrean Pesanan & Daftar Makanan Toko</p>
+                </div>
+            </div>
+
+            <!-- Role Selector / View Mode Switches -->
+            <div class="flex items-center flex-wrap gap-1.5 bg-slate-800/80 p-1 rounded-xl border border-slate-700/60 text-xs font-semibold">
+                <button onclick="app.switchView('auth')" id="nav-auth" class="px-3 py-1.5 rounded-lg transition text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-lock mr-1.5"></i>Auth
+                </button>
+                <button onclick="app.switchView('visitor')" id="nav-visitor" class="px-3 py-1.5 rounded-lg transition bg-amber-600 text-white shadow-sm">
+                    <i class="fa-solid fa-burger mr-1.5"></i>Daftar Menu & Antrean
+                </button>
+                <button onclick="app.switchView('officer')" id="nav-officer" class="px-3 py-1.5 rounded-lg transition text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-fire-burner mr-1.5"></i>Dapur / Kasir
+                </button>
+                <button onclick="app.switchView('admin')" id="nav-admin" class="px-3 py-1.5 rounded-lg transition text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-chart-line mr-1.5"></i>Rekap Toko
+                </button>
+                <button onclick="app.switchView('display')" id="nav-display" class="px-3 py-1.5 rounded-lg transition text-amber-300 hover:text-amber-200 bg-amber-500/10 border border-amber-500/30">
+                    <i class="fa-solid fa-tv mr-1.5"></i>Layar Ambil Pesanan
+                </button>
+            </div>
+
+            <!-- Audio, Network Sync & Realtime Live Clock Header -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Server & Network Sync Status Indicator -->
+                <button id="nav-network-btn" onclick="app.openNetworkModal()" title="Status Server & Akses Multi-Device HP/Tablet"
+                        class="px-2.5 py-1.5 text-xs font-semibold rounded-xl border border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 flex items-center gap-2 transition">
+                    <span id="nav-network-dot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span id="nav-network-text" class="hidden sm:inline">Server Aktif</span>
+                    <i class="fa-solid fa-qrcode text-emerald-400 text-xs"></i>
+                </button>
+
+                <!-- Global Live Clock Indicator -->
+                <div class="bg-slate-800/90 border border-slate-700 px-3 py-1 rounded-xl flex items-center gap-2">
+                    <i class="fa-regular fa-clock text-amber-400 text-xs"></i>
+                    <span id="nav-live-clock" class="text-xs font-mono-num font-bold text-amber-300 tracking-wider">08:00:00 WIB</span>
+                </div>
+
+                <button id="audio-toggle-btn" onclick="app.toggleAudio()" title="Toggle Suara Pemanggilan TTS"
+                        class="px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center gap-2">
+                    <i class="fa-solid fa-volume-high text-amber-400" id="audio-icon"></i>
+                    <span id="audio-status-text" class="hidden sm:inline">Audio: Aktif</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Application Container -->
+    <main class="flex-1 flex flex-col relative max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+        <!-- ========================================== -->
+        <!-- VIEW 1: AUTHENTICATION (LOGIN & REGISTER) -->
+        <!-- ========================================== -->
+        <section id="view-auth" class="hidden flex-1 items-center justify-center py-6">
+            <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <!-- Tab Switching: Login vs Register -->
+                <div class="flex rounded-xl bg-slate-800/80 p-1 mb-6 border border-slate-700/60 text-sm font-semibold">
+                    <button onclick="app.setAuthTab('login')" id="tab-login-btn" class="flex-1 py-2 rounded-lg bg-amber-600 text-white shadow-sm transition">
+                        Masuk (Login)
+                    </button>
+                    <button onclick="app.setAuthTab('register')" id="tab-register-btn" class="flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition">
+                        Daftar Pelanggan
+                    </button>
+                </div>
+
+                <!-- Form Login -->
+                <div id="auth-login-container">
+                    <h2 class="text-2xl font-bold text-white mb-2">Portal Pemesanan Makanan</h2>
+                    <p class="text-xs text-slate-400 mb-6">Masuk untuk memesan menu makanan dan memantau status masakan secara real-time.</p>
+                    
+                    <form onsubmit="event.preventDefault(); app.handleLogin();" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Email / No. Meja</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </span>
+                                <input type="email" id="login-email" value="pelanggan@siantri.id" required
+                                       class="w-full pl-10 pr-4 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Kata Sandi</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-500">
+                                    <i class="fa-solid fa-key"></i>
+                                </span>
+                                <input type="password" id="login-password" value="password" required
+                                       class="w-full pl-10 pr-4 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full py-3 bg-amber-600 hover:bg-amber-500 font-bold rounded-xl text-white text-sm shadow-lg shadow-amber-600/30 transition active:scale-[0.98]">
+                            Masuk & Buka Menu
+                        </button>
+                    </form>
+
+                    <!-- Quick Demo Role Switcher Buttons -->
+                    <div class="mt-6 pt-5 border-t border-slate-800 text-center">
+                        <p class="text-xs text-slate-400 mb-3 font-medium">Beralih Cepat Mode Demo:</p>
+                        <div class="grid grid-cols-3 gap-2 text-xs">
+                            <button onclick="app.quickLogin('visitor')" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-amber-400 font-medium transition">
+                                <i class="fa-solid fa-user block text-base mb-1"></i>Pelanggan
+                            </button>
+                            <button onclick="app.quickLogin('officer')" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-orange-400 font-medium transition">
+                                <i class="fa-solid fa-kitchen-set block text-base mb-1"></i>Koki / Kasir
+                            </button>
+                            <button onclick="app.quickLogin('admin')" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700/80 text-emerald-400 font-medium transition">
+                                <i class="fa-solid fa-chart-pie block text-base mb-1"></i>Manajer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Register -->
+                <div id="auth-register-container" class="hidden">
+                    <h2 class="text-2xl font-bold text-white mb-2">Registrasi Pelanggan Baru</h2>
+                    <p class="text-xs text-slate-400 mb-6">Daftarkan akun untuk kemudahan pemesanan hidangan toko.</p>
+                    
+                    <form onsubmit="event.preventDefault(); app.handleRegister();" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Nama Lengkap / Nama Meja</label>
+                            <input type="text" id="reg-name" placeholder="Rian Saputra (Meja 08)" required
+                                   class="w-full px-4 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">Nomor WhatsApp (Untuk Notifikasi)</label>
+                            <input type="tel" id="reg-phone" placeholder="081234567890" required
+                                   class="w-full px-4 py-2.5 bg-slate-800/80 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-amber-600 hover:bg-amber-500 font-bold rounded-xl text-white text-sm shadow-lg shadow-amber-600/30 transition active:scale-[0.98]">
+                            Daftar & Pesan
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- VIEW 2: VISITOR / PELANGGAN TOKO MAKANAN -->
+        <!-- ========================================== -->
+        <section id="view-visitor" class="space-y-8">
+            <!-- Greeting & Quick Promo Banner -->
+            <div class="bg-gradient-to-r from-amber-950/70 via-slate-900 to-emerald-950/50 border border-amber-500/20 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl">
+                <div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/30 mb-3">
+                        <i class="fa-solid fa-bowl-hot"></i> Dapur Toko Buka & Menerima Pesanan
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Selamat Menikmati, <span id="visitor-name-badge" class="text-amber-400">Rian Saputra</span>!</h2>
+                    <p class="text-sm text-slate-300 mt-1 max-w-xl">
+                        Pilih hidangan favorit Anda dari daftar makanan toko di bawah ini. Nomor antrean dan status kesiapan masakan akan otomatis diperbarui secara live.
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="app.scrollToMenu()" class="px-5 py-3 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-sm flex items-center gap-2 shadow-lg shadow-amber-600/30 transition active:scale-95">
+                        <i class="fa-solid fa-utensils"></i> Lihat Daftar Makanan Toko
+                    </button>
+                </div>
+            </div>
+
+            <!-- Active User Ticket & Order Tracker -->
+            <div id="visitor-tracker-container" class="space-y-6">
+                <!-- Injected via JavaScript renderVisitorTracker() -->
+            </div>
+
+            <!-- KATALOG DAFTAR MAKANAN TOKO -->
+            <div id="section-daftar-makanan" class="space-y-6 pt-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="text-2xl font-black text-white flex items-center gap-2.5">
+                            <i class="fa-solid fa-book-open text-amber-400"></i> Daftar Makanan & Minuman Toko
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">Pilih menu, tentukan porsi, lalu ambil tiket antrean pesanan Anda.</p>
+                    </div>
+
+                    <!-- Category Filter Buttons -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-semibold" id="menu-category-tabs">
+                        <button onclick="app.setMenuCategory('semua')" class="menu-tab-btn active px-3.5 py-1.5 rounded-xl bg-amber-600 text-white transition">Semua</button>
+                        <button onclick="app.setMenuCategory('utama')" class="menu-tab-btn px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Makanan Utama</button>
+                        <button onclick="app.setMenuCategory('kudapan')" class="menu-tab-btn px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Camilan</button>
+                        <button onclick="app.setMenuCategory('minuman')" class="menu-tab-btn px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Minuman</button>
+                    </div>
+                </div>
+
+                <!-- Food Cards Grid -->
+                <div id="food-menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Populated by JavaScript renderFoodMenu() -->
+                </div>
+
+                <!-- Floating / Sticky Order Checkout Bar -->
+                <div id="cart-summary-bar" class="sticky bottom-4 z-30 bg-slate-900/95 border-2 border-amber-500/50 rounded-2xl p-4 shadow-2xl backdrop-blur flex flex-wrap items-center justify-between gap-4 transition-all">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 block font-medium" id="cart-items-count">0 Menu Makanan Dipilih</span>
+                            <span class="text-xl font-black font-mono-num text-white" id="cart-total-price">Rp 0</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="app.clearCart()" class="px-3 py-2 text-xs font-semibold text-rose-400 hover:bg-rose-500/10 rounded-xl transition">
+                            Reset Pilihan
+                        </button>
+                        <button onclick="app.confirmFoodOrder()" id="checkout-order-btn" disabled
+                                class="px-6 py-2.5 bg-amber-600 disabled:bg-slate-800 disabled:text-slate-500 disabled:cursor-not-allowed hover:bg-amber-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-amber-600/30 transition flex items-center gap-2">
+                            <i class="fa-solid fa-ticket"></i> Pesan & Dapatkan Antrean
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- VIEW 3: OFFICER / DAPUR & KASIR TOKO -->
+        <!-- ========================================== -->
+        <section id="view-officer" class="hidden space-y-6">
+            <!-- Officer Bar & Status Loket Control -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-6 shadow-xl">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border border-amber-500/40 text-amber-400 flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-kitchen-set"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-xl font-bold text-white" id="officer-name-title">Chef Anton (Dapur Utama)</h2>
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30" id="officer-counter-badge">Meja Pengambilan 01</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-0.5">Petugas Dapur & Pengeluaran Makanan • Status Operasional Buka</p>
+                    </div>
+                </div>
+
+                <!-- Status Selector: Open / Break / Closed -->
+                <div class="flex items-center gap-2 bg-slate-800/80 p-1.5 rounded-2xl border border-slate-700/60">
+                    <span class="text-xs font-semibold text-slate-400 px-2">Kondisi Dapur:</span>
+                    <button onclick="app.setCounterStatus('open')" id="status-btn-open" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-600 text-white shadow transition">
+                        Memasak (Buka)
+                    </button>
+                    <button onclick="app.setCounterStatus('break')" id="status-btn-break" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition">
+                        Istirahat
+                    </button>
+                    <button onclick="app.setCounterStatus('closed')" id="status-btn-closed" class="px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition">
+                        Tutup
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Current Active Calling Panel (Left) -->
+                <div class="lg:col-span-6 bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-4 border-b border-slate-800 pb-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">
+                            Pesanan Makanan Yang Sedang Dipanggil
+                        </span>
+                        <span id="officer-active-status" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">
+                            STANDBY
+                        </span>
+                    </div>
+
+                    <div id="officer-active-card" class="py-4">
+                        <!-- Populated by JavaScript renderOfficerActiveQueue() -->
+                    </div>
+
+                    <!-- Action Control Buttons -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-6 border-t border-slate-800">
+                        <button onclick="app.officerCallNext()" class="col-span-2 sm:col-span-1 p-3 rounded-2xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs flex flex-col items-center justify-center gap-1 shadow-lg shadow-amber-600/30 transition active:scale-95">
+                            <i class="fa-solid fa-bullhorn text-sm"></i>
+                            <span>Panggil Siap Ambil</span>
+                        </button>
+                        <button onclick="app.officerRecall()" class="p-3 rounded-2xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs flex flex-col items-center justify-center gap-1 shadow-lg shadow-orange-600/30 transition active:scale-95">
+                            <i class="fa-solid fa-rotate-right text-sm"></i>
+                            <span>Panggil Ulang</span>
+                        </button>
+                        <button onclick="app.officerFinish()" class="p-3 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex flex-col items-center justify-center gap-1 shadow-lg shadow-emerald-600/30 transition active:scale-95">
+                            <i class="fa-solid fa-check text-sm"></i>
+                            <span>Pesanan Diambil</span>
+                        </button>
+                        <button onclick="app.officerSkip()" class="p-3 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex flex-col items-center justify-center gap-1 shadow-lg shadow-rose-600/30 transition active:scale-95">
+                            <i class="fa-solid fa-forward-step text-sm"></i>
+                            <span>Tunda / Skip</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Waiting List Orders for this Kitchen Station (Right) -->
+                <div class="lg:col-span-6 bg-slate-900 border border-slate-800 rounded-3xl p-6 flex flex-col shadow-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-utensils text-amber-400"></i> Antrean Pesanan Sedang Dimasak
+                        </h3>
+                        <span id="officer-waiting-count" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400">
+                            0 Pesanan
+                        </span>
+                    </div>
+
+                    <div class="flex-1 overflow-y-auto max-h-[380px] space-y-3 pr-1" id="officer-queue-list">
+                        <!-- Dynamic Queue Waiting items with ordered foods -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- VIEW 4: ADMIN / PENGELOLA TOKO MAKANAN -->
+        <!-- ========================================== -->
+        <section id="view-admin" class="hidden space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-2xl font-black text-white">Monitoring Penjualan & Antrean Toko</h2>
+                    <p class="text-xs text-slate-400 mt-1">Laporan pesanan hidangan, waktu penyajian rata-rata, dan performa meja pengambilan.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="app.resetDemoData()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 transition">
+                        <i class="fa-solid fa-arrows-rotate mr-1"></i> Reset Simulasi Hari Ini
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Overview Cards -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+                    <div class="flex items-center justify-between text-slate-400 mb-2">
+                        <span class="text-xs font-semibold uppercase">Total Pesanan Makanan</span>
+                        <i class="fa-solid fa-receipt text-amber-500"></i>
+                    </div>
+                    <div class="text-3xl font-black font-mono-num text-white" id="admin-stat-total">0</div>
+                    <span class="text-[11px] text-amber-400 mt-1 block"><i class="fa-solid fa-fire mr-1"></i>Aktivitas pesanan live</span>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+                    <div class="flex items-center justify-between text-slate-400 mb-2">
+                        <span class="text-xs font-semibold uppercase">Pesanan Selesai / Disajikan</span>
+                        <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                    </div>
+                    <div class="text-3xl font-black font-mono-num text-emerald-400" id="admin-stat-completed">0</div>
+                    <span class="text-[11px] text-slate-400 mt-1 block">Pelanggan telah menikmati makanan</span>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+                    <div class="flex items-center justify-between text-slate-400 mb-2">
+                        <span class="text-xs font-semibold uppercase">Sedang Dimasak</span>
+                        <i class="fa-solid fa-fire-burner text-orange-500"></i>
+                    </div>
+                    <div class="text-3xl font-black font-mono-num text-orange-400" id="admin-stat-waiting">0</div>
+                    <span class="text-[11px] text-slate-400 mt-1 block">Antre di proses dapur</span>
+                </div>
+
+                <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl">
+                    <div class="flex items-center justify-between text-slate-400 mb-2">
+                        <span class="text-xs font-semibold uppercase">Total Omset Pesanan</span>
+                        <i class="fa-solid fa-money-bill-wave text-emerald-400"></i>
+                    </div>
+                    <div class="text-2xl font-black font-mono-num text-emerald-400" id="admin-stat-revenue">Rp 0</div>
+                    <span class="text-[11px] text-slate-400 mt-1 block">Akumulasi antrean hari ini</span>
+                </div>
+            </div>
+
+            <!-- Table of Services & Configurations -->
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
+                <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-bowl-food text-amber-400"></i> Daftar Makanan Toko & Status Ketersediaan
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-800/80 text-slate-400 uppercase font-semibold">
+                            <tr>
+                                <th class="p-3.5 rounded-l-xl">Nama Hidangan Makanan</th>
+                                <th class="p-3.5">Kategori</th>
+                                <th class="p-3.5">Harga / Porsi</th>
+                                <th class="p-3.5">Estimasi Masak</th>
+                                <th class="p-3.5">Terjual Hari Ini</th>
+                                <th class="p-3.5 rounded-r-xl">Ketersediaan</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 text-slate-200" id="admin-menu-table">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- VIEW 5: FULLSCREEN TV DISPLAY PENGAMBILAN MAKANAN -->
+        <!-- ========================================== -->
+        <section id="view-display" class="hidden flex-1 flex flex-col justify-between py-2 space-y-6">
+            <!-- TV Header -->
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                <div class="flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/30">
+                        <i class="fa-solid fa-utensils text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-black tracking-wide text-white uppercase">SiAntri Resto - Pengambilan Makanan</h2>
+                        <p class="text-xs text-slate-400 font-medium">Layar Panggilan Antrean & Pengumuman Makanan Siap Saji</p>
+                    </div>
+                </div>
+
+                <!-- Big Digital Real-time Clock on TV Screen -->
+                <div class="text-right bg-slate-900 border border-slate-800 px-6 py-3 rounded-2xl shadow-inner">
+                    <div id="tv-clock" class="text-4xl sm:text-5xl font-black font-mono-num text-amber-400 tracking-wider">08:00:00</div>
+                    <div id="tv-date" class="text-xs text-slate-300 font-semibold mt-1">Jumat, 2 Oktober 2026</div>
+                </div>
+            </div>
+
+            <!-- TV Main Body (Active Mega Call & Loket Statuses) -->
+            <div class="grid grid-cols-12 gap-6 my-auto">
+                <!-- Large Calling Stage (Left 7 Cols) -->
+                <div class="col-span-12 lg:col-span-7 flex flex-col justify-center">
+                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 border-2 border-amber-500/50 p-8 sm:p-10 shadow-2xl shadow-amber-950 text-center">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs uppercase tracking-widest mb-4">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
+                            PESANAN MAKANAN SIAP DIAMBIL
+                        </div>
+
+                        <div id="tv-active-ticket" class="text-7xl sm:text-9xl font-black font-mono-num tracking-tight text-yellow-400 drop-shadow-[0_10px_35px_rgba(250,204,21,0.35)] py-4 transition duration-300">
+                            - - -
+                        </div>
+
+                        <div class="mt-4 pb-2">
+                            <span id="tv-active-customer" class="text-lg font-bold text-white block">-</span>
+                            <span id="tv-active-items-preview" class="text-xs text-amber-300/80 block max-w-md mx-auto truncate mt-0.5">-</span>
+                        </div>
+
+                        <div class="mt-4 pt-6 border-t border-slate-800 flex items-center justify-around">
+                            <div>
+                                <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider block">Status Sajian</span>
+                                <span id="tv-active-service" class="text-2xl sm:text-3xl font-extrabold text-white mt-1 block">Siap di Meja Saji</span>
+                            </div>
+                            <div class="h-12 w-px bg-slate-700/60"></div>
+                            <div>
+                                <span class="text-slate-400 text-xs font-semibold uppercase tracking-wider block">Silakan Menuju Ke</span>
+                                <span id="tv-active-counter" class="text-3xl sm:text-4xl font-black text-amber-400 mt-1 block">Meja Pengambilan 01</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loket Status Grid (Right 5 Cols) -->
+                <div class="col-span-12 lg:col-span-5 flex flex-col justify-center">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                            Status Meja Pelayanan & Dapur Toko
+                        </h4>
+                        <span class="text-[11px] text-slate-400">Sinkronisasi Real-Time</span>
+                    </div>
+
+                    <div id="tv-counters-grid" class="grid grid-cols-2 gap-3">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- TV Footer Marquee / Running Text -->
+            <div class="pt-4 border-t border-slate-800/80 flex items-center overflow-hidden">
+                <div class="bg-amber-600 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold uppercase whitespace-nowrap mr-3 shadow">
+                    INFO DAPUR TOKO
+                </div>
+                <div class="relative w-full overflow-hidden whitespace-nowrap">
+                    <div class="inline-block animate-marquee text-slate-300 text-sm font-medium">
+                        Selamat datang di SiAntri Resto & Toko Makanan. Semua hidangan dimasak segar saat dipesan. Harap perhatikan nomor antrean tiket pesanan pada layar TV dan ambil makanan di Meja Pengambilan saat nomor Anda dipanggil petugas. Selamat menikmati sajian kami!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast Notification Overlay -->
+    <div id="toast-box" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Network & Multi-Device Access Modal -->
+    <div id="network-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-lg rounded-3xl p-6 shadow-2xl relative">
+            <button onclick="app.closeNetworkModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-network-wired"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-white">Akses Jaringan & Multi-Device</h3>
+                    <p class="text-xs text-slate-400">SiAntri Resto berjalan untuk operasional jangka panjang</p>
+                </div>
+            </div>
+
+            <!-- Status Indicator Card -->
+            <div class="bg-slate-850 p-4 rounded-2xl border border-slate-700/60 mb-4">
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs text-slate-400">Status Server:</span>
+                    <span id="modal-server-status" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                        🟢 Terhubung (SSE Realtime)
+                    </span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-xs text-slate-400">Penyimpanan:</span>
+                    <span class="text-xs text-slate-200 font-semibold font-mono-num">data/database.json (Persisten)</span>
+                </div>
+            </div>
+
+            <!-- Network URL & QR Code -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div class="bg-slate-800/60 p-3.5 rounded-2xl border border-slate-700/60 flex flex-col justify-between">
+                    <div>
+                        <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider block mb-1">
+                            <i class="fa-solid fa-mobile-screen mr-1"></i> Scan dari HP / Tablet
+                        </span>
+                        <p class="text-[11px] text-slate-400 mb-2">Scan kamera HP untuk memesan makanan / layar kasir:</p>
+                    </div>
+                    <div class="bg-white p-2 rounded-xl flex items-center justify-center shadow">
+                        <img id="modal-qr-code" src="https://api.qrserver.com/v1/create-qr-code/?data=http%3A%2F%2Flocalhost%3A3000&size=160x160" alt="QR Code SiAntri" class="w-32 h-32 object-contain" />
+                    </div>
+                </div>
+
+                <div class="bg-slate-800/60 p-3.5 rounded-2xl border border-slate-700/60 flex flex-col justify-between space-y-3">
+                    <div>
+                        <span class="text-[11px] font-bold text-slate-300 block mb-1">Link Lokal (PC Ini):</span>
+                        <div class="flex items-center gap-1.5 bg-slate-900 p-2 rounded-xl border border-slate-700/80">
+                            <input id="modal-local-url" type="text" readonly value="http://localhost:3000" class="bg-transparent text-xs text-amber-300 font-mono-num flex-1 outline-none truncate" />
+                            <button onclick="app.copyUrl('modal-local-url')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-[11px] rounded text-white transition">Salin</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="text-[11px] font-bold text-emerald-400 block mb-1">Link Wi-Fi / HP (LAN):</span>
+                        <div class="flex items-center gap-1.5 bg-slate-900 p-2 rounded-xl border border-emerald-500/40">
+                            <input id="modal-network-url" type="text" readonly value="http://localhost:3000" class="bg-transparent text-xs text-emerald-300 font-mono-num flex-1 outline-none truncate" />
+                            <button onclick="app.copyUrl('modal-network-url')" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-500 text-[11px] rounded text-white font-semibold transition">Salin</button>
+                        </div>
+                        <span class="text-[10px] text-slate-400 mt-1 block">Semua perangkat di Wi-Fi yang sama tersinkronisasi otomatis.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Jangka Panjang -->
+            <div class="bg-amber-950/30 border border-amber-800/30 p-3 rounded-2xl text-[11px] text-amber-300 flex items-start gap-2.5">
+                <i class="fa-solid fa-circle-info text-amber-400 text-sm mt-0.5"></i>
+                <div>
+                    <strong>Operasional Jangka Panjang:</strong> Jalankan file <code class="bg-slate-900 px-1 py-0.5 rounded text-amber-200">start-background.vbs</code> untuk server background tanpa jendela cmd, atau gunakan <code class="bg-slate-900 px-1 py-0.5 rounded text-amber-200">setup-autostart.bat</code> agar otomatis aktif setiap komputer dinyalakan.
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+/**
+ * SIANTRI TOKO MAKANAN - APP STATE
+ * Dilengkapi Daftar Makanan Toko, Keranjang Pesanan, dan Antrean Dapur Real-Time
+ */
+const appState = {
+    // Current Active User (Pelanggan Toko)
+    currentUser: {
+        id: 1,
+        name: 'Rian Saputra (Meja 08)',
+        email: 'pelanggan@siantri.id',
+        role: 'visitor',
+        myTicketId: null
+    },
+
+    // Current Officer Assignment (Chef / Kasir Toko Makanan)
+    currentOfficer: {
+        id: 2,
+        name: 'Chef Anton',
+        counterId: 1,
+    },
+
+    // Selected Menu Category Filter
+    activeCategory: 'semua',
+
+    // User's Shopping Cart for Food Orders: { [foodId]: quantity }
+    cart: {
+        1: 1, // 1x Nasi Goreng Spesial Toko
+        7: 2  // 2x Es Teh Manis Melati Jumbo
+    },
+
+    // DAFTAR MAKANAN TOKO
+    foodMenu: [
+        {
+            id: 1,
+            name: 'Nasi Goreng Spesial Toko',
+            category: 'utama',
+            price: 26000,
+            estMinutes: 8,
+            icon: 'fa-bowl-rice',
+            desc: 'Ayam suwir, telur mata sapi, acar segar, dan kerupuk udang renyah.',
+            tag: 'Favorit',
+            soldToday: 34
+        },
+        {
+            id: 2,
+            name: 'Ayam Bakar Madu Pedas',
+            category: 'utama',
+            price: 30000,
+            estMinutes: 12,
+            icon: 'fa-drumstick-bite',
+            desc: 'Ayam bakar baluran bumbu madu gurih pedas khas rempah nusantara.',
+            tag: 'Terlaris',
+            soldToday: 28
+        },
+        {
+            id: 3,
+            name: 'Mie Goreng Jawa Nyemek',
+            category: 'utama',
+            price: 24000,
+            estMinutes: 7,
+            icon: 'fa-utensils',
+            desc: 'Mie telur kenyal dengan suwiran ayam, sawi hijau, dan kuah kental gurih.',
+            tag: '',
+            soldToday: 19
+        },
+        {
+            id: 4,
+            name: 'Soto Daging Gurih Santan',
+            category: 'utama',
+            price: 32000,
+            estMinutes: 10,
+            icon: 'fa-bowl-food',
+            desc: 'Daging sapi empuk bumbu rempah kelapa gurih disajikan dengan emping.',
+            tag: 'Rekomendasi',
+            soldToday: 22
+        },
+        {
+            id: 5,
+            name: 'Tahu & Tempe Mendoan Crispy',
+            category: 'kudapan',
+            price: 16000,
+            estMinutes: 5,
+            icon: 'fa-bread-slice',
+            desc: 'Porsi 4 pcs tempe mendoan hangat dengan cocolan sambal kecap rawit pedas.',
+            tag: '',
+            soldToday: 41
+        },
+        {
+            id: 6,
+            name: 'Pisang Bakar Keju Cokelat',
+            category: 'kudapan',
+            price: 18000,
+            estMinutes: 6,
+            icon: 'fa-cheese',
+            desc: 'Pisang raja bakar dengan parutan keju cheddar melimpah dan susu kental cokelat.',
+            tag: '',
+            soldToday: 15
+        },
+        {
+            id: 7,
+            name: 'Es Teh Manis Melati Jumbo',
+            category: 'minuman',
+            price: 6000,
+            estMinutes: 2,
+            icon: 'fa-glass-water',
+            desc: 'Seduhan daun teh wangi melati dingin segar ukuran jumbo pemuas dahaga.',
+            tag: 'Segar',
+            soldToday: 65
+        },
+        {
+            id: 8,
+            name: 'Kopi Susu Gula Aren Toko',
+            category: 'minuman',
+            price: 19000,
+            estMinutes: 3,
+            icon: 'fa-mug-hot',
+            desc: 'Espresso robusta lokal dipadu susu kental dan sirup gula aren murni.',
+            tag: 'Khas',
+            soldToday: 30
+        }
+    ],
+
+    // Counters / Meja Pengambilan Makanan di Toko
+    counters: [
+        { id: 1, name: 'Meja Pengambilan 01', type: 'Dapur Utama', status: 'open', officerName: 'Chef Anton', currentTicketCode: 'M-001' },
+        { id: 2, name: 'Meja Pengambilan 02', type: 'Dapur Cepat & Kudapan', status: 'open', officerName: 'Siti Rahma', currentTicketCode: 'M-002' },
+        { id: 3, name: 'Bar Minuman & Kopi', type: 'Station Minuman', status: 'open', officerName: 'Doni Pratama', currentTicketCode: '-' },
+        { id: 4, name: 'Kasir & Bungkus (Takeaway)', type: 'Station Kasir', status: 'open', officerName: 'Lina Marlina', currentTicketCode: 'T-001' },
+    ],
+
+    // Queues / Daftar Antrean Pesanan Makanan Toko
+    queues: [
+        {
+            id: 101,
+            ticketCode: 'M-001',
+            queueNumber: 1,
+            status: 'serving',
+            counterId: 1,
+            userId: 99,
+            userName: 'Bu Nita (Meja 03)',
+            calledAt: '08:05:12',
+            recallCount: 1,
+            items: [
+                { id: 2, name: 'Ayam Bakar Madu Pedas', qty: 2, price: 30000 },
+                { id: 7, name: 'Es Teh Manis Melati Jumbo', qty: 2, price: 6000 }
+            ],
+            totalAmount: 72000
+        },
+        {
+            id: 102,
+            ticketCode: 'M-002',
+            queueNumber: 2,
+            status: 'waiting',
+            counterId: null,
+            userId: 1,
+            userName: 'Rian Saputra (Meja 08)',
+            calledAt: null,
+            recallCount: 0,
+            items: [
+                { id: 1, name: 'Nasi Goreng Spesial Toko', qty: 1, price: 26000 },
+                { id: 7, name: 'Es Teh Manis Melati Jumbo', qty: 2, price: 6000 }
+            ],
+            totalAmount: 38000
+        },
+        {
+            id: 103,
+            ticketCode: 'M-003',
+            queueNumber: 3,
+            status: 'waiting',
+            counterId: null,
+            userId: 98,
+            userName: 'Pak Hendra (Meja 05)',
+            calledAt: null,
+            recallCount: 0,
+            items: [
+                { id: 4, name: 'Soto Daging Gurih Santan', qty: 1, price: 32000 },
+                { id: 5, name: 'Tahu & Tempe Mendoan Crispy', qty: 1, price: 16000 }
+            ],
+            totalAmount: 48000
+        }
+    ],
+
+    // Active Global Call for TV and Visitor
+    activeCall: {
+        ticketCode: 'M-001',
+        customerName: 'Bu Nita (Meja 03)',
+        serviceName: 'Pesanan Selesai Dimasak',
+        counterName: 'Meja Pengambilan 01',
+        itemsPreview: '2x Ayam Bakar Madu Pedas, 2x Es Teh Manis Jumbo',
+        calledAt: '08:05:12'
+    },
+
+    // Audio Settings
+    audioEnabled: true,
+    audioCtx: null
+};
+
+// Set tiket aktif pelanggan demo
+appState.currentUser.myTicketId = 102; // M-002
+</script>
+
+<script>
+/**
+ * AUDIO ENGINE & VOICE SYNTHESIZER
+ */
+const AudioEngine = {
+    initContext() {
+        if (!appState.audioCtx) {
+            window.AudioContext = window.AudioContext || window.webkitAudioContext;
+            appState.audioCtx = new AudioContext();
+        }
+        if (appState.audioCtx.state === 'suspended') {
+            appState.audioCtx.resume();
+        }
+    },
+
+    playChime() {
+        return new Promise((resolve) => {
+            if (!appState.audioEnabled) {
+                resolve();
+                return;
+            }
+
+            try {
+                this.initContext();
+                const ctx = appState.audioCtx;
+                const now = ctx.currentTime;
+
+                // Nada 1: E5 (659.25 Hz)
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(659.25, now);
+                gain1.gain.setValueAtTime(0.25, now);
+                gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.55);
+                osc1.connect(gain1);
+                gain1.connect(ctx.destination);
+                osc1.start(now);
+                osc1.stop(now + 0.55);
+
+                // Nada 2: C5 (523.25 Hz)
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(523.25, now + 0.3);
+                gain2.gain.setValueAtTime(0.25, now + 0.3);
+                gain2.gain.exponentialRampToValueAtTime(0.0001, now + 1.1);
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.start(now + 0.3);
+                osc2.stop(now + 1.1);
+
+                setTimeout(resolve, 1100);
+            } catch (e) {
+                console.error('AudioContext chime error:', e);
+                resolve();
+            }
+        });
+    },
+
+    async speak(text) {
+        if (!appState.audioEnabled) return;
+        
+        await this.playChime();
+
+        if (!('speechSynthesis' in window)) return;
+
+        window.speechSynthesis.cancel();
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'id-ID';
+        utterance.rate = 0.88;
+        utterance.pitch = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        const idVoice = voices.find(v => v.lang === 'id-ID' || v.lang.startsWith('id'));
+        if (idVoice) utterance.voice = idVoice;
+
+        window.speechSynthesis.speak(utterance);
+    }
+};
+</script>
+
+<script>
+/**
+ * MAIN CONTROLLER
+ */
+const app = {
+    activeView: 'visitor',
+    syncMode: 'local',
+    serverInfo: null,
+    eventSource: null,
+
+    init() {
+        this.loadLocalUserData();
+        this.startRealtimeClocks();
+        this.initSync();
+        this.renderAll();
+    },
+
+    saveLocalUserData() {
+        try {
+            localStorage.setItem('siantri_user', JSON.stringify(appState.currentUser));
+            localStorage.setItem('siantri_cart', JSON.stringify(appState.cart));
+        } catch (e) {}
+    },
+
+    loadLocalUserData() {
+        try {
+            const savedUser = localStorage.getItem('siantri_user');
+            if (savedUser) appState.currentUser = JSON.parse(savedUser);
+            const savedCart = localStorage.getItem('siantri_cart');
+            if (savedCart) appState.cart = JSON.parse(savedCart);
+        } catch (e) {}
+    },
+
+    saveToLocalStorage() {
+        try {
+            const snapshot = {
+                foodMenu: appState.foodMenu,
+                counters: appState.counters,
+                queues: appState.queues,
+                activeCall: appState.activeCall
+            };
+            localStorage.setItem('siantri_state', JSON.stringify(snapshot));
+            this.saveLocalUserData();
+        } catch (e) {}
+    },
+
+    loadFromLocalStorage() {
+        try {
+            const raw = localStorage.getItem('siantri_state');
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (parsed.foodMenu) appState.foodMenu = parsed.foodMenu;
+                if (parsed.counters) appState.counters = parsed.counters;
+                if (parsed.queues) appState.queues = parsed.queues;
+                if (parsed.activeCall) appState.activeCall = parsed.activeCall;
+            }
+        } catch (e) {}
+    },
+
+    async initSync() {
+        const netDot = document.getElementById('nav-network-dot');
+        const netText = document.getElementById('nav-network-text');
+        const modalStatus = document.getElementById('modal-server-status');
+
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 2500);
+            const res = await fetch('/api/info', { signal: controller.signal });
+            clearTimeout(timeoutId);
+
+            if (res.ok) {
+                const info = await res.json();
+                this.serverInfo = info;
+                this.syncMode = 'server';
+
+                if (netDot) netDot.className = 'w-2 h-2 rounded-full bg-emerald-400 animate-pulse';
+                if (netText) netText.innerText = 'Server Aktif';
+                if (modalStatus) {
+                    modalStatus.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+                    modalStatus.innerHTML = '🟢 Terhubung (SSE Realtime)';
+                }
+
+                const localUrl = info.localUrl || 'http://localhost:3000';
+                const networkUrl = info.networkUrl || `http://${window.location.hostname}:3000`;
+                const localInput = document.getElementById('modal-local-url');
+                const netInput = document.getElementById('modal-network-url');
+                const qrImg = document.getElementById('modal-qr-code');
+
+                if (localInput) localInput.value = localUrl;
+                if (netInput) netInput.value = networkUrl;
+                if (qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(networkUrl)}&size=160x160`;
+
+                const stateRes = await fetch('/api/state');
+                if (stateRes.ok) {
+                    const s = await stateRes.json();
+                    if (s.foodMenu) appState.foodMenu = s.foodMenu;
+                    if (s.counters) appState.counters = s.counters;
+                    if (s.queues) appState.queues = s.queues;
+                    if (s.activeCall) appState.activeCall = s.activeCall;
+                    this.saveToLocalStorage();
+                    this.renderAll();
+                }
+
+                this.connectSSE();
+                return;
+            }
+        } catch (e) {
+            console.warn('Mode Server tidak terdeteksi, berjalan dalam Mode Lokal (LocalStorage):', e);
+        }
+
+        this.syncMode = 'local';
+        if (netDot) netDot.className = 'w-2 h-2 rounded-full bg-amber-400';
+        if (netText) netText.innerText = 'Mode Lokal';
+        if (modalStatus) {
+            modalStatus.className = 'px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30';
+            modalStatus.innerHTML = '🟠 Offline (Data di Browser/LocalStorage)';
+        }
+        this.loadFromLocalStorage();
+        this.renderAll();
+    },
+
+    connectSSE() {
+        if (this.eventSource) {
+            this.eventSource.close();
+        }
+
+        try {
+            this.eventSource = new EventSource('/api/events');
+
+            this.eventSource.addEventListener('order_created', (e) => {
+                const data = JSON.parse(e.data);
+                if (data.queue) {
+                    const exists = appState.queues.find(q => q.id === data.queue.id);
+                    if (!exists) {
+                        appState.queues.push(data.queue);
+                        if (data.foodMenu) appState.foodMenu = data.foodMenu;
+                        this.saveToLocalStorage();
+                        this.renderAll();
+                        if (this.activeView === 'officer' || this.activeView === 'admin') {
+                            this.showToast(`Pesanan Baru: ${data.queue.ticketCode} (${data.queue.userName})`, 'info');
+                        }
+                    }
+                }
+            });
+
+            this.eventSource.addEventListener('ticket_called', (e) => {
+                const data = JSON.parse(e.data);
+                if (data.queue && data.counter) {
+                    const q = appState.queues.find(item => item.id === data.queue.id);
+                    if (q) {
+                        q.status = 'calling';
+                        q.counterId = data.counter.id;
+                        q.calledAt = data.queue.calledAt;
+                        q.recallCount = data.queue.recallCount;
+                    }
+                    const c = appState.counters.find(item => item.id === data.counter.id);
+                    if (c) c.currentTicketCode = data.queue.ticketCode;
+                    if (data.activeCall) appState.activeCall = data.activeCall;
+
+                    this.saveToLocalStorage();
+                    this.renderAll();
+
+                    if (data.speechText) {
+                        AudioEngine.speak(data.speechText);
+                    }
+                    this.showToast(`Pesanan ${data.queue.ticketCode} selesai dimasak!`, 'success');
+                }
+            });
+
+            this.eventSource.addEventListener('ticket_recalled', (e) => {
+                const data = JSON.parse(e.data);
+                if (data.queue) {
+                    const q = appState.queues.find(item => item.id === data.queue.id);
+                    if (q) {
+                        q.recallCount = data.queue.recallCount;
+                        q.calledAt = data.queue.calledAt;
+                    }
+                    if (data.activeCall) appState.activeCall = data.activeCall;
+
+                    this.saveToLocalStorage();
+                    this.renderAll();
+
+                    if (data.speechText) {
+                        AudioEngine.speak(data.speechText);
+                    }
+                    this.showToast(`Panggilan ulang pesanan ${data.queue.ticketCode}`, 'info');
+                }
+            });
+
+            this.eventSource.addEventListener('ticket_finished', (e) => {
+                const data = JSON.parse(e.data);
+                if (data.queueId) {
+                    const q = appState.queues.find(item => item.id === data.queueId);
+                    if (q) q.status = 'completed';
+                }
+                if (data.counterId) {
+                    const c = appState.counters.find(item => item.id === data.counterId);
+                    if (c) c.currentTicketCode = '-';
+                }
+                this.saveToLocalStorage();
+                this.renderAll();
+            });
+
+            this.eventSource.addEventListener('ticket_skipped', (e) => {
+                const data = JSON.parse(e.data);
+                if (data.queueId) {
+                    const q = appState.queues.find(item => item.id === data.queueId);
+                    if (q) q.status = 'skipped';
+                }
+                if (data.counterId) {
+                    const c = appState.counters.find(item => item.id === data.counterId);
+                    if (c) c.currentTicketCode = '-';
+                }
+                this.saveToLocalStorage();
+                this.renderAll();
+            });
+
+            this.eventSource.addEventListener('ticket_cancelled', (e) => {
+                const data = JSON.parse(e.data);
+                if (data.ticketId) {
+                    const q = appState.queues.find(item => item.id === data.ticketId);
+                    if (q) q.status = 'cancelled';
+                }
+                this.saveToLocalStorage();
+                this.renderAll();
+            });
+
+            this.eventSource.addEventListener('counter_updated', (e) => {
+                const data = JSON.parse(e.data);
+                const c = appState.counters.find(item => item.id === data.counterId);
+                if (c) c.status = data.status;
+                this.saveToLocalStorage();
+                this.renderAll();
+            });
+
+            this.eventSource.addEventListener('state_reset', (e) => {
+                const s = JSON.parse(e.data);
+                if (s.foodMenu) appState.foodMenu = s.foodMenu;
+                if (s.counters) appState.counters = s.counters;
+                if (s.queues) appState.queues = s.queues;
+                if (s.activeCall) appState.activeCall = s.activeCall;
+                this.saveToLocalStorage();
+                this.renderAll();
+                this.showToast('Data antrean di-reset dari server', 'info');
+            });
+
+            this.eventSource.onerror = () => {
+                console.warn('Koneksi SSE terputus, mencoba rekoneksi otomatis...');
+            };
+        } catch (err) {
+            console.warn('Gagal inisialisasi SSE:', err);
+        }
+    },
+
+    openNetworkModal() {
+        const modal = document.getElementById('network-modal');
+        if (modal) modal.classList.remove('hidden');
+    },
+
+    closeNetworkModal() {
+        const modal = document.getElementById('network-modal');
+        if (modal) modal.classList.add('hidden');
+    },
+
+    copyUrl(inputId) {
+        const input = document.getElementById(inputId);
+        if (input) {
+            navigator.clipboard.writeText(input.value).then(() => {
+                this.showToast('Tautan berhasil disalin ke clipboard!', 'success');
+            }).catch(() => {
+                input.select();
+                document.execCommand('copy');
+                this.showToast('Tautan disalin!', 'success');
+            });
+        }
+    },
+
+    // Jam Digital Real-Time di semua elemen halaman
+    startRealtimeClocks() {
+        const tick = () => {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('id-ID', { hour12: false });
+            const dateString = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            // 1. Clock di Navbar
+            const navClock = document.getElementById('nav-live-clock');
+            if (navClock) navClock.innerText = `${timeString} WIB`;
+
+            // 2. Clock di Layar TV Display
+            const tvClock = document.getElementById('tv-clock');
+            const tvDate = document.getElementById('tv-date');
+            if (tvClock) tvClock.innerText = timeString;
+            if (tvDate) tvDate.innerText = dateString;
+        };
+
+        tick();
+        setInterval(tick, 1000);
+    },
+
+    toggleAudio() {
+        appState.audioEnabled = !appState.audioEnabled;
+        const icon = document.getElementById('audio-icon');
+        const text = document.getElementById('audio-status-text');
+
+        if (appState.audioEnabled) {
+            AudioEngine.initContext();
+            icon.className = 'fa-solid fa-volume-high text-amber-400';
+            text.innerText = 'Audio: Aktif';
+            this.showToast('Audio pemanggilan pesanan diaktifkan', 'info');
+            AudioEngine.playChime();
+        } else {
+            icon.className = 'fa-solid fa-volume-xmark text-rose-400';
+            text.innerText = 'Audio: Senyap';
+            this.showToast('Audio dinonaktifkan', 'warning');
+        }
+    },
+
+    switchView(viewName) {
+        this.activeView = viewName;
+
+        ['auth', 'visitor', 'officer', 'admin', 'display'].forEach(v => {
+            const el = document.getElementById(`view-${v}`);
+            const nav = document.getElementById(`nav-${v}`);
+            if (el) el.classList.toggle('hidden', v !== viewName);
+            if (nav) {
+                if (v === viewName) {
+                    nav.className = 'px-3 py-1.5 rounded-lg transition bg-amber-600 text-white shadow-sm';
+                } else if (v === 'display') {
+                    nav.className = 'px-3 py-1.5 rounded-lg transition text-amber-300 hover:text-amber-200 bg-amber-500/10 border border-amber-500/30';
+                } else {
+                    nav.className = 'px-3 py-1.5 rounded-lg transition text-slate-300 hover:text-white';
+                }
+            }
+        });
+
+        this.renderAll();
+    },
+
+    setAuthTab(tab) {
+        const loginContainer = document.getElementById('auth-login-container');
+        const regContainer = document.getElementById('auth-register-container');
+        const loginBtn = document.getElementById('tab-login-btn');
+        const regBtn = document.getElementById('tab-register-btn');
+
+        if (tab === 'login') {
+            loginContainer.classList.remove('hidden');
+            regContainer.classList.add('hidden');
+            loginBtn.className = 'flex-1 py-2 rounded-lg bg-amber-600 text-white shadow-sm transition';
+            regBtn.className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition';
+        } else {
+            loginContainer.classList.add('hidden');
+            regContainer.classList.remove('hidden');
+            regBtn.className = 'flex-1 py-2 rounded-lg bg-amber-600 text-white shadow-sm transition';
+            loginBtn.className = 'flex-1 py-2 rounded-lg text-slate-400 hover:text-white transition';
+        }
+    },
+
+    quickLogin(role) {
+        if (role === 'visitor') {
+            appState.currentUser = { id: 1, name: 'Rian Saputra (Meja 08)', email: 'pelanggan@siantri.id', role: 'visitor', myTicketId: 102 };
+            this.switchView('visitor');
+            this.showToast('Masuk sebagai Pelanggan: Rian Saputra', 'success');
+        } else if (role === 'officer') {
+            appState.currentUser = { id: 2, name: 'Chef Anton', email: 'chef@siantri.id', role: 'officer', myTicketId: null };
+            this.switchView('officer');
+            this.showToast('Masuk sebagai Petugas Dapur: Chef Anton', 'success');
+        } else if (role === 'admin') {
+            appState.currentUser = { id: 3, name: 'Manajer Resto & Toko', email: 'admin@siantri.id', role: 'admin', myTicketId: null };
+            this.switchView('admin');
+            this.showToast('Masuk sebagai Pengelola Toko', 'success');
+        }
+    },
+
+    handleLogin() {
+        const email = document.getElementById('login-email').value;
+        if (email.includes('chef') || email.includes('officer')) {
+            this.quickLogin('officer');
+        } else if (email.includes('admin')) {
+            this.quickLogin('admin');
+        } else {
+            this.quickLogin('visitor');
+        }
+    },
+
+    handleRegister() {
+        const name = document.getElementById('reg-name').value;
+        appState.currentUser = { id: Date.now(), name: name, email: 'pelanggan@siantri.id', role: 'visitor', myTicketId: null };
+        this.switchView('visitor');
+        this.showToast(`Pendaftaran berhasil. Selamat memesan, ${name}!`, 'success');
+    },
+
+    scrollToMenu() {
+        const section = document.getElementById('section-daftar-makanan');
+        if (section) section.scrollIntoView({ behavior: 'smooth' });
+    },
+
+    setMenuCategory(cat) {
+        appState.activeCategory = cat;
+        document.querySelectorAll('.menu-tab-btn').forEach(btn => {
+            btn.className = 'menu-tab-btn px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 transition';
+        });
+        event.target.className = 'menu-tab-btn active px-3.5 py-1.5 rounded-xl bg-amber-600 text-white transition';
+        this.renderFoodMenu();
+    },
+
+    // Cart Management
+    addToCart(foodId) {
+        appState.cart[foodId] = (appState.cart[foodId] || 0) + 1;
+        this.renderCartSummary();
+        this.renderFoodMenu();
+    },
+
+    removeFromCart(foodId) {
+        if (!appState.cart[foodId]) return;
+        appState.cart[foodId] -= 1;
+        if (appState.cart[foodId] <= 0) {
+            delete appState.cart[foodId];
+        }
+        this.renderCartSummary();
+        this.renderFoodMenu();
+    },
+
+    clearCart() {
+        appState.cart = {};
+        this.renderCartSummary();
+        this.renderFoodMenu();
+        this.showToast('Keranjang pesanan makanan dikosongkan', 'info');
+    },
+
+    formatRupiah(number) {
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+    },
+
+    renderAll() {
+        this.renderFoodMenu();
+        this.renderCartSummary();
+        this.renderVisitor();
+        this.renderOfficer();
+        this.renderAdmin();
+        this.renderDisplay();
+    },
+
+    renderFoodMenu() {
+        const grid = document.getElementById('food-menu-grid');
+        if (!grid) return;
+
+        let filtered = appState.foodMenu;
+        if (appState.activeCategory !== 'semua') {
+            filtered = appState.foodMenu.filter(m => m.category === appState.activeCategory);
+        }
+
+        grid.innerHTML = filtered.map(item => {
+            const qtyInCart = appState.cart[item.id] || 0;
+            const badgeTag = item.tag 
+                ? `<span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">${item.tag}</span>` 
+                : `<span class="px-2 py-0.5 rounded-md text-[10px] font-medium bg-slate-800 text-slate-400">Tersedia</span>`;
+
+            return `
+                <div class="bg-slate-900 border ${qtyInCart > 0 ? 'border-amber-500/70 shadow-lg shadow-amber-950/40' : 'border-slate-800'} rounded-2xl p-4 flex flex-col justify-between hover:border-slate-700 transition">
+                    <div>
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                            ${badgeTag}
+                        </div>
+                        <h4 class="font-bold text-white text-base leading-snug">${item.name}</h4>
+                        <p class="text-xs text-slate-400 mt-1 line-clamp-2">${item.desc}</p>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-slate-800/80">
+                        <div class="flex items-center justify-between mb-3">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block">Harga Satuan</span>
+                                <span class="font-extrabold font-mono-num text-amber-400 text-sm">${this.formatRupiah(item.price)}</span>
+                            </div>
+                            <span class="text-[10px] text-slate-500 font-mono-num">~${item.estMinutes} menit masak</span>
+                        </div>
+
+                        <!-- Quantity Selector -->
+                        <div class="flex items-center justify-between bg-slate-800/80 rounded-xl p-1 border border-slate-700/60">
+                            <button onclick="app.removeFromCart(${item.id})" class="w-7 h-7 rounded-lg bg-slate-700 hover:bg-slate-600 text-white flex items-center justify-center text-xs transition">
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+                            <span class="font-mono-num font-bold text-xs text-white px-2">${qtyInCart} Porsi</span>
+                            <button onclick="app.addToCart(${item.id})" class="w-7 h-7 rounded-lg bg-amber-600 hover:bg-amber-500 text-white flex items-center justify-center text-xs transition">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    },
+
+    renderCartSummary() {
+        const itemsCountEl = document.getElementById('cart-items-count');
+        const totalPriceEl = document.getElementById('cart-total-price');
+        const checkoutBtn = document.getElementById('checkout-order-btn');
+
+        let totalQty = 0;
+        let totalPrice = 0;
+
+        Object.entries(appState.cart).forEach(([id, qty]) => {
+            const food = appState.foodMenu.find(f => f.id === parseInt(id));
+            if (food && qty > 0) {
+                totalQty += qty;
+                totalPrice += (food.price * qty);
+            }
+        });
+
+        if (itemsCountEl) itemsCountEl.innerText = `${totalQty} Porsi Makanan Dipilih`;
+        if (totalPriceEl) totalPriceEl.innerText = this.formatRupiah(totalPrice);
+        if (checkoutBtn) checkoutBtn.disabled = totalQty === 0;
+    },
+
+    async confirmFoodOrder() {
+        const orderItems = [];
+        let totalAmount = 0;
+
+        Object.entries(appState.cart).forEach(([id, qty]) => {
+            const food = appState.foodMenu.find(f => f.id === parseInt(id));
+            if (food && qty > 0) {
+                orderItems.push({
+                    id: food.id,
+                    name: food.name,
+                    qty: qty,
+                    price: food.price
+                });
+                totalAmount += (food.price * qty);
+                food.soldToday += qty;
+            }
+        });
+
+        if (orderItems.length === 0) {
+            this.showToast('Pilih minimal satu menu makanan!', 'warning');
+            return;
+        }
+
+        if (this.syncMode === 'server') {
+            try {
+                const res = await fetch('/api/order', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        items: orderItems,
+                        totalAmount: totalAmount,
+                        userId: appState.currentUser.id,
+                        userName: appState.currentUser.name
+                    })
+                });
+                const data = await res.json();
+                if (data.queue) {
+                    appState.currentUser.myTicketId = data.queue.id;
+                    appState.cart = {};
+                    this.saveLocalUserData();
+                    this.saveToLocalStorage();
+                    this.renderAll();
+                    this.showToast(`Pesanan makanan berhasil dikirim! Tiket antrean Anda: ${data.queue.ticketCode}`, 'success');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+            } catch (err) {
+                console.warn('Gagal order via server, fallback lokal:', err);
+            }
+        }
+
+        // Local / Offline fallback
+        const nextNumber = appState.queues.length + 1;
+        const ticketCode = `M-${String(nextNumber).padStart(3, '0')}`;
+
+        const newQueue = {
+            id: Date.now(),
+            ticketCode: ticketCode,
+            queueNumber: nextNumber,
+            status: 'waiting',
+            counterId: null,
+            userId: appState.currentUser.id,
+            userName: appState.currentUser.name,
+            calledAt: null,
+            recallCount: 0,
+            items: orderItems,
+            totalAmount: totalAmount
+        };
+
+        orderItems.forEach(it => {
+            const food = appState.foodMenu.find(f => f.id === it.id);
+            if (food) food.soldToday = (food.soldToday || 0) + it.qty;
+        });
+
+        appState.queues.push(newQueue);
+        appState.currentUser.myTicketId = newQueue.id;
+        appState.cart = {};
+
+        this.saveToLocalStorage();
+        this.renderAll();
+        this.showToast(`Pesanan makanan berhasil dikirim! Tiket antrean Anda: ${ticketCode}`, 'success');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+
+    renderVisitor() {
+        const nameBadge = document.getElementById('visitor-name-badge');
+        if (nameBadge) nameBadge.innerText = appState.currentUser.name;
+
+        const trackerContainer = document.getElementById('visitor-tracker-container');
+        const myTicket = appState.queues.find(q => q.id === appState.currentUser.myTicketId);
+
+        if (!myTicket) {
+            trackerContainer.innerHTML = `
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center py-10">
+                    <div class="w-16 h-16 bg-slate-800 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl">
+                        <i class="fa-solid fa-bowl-food"></i>
+                    </div>
+                    <h4 class="text-base font-bold text-white mb-1">Belum Ada Pesanan Makanan Berjalan</h4>
+                    <p class="text-xs text-slate-400 max-w-sm mx-auto mb-5">Silakan pilih menu dari daftar makanan toko di bawah ini untuk mengambil antrean masakan.</p>
+                    <button onclick="app.scrollToMenu()" class="px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-xl text-xs transition">
+                        Buka Daftar Makanan Toko
+                    </button>
+                </div>
+            `;
+        } else {
+            const waitingBeforeMe = appState.queues.filter(q => 
+                q.status === 'waiting' && 
+                q.queueNumber < myTicket.queueNumber
+            ).length;
+
+            const estMinutes = (waitingBeforeMe + 1) * 7;
+
+            let statusBadge = '';
+            let statusBorder = 'border-amber-500/40';
+            if (myTicket.status === 'waiting') {
+                statusBadge = '<span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30 animate-pulse">Sedang Dimasak Dapur</span>';
+            } else if (myTicket.status === 'calling') {
+                statusBadge = '<span class="px-3 py-1 rounded-full text-xs font-bold bg-yellow-500/20 text-yellow-300 border border-yellow-500/30 animate-pulse-fast">MAKANAN SIAP DIAMBIL!</span>';
+                statusBorder = 'border-yellow-500 shadow-yellow-500/20 shadow-2xl';
+            } else if (myTicket.status === 'serving') {
+                statusBadge = '<span class="px-3 py-1 rounded-full text-xs font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">Siap di Meja Saji</span>';
+                statusBorder = 'border-blue-500/50';
+            } else {
+                statusBadge = '<span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-500/20 text-slate-300">Selesai / Dinikmati</span>';
+            }
+
+            const itemsListHtml = myTicket.items.map(it => `
+                <div class="flex items-center justify-between text-xs py-1 border-b border-slate-800/80">
+                    <span class="text-slate-300 font-medium">${it.qty}x ${it.name}</span>
+                    <span class="font-mono-num text-slate-400">${app.formatRupiah(it.price * it.qty)}</span>
+                </div>
+            `).join('');
+
+            trackerContainer.innerHTML = `
+                <div class="bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 border-2 ${statusBorder} rounded-3xl p-6 sm:p-8 shadow-xl">
+                    <div class="flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-slate-800">
+                        <div>
+                            <span class="text-xs uppercase font-semibold text-amber-400">Karcis Antrean Pesanan Makanan</span>
+                            <h3 class="text-lg font-bold text-white">Nomor Meja / Pelanggan: ${myTicket.userName}</h3>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            ${statusBadge}
+                            <button onclick="app.cancelMyTicket()" class="px-3 py-1 rounded-xl text-xs text-rose-400 hover:bg-rose-500/10 border border-rose-500/30 transition">
+                                Batalkan Pesanan
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 my-6 items-center">
+                        <div class="md:col-span-4 text-center md:text-left">
+                            <span class="text-xs text-slate-400 block mb-1">Nomor Antrean Makanan:</span>
+                            <span class="text-6xl sm:text-7xl font-black font-mono-num text-amber-400 tracking-tight">${myTicket.ticketCode}</span>
+                            <span class="text-xs text-slate-400 block mt-1">Total Tagihan: <strong class="text-white font-mono-num">${this.formatRupiah(myTicket.totalAmount)}</strong></span>
+                        </div>
+
+                        <!-- Ordered Food Items Breakdown -->
+                        <div class="md:col-span-5 bg-slate-850/80 rounded-2xl p-4 border border-slate-700/60">
+                            <span class="text-xs text-amber-400 font-bold uppercase tracking-wider block mb-2">
+                                <i class="fa-solid fa-list-check mr-1"></i> Rincian Makanan Dipesan:
+                            </span>
+                            <div class="space-y-1">
+                                ${itemsListHtml}
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-3 bg-slate-800/60 rounded-2xl p-4 border border-slate-700/60 text-center">
+                            <span class="text-xs text-slate-400 block mb-1">Estimasi Penyajian:</span>
+                            <span class="text-3xl font-extrabold text-amber-400">~${estMinutes} <span class="text-sm font-normal text-slate-400">Mnt</span></span>
+                            <span class="text-[11px] text-slate-400 block mt-1">${waitingBeforeMe} pesanan di depan Anda</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-amber-950/40 border border-amber-800/40 rounded-2xl p-4 flex items-center justify-between text-xs text-amber-200">
+                        <div class="flex items-center gap-2.5">
+                            <i class="fa-solid fa-bell text-amber-400 text-sm"></i>
+                            <span>Silakan duduk santai di meja Anda. Suara notifikasi akan memanggil saat koki selesai memasak hidangan Anda.</span>
+                        </div>
+                        <button onclick="window.print()" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold transition">
+                            <i class="fa-solid fa-print"></i> Cetak Struk
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+    },
+
+    renderOfficer() {
+        const officer = appState.currentOfficer;
+        const counter = appState.counters.find(c => c.id === officer.counterId);
+
+        const titleEl = document.getElementById('officer-name-title');
+        const badgeEl = document.getElementById('officer-counter-badge');
+        if (titleEl) titleEl.innerText = officer.name;
+        if (badgeEl) badgeEl.innerText = `${counter?.name || 'Meja'} (${counter?.type || 'Dapur'})`;
+
+        const activeQueue = appState.queues.find(q => q.counterId === counter?.id && (q.status === 'calling' || q.status === 'serving'));
+        const activeCard = document.getElementById('officer-active-card');
+        const activeStatusBadge = document.getElementById('officer-active-status');
+
+        if (activeQueue) {
+            activeStatusBadge.innerText = activeQueue.status === 'calling' ? 'MEMANGGIL PELANGGAN' : 'SIAP DI MEJA SAJI';
+            activeStatusBadge.className = activeQueue.status === 'calling' 
+                ? 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 animate-pulse'
+                : 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30';
+
+            const itemsStr = activeQueue.items.map(i => `${i.qty}x ${i.name}`).join(', ');
+
+            activeCard.innerHTML = `
+                <div class="text-center">
+                    <span class="text-xs text-slate-400 uppercase font-semibold">Nomor Antrean Makanan Selesai</span>
+                    <div class="text-7xl font-black font-mono-num text-yellow-400 my-2">${activeQueue.ticketCode}</div>
+                    <div class="text-sm font-semibold text-white">${activeQueue.userName}</div>
+                    <div class="mt-2 text-xs bg-slate-800/80 p-2.5 rounded-xl border border-slate-700/80 text-amber-300">
+                        <strong>Menu:</strong> ${itemsStr}
+                    </div>
+                    <div class="text-xs text-slate-400 mt-2">Dipanggil: ${activeQueue.calledAt || '-'} • Panggilan ke: ${activeQueue.recallCount} kali</div>
+                </div>
+            `;
+        } else {
+            activeStatusBadge.innerText = 'DAPUR STANDBY';
+            activeStatusBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-700 text-slate-300';
+            activeCard.innerHTML = `
+                <div class="text-center py-6">
+                    <div class="w-14 h-14 bg-slate-800 text-slate-600 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-300">Belum Ada Pesanan Makanan Dipanggil</p>
+                    <p class="text-xs text-slate-500 mt-1">Klik 'Panggil Siap Ambil' saat hidangan selesai dimasak.</p>
+                </div>
+            `;
+        }
+
+        const waitingList = appState.queues.filter(q => q.status === 'waiting');
+        document.getElementById('officer-waiting-count').innerText = `${waitingList.length} Pesanan`;
+
+        const listContainer = document.getElementById('officer-queue-list');
+        if (waitingList.length === 0) {
+            listContainer.innerHTML = `
+                <div class="text-center py-12 text-slate-500">
+                    <i class="fa-solid fa-kitchen-set text-3xl mb-2 block opacity-40"></i>
+                    <p class="text-xs">Tidak ada antrean masakan yang menunggu.</p>
+                </div>
+            `;
+        } else {
+            listContainer.innerHTML = waitingList.map((q, idx) => {
+                const itemsList = q.items.map(it => `<span class="inline-block bg-slate-700/80 px-2 py-0.5 rounded text-[11px] mr-1 mb-1 text-slate-200">${it.qty}x ${it.name}</span>`).join('');
+                return `
+                    <div class="p-3.5 bg-slate-800/70 border border-slate-700/60 rounded-2xl hover:border-slate-600 transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center space-x-2.5">
+                                <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 flex items-center justify-center text-xs font-bold font-mono-num">
+                                    ${idx + 1}
+                                </span>
+                                <span class="font-black font-mono-num text-amber-400 text-base">${q.ticketCode}</span>
+                                <span class="text-xs text-white font-semibold">• ${q.userName}</span>
+                            </div>
+                            <button onclick="app.officerCallDirect(${q.id})" class="px-3 py-1 bg-amber-600/30 hover:bg-amber-600 text-amber-300 hover:text-white rounded-xl text-xs font-bold border border-amber-500/30 transition">
+                                Selesai Masak
+                            </button>
+                        </div>
+                        <div class="pt-1">
+                            ${itemsList}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    },
+
+    renderAdmin() {
+        const total = appState.queues.length;
+        const completed = appState.queues.filter(q => q.status === 'completed').length;
+        const waiting = appState.queues.filter(q => q.status === 'waiting').length;
+        const totalRevenue = appState.queues.reduce((acc, q) => acc + (q.totalAmount || 0), 0);
+
+        document.getElementById('admin-stat-total').innerText = total;
+        document.getElementById('admin-stat-completed').innerText = completed;
+        document.getElementById('admin-stat-waiting').innerText = waiting;
+        document.getElementById('admin-stat-revenue').innerText = this.formatRupiah(totalRevenue);
+
+        const tableBody = document.getElementById('admin-menu-table');
+        tableBody.innerHTML = appState.foodMenu.map(m => `
+            <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-3.5 font-bold flex items-center gap-2">
+                    <i class="fa-solid ${m.icon} text-amber-400"></i> ${m.name}
+                </td>
+                <td class="p-3.5 uppercase text-[11px] text-slate-400">${m.category}</td>
+                <td class="p-3.5 font-mono-num font-semibold text-amber-400">${this.formatRupiah(m.price)}</td>
+                <td class="p-3.5 font-mono-num text-slate-300">~${m.estMinutes} Menit</td>
+                <td class="p-3.5 font-mono-num font-bold text-white">${m.soldToday} Porsi</td>
+                <td class="p-3.5">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Siap Masak</span>
+                </td>
+            </tr>
+        `).join('');
+    },
+
+    renderDisplay() {
+        const activeTicketEl = document.getElementById('tv-active-ticket');
+        const activeCustomerEl = document.getElementById('tv-active-customer');
+        const activeItemsEl = document.getElementById('tv-active-items-preview');
+        const activeServiceEl = document.getElementById('tv-active-service');
+        const activeCounterEl = document.getElementById('tv-active-counter');
+
+        if (appState.activeCall) {
+            activeTicketEl.innerText = appState.activeCall.ticketCode;
+            activeCustomerEl.innerText = appState.activeCall.customerName || 'Pelanggan';
+            activeItemsEl.innerText = appState.activeCall.itemsPreview ? `Pesanan: ${appState.activeCall.itemsPreview}` : '';
+            activeServiceEl.innerText = appState.activeCall.serviceName;
+            activeCounterEl.innerText = appState.activeCall.counterName;
+        }
+
+        const tvGrid = document.getElementById('tv-counters-grid');
+        tvGrid.innerHTML = appState.counters.map(c => {
+            const currentQueue = appState.queues.find(q => q.counterId === c.id && (q.status === 'calling' || q.status === 'serving'));
+
+            return `
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
+                    <div class="flex items-center justify-between">
+                        <span class="font-extrabold text-white text-sm">${c.name}</span>
+                        ${c.status === 'open' 
+                            ? '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">Aktif</span>'
+                            : '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30">Tutup</span>'}
+                    </div>
+                    <div class="my-3 text-center">
+                        <span class="text-[10px] text-slate-400 block mb-0.5">Pesanan Siap:</span>
+                        <span class="text-3xl font-black font-mono-num text-amber-400">${currentQueue?.ticketCode || '-'}</span>
+                    </div>
+                    <div class="text-[11px] text-slate-400 truncate text-center pt-2 border-t border-slate-800">
+                        ${c.type}
+                    </div>
+                </div>
+            `;
+        }).join('');
+    },
+
+    async officerCallNext() {
+        const counter = appState.counters.find(c => c.id === appState.currentOfficer.counterId);
+        if (!counter) return;
+
+        const nextQueue = appState.queues.find(q => q.status === 'waiting');
+        if (!nextQueue) {
+            this.showToast('Tidak ada antrean pesanan makanan yang menunggu!', 'warning');
+            return;
+        }
+
+        if (this.syncMode === 'server') {
+            try {
+                const res = await fetch('/api/queue/call', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ queueId: nextQueue.id, counterId: counter.id })
+                });
+                if (res.ok) return;
+            } catch (e) {
+                console.warn('Call error, fallback lokal:', e);
+            }
+        }
+
+        this.executeCall(nextQueue, counter);
+    },
+
+    async officerCallDirect(queueId) {
+        const counter = appState.counters.find(c => c.id === appState.currentOfficer.counterId);
+        const queue = appState.queues.find(q => q.id === queueId);
+        if (!queue || !counter) return;
+
+        if (this.syncMode === 'server') {
+            try {
+                const res = await fetch('/api/queue/call', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ queueId: queue.id, counterId: counter.id })
+                });
+                if (res.ok) return;
+            } catch (e) {
+                console.warn('Call error, fallback lokal:', e);
+            }
+        }
+
+        this.executeCall(queue, counter);
+    },
+
+    async officerRecall() {
+        const counter = appState.counters.find(c => c.id === appState.currentOfficer.counterId);
+        const currentActive = appState.queues.find(q => q.counterId === counter?.id && (q.status === 'calling' || q.status === 'serving'));
+
+        if (!currentActive) {
+            this.showToast('Belum ada pesanan makanan yang dipanggil untuk diulang!', 'warning');
+            return;
+        }
+
+        if (this.syncMode === 'server') {
+            try {
+                const res = await fetch('/api/queue/recall', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ counterId: counter.id })
+                });
+                if (res.ok) return;
+            } catch (e) {
+                console.warn('Recall error, fallback lokal:', e);
+            }
+        }
+
+        currentActive.recallCount += 1;
+        currentActive.calledAt = new Date().toLocaleTimeString('id-ID', { hour12: false });
+        this.saveToLocalStorage();
+        this.broadcastEvent(currentActive, counter);
+        this.showToast(`Panggilan ulang pesanan ${currentActive.ticketCode}`, 'info');
+    },
+
+    async officerFinish() {
+        const counter = appState.counters.find(c => c.id === appState.currentOfficer.counterId);
+        const currentActive = appState.queues.find(q => q.counterId === counter?.id && (q.status === 'calling' || q.status === 'serving'));
+
+        if (!currentActive) {
+            this.showToast('Tidak ada antrean pesanan yang sedang aktif!', 'warning');
+            return;
+        }
+
+        if (this.syncMode === 'server') {
+            try {
+                const res = await fetch('/api/queue/finish', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ counterId: counter.id })
+                });
+                if (res.ok) {
+                    this.showToast(`Pesanan ${currentActive.ticketCode} telah diambil pelanggan`, 'success');
+                    return;
+                }
+            } catch (e) {
+                console.warn('Finish error, fallback lokal:', e);
+            }
+        }
+
+        currentActive.status = 'completed';
+        counter.currentTicketCode = '-';
+        this.saveToLocalStorage();
+        this.renderAll();
+        this.showToast(`Pesanan ${currentActive.ticketCode} telah diambil pelanggan`, 'success');
+    },
+
+    async officerSkip() {
+        const counter = appState.counters.find(c => c.id === appState.currentOfficer.counterId);
+        const currentActive = appState.queues.find(q => q.counterId === counter?.id && (q.status === 'calling' || q.status === 'serving'));
+
+        if (!currentActive) {
+            this.showToast('Tidak ada antrean aktif untuk dilewati!', 'warning');
+            return;
+        }
+
+        if (this.syncMode === 'server') {
+            try {
+                const res = await fetch('/api/queue/skip', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ counterId: counter.id })
+                });
+                if (res.ok) {
+                    this.showToast(`Pesanan ${currentActive.ticketCode} ditunda`, 'error');
+                    return;
+                }
+            } catch (e) {
+                console.warn('Skip error, fallback lokal:', e);
+            }
+        }
+
+        currentActive.status = 'skipped';
+        counter.currentTicketCode = '-';
+        this.saveToLocalStorage();
+        this.renderAll();
+        this.showToast(`Pesanan ${currentActive.ticketCode} ditunda`, 'error');
+    },
+
+    async setCounterStatus(status) {
+        const counter = appState.counters.find(c => c.id === appState.currentOfficer.counterId);
+        if (!counter) return;
+
+        ['open', 'break', 'closed'].forEach(s => {
+            const btn = document.getElementById(`status-btn-${s}`);
+            if (btn) {
+                if (s === status) {
+                    btn.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-600 text-white shadow transition';
+                } else {
+                    btn.className = 'px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-400 hover:text-white transition';
+                }
+            }
+        });
+
+        if (this.syncMode === 'server') {
+            try {
+                await fetch('/api/counter/status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ counterId: counter.id, status })
+                });
+            } catch (e) {}
+        }
+
+        counter.status = status;
+        this.saveToLocalStorage();
+        this.renderAll();
+        this.showToast(`Kondisi ${counter.name} diubah menjadi: ${status.toUpperCase()}`, 'info');
+    },
+
+    executeCall(queue, counter) {
+        appState.queues.forEach(q => {
+            if (q.counterId === counter.id && (q.status === 'calling' || q.status === 'serving')) {
+                q.status = 'completed';
+            }
+        });
+
+        queue.status = 'calling';
+        queue.counterId = counter.id;
+        queue.calledAt = new Date().toLocaleTimeString('id-ID', { hour12: false });
+        queue.recallCount += 1;
+        counter.currentTicketCode = queue.ticketCode;
+
+        this.saveToLocalStorage();
+        this.broadcastEvent(queue, counter);
+        this.showToast(`Pesanan ${queue.ticketCode} atas nama ${queue.userName} selesai dimasak!`, 'success');
+    },
+
+    broadcastEvent(queue, counter) {
+        const itemsStr = queue.items.map(it => `${it.qty}x ${it.name}`).join(', ');
+
+        appState.activeCall = {
+            ticketCode: queue.ticketCode,
+            customerName: queue.userName,
+            serviceName: 'Pesanan Selesai Dimasak',
+            counterName: counter?.name || 'Meja Pengambilan',
+            itemsPreview: itemsStr,
+            calledAt: queue.calledAt
+        };
+
+        this.saveToLocalStorage();
+        this.renderAll();
+
+        // Suara TTS Pemanggilan Makanan
+        const speechText = `Nomor antrean pesanan makanan, ${queue.ticketCode.replace('-', ' ')}, atas nama ${queue.userName.split('(')[0]}, pesanan sudah siap diambil di ${counter.name}`;
+        AudioEngine.speak(speechText);
+    },
+
+    async cancelMyTicket() {
+        const ticket = appState.queues.find(q => q.id === appState.currentUser.myTicketId);
+        if (ticket) {
+            if (this.syncMode === 'server') {
+                try {
+                    await fetch('/api/queue/cancel', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ ticketId: ticket.id })
+                    });
+                } catch (e) {}
+            }
+            ticket.status = 'cancelled';
+            appState.currentUser.myTicketId = null;
+            this.saveLocalUserData();
+            this.saveToLocalStorage();
+            this.renderAll();
+            this.showToast('Pesanan makanan berhasil dibatalkan', 'info');
+        }
+    },
+
+    async resetDemoData() {
+        if (this.syncMode === 'server') {
+            try {
+                const res = await fetch('/api/reset', { method: 'POST' });
+                if (res.ok) {
+                    this.showToast('Data antrean di server berhasil di-reset', 'info');
+                    return;
+                }
+            } catch (e) {}
+        }
+
+        appState.queues = [
+            {
+                id: 101,
+                ticketCode: 'M-001',
+                queueNumber: 1,
+                status: 'serving',
+                counterId: 1,
+                userId: 99,
+                userName: 'Bu Nita (Meja 03)',
+                calledAt: '08:05:12',
+                recallCount: 1,
+                items: [
+                    { id: 2, name: 'Ayam Bakar Madu Pedas', qty: 2, price: 30000 },
+                    { id: 7, name: 'Es Teh Manis Melati Jumbo', qty: 2, price: 6000 }
+                ],
+                totalAmount: 72000
+            },
+            {
+                id: 102,
+                ticketCode: 'M-002',
+                queueNumber: 2,
+                status: 'waiting',
+                counterId: null,
+                userId: 1,
+                userName: 'Rian Saputra (Meja 08)',
+                calledAt: null,
+                recallCount: 0,
+                items: [
+                    { id: 1, name: 'Nasi Goreng Spesial Toko', qty: 1, price: 26000 },
+                    { id: 7, name: 'Es Teh Manis Melati Jumbo', qty: 2, price: 6000 }
+                ],
+                totalAmount: 38000
+            }
+        ];
+        appState.currentUser.myTicketId = 102;
+        appState.activeCall = {
+            ticketCode: 'M-001',
+            customerName: 'Bu Nita (Meja 03)',
+            serviceName: 'Pesanan Selesai Dimasak',
+            counterName: 'Meja Pengambilan 01',
+            itemsPreview: '2x Ayam Bakar Madu Pedas, 2x Es Teh Manis Jumbo',
+            calledAt: '08:05:12'
+        };
+        this.saveToLocalStorage();
+        this.renderAll();
+        this.showToast('Data simulasi antrean toko makanan di-reset', 'info');
+    },
+
+    showToast(message, type = 'info') {
+        const box = document.getElementById('toast-box');
+        if (!box) return;
+        const toast = document.createElement('div');
+        
+        let colorClass = 'bg-amber-600 border-amber-400 text-white';
+        let icon = 'fa-info-circle';
+        if (type === 'success') {
+            colorClass = 'bg-emerald-600 border-emerald-400 text-white';
+            icon = 'fa-circle-check';
+        } else if (type === 'warning') {
+            colorClass = 'bg-amber-600 border-amber-400 text-white';
+            icon = 'fa-triangle-exclamation';
+        } else if (type === 'error') {
+            colorClass = 'bg-rose-600 border-rose-400 text-white';
+            icon = 'fa-circle-xmark';
+        }
+
+        toast.className = `flex items-center gap-3 px-4 py-3 rounded-2xl border shadow-2xl text-xs font-semibold transform transition-all duration-300 translate-y-2 opacity-0 pointer-events-auto ${colorClass}`;
+        toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i><span>${message}</span>`;
+        box.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.remove('translate-y-2', 'opacity-0');
+        }, 10);
+
+        setTimeout(() => {
+            toast.classList.add('opacity-0', 'translate-y-2');
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 300);
+        }, 3500);
+    }
+};
+
+window.addEventListener('DOMContentLoaded', () => {
+    app.init();
+});
+</script>
+</body>
+</html>

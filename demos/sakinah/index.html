@@ -1,0 +1,1886 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sakinah - Manajemen & Mutaba'ah Sholat</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts: Inter & Amiri (Arabic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            emerald: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22'
+            },
+            gold: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            arabic: ['Amiri', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-arabic {
+      font-family: 'Amiri', serif;
+    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(16, 185, 129, 0.3);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(16, 185, 129, 0.6);
+    }
+    /* Glassmorphism effects */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .glass-dark {
+      background: rgba(6, 78, 59, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+    @keyframes pulse-gentle {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.88; transform: scale(1.02); }
+    }
+    .animate-pulse-gentle {
+      animation: pulse-gentle 3s ease-in-out infinite;
+    }
+    .compass-dial {
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white pb-24 md:pb-10">
+
+  <!-- Top Application Header -->
+  <header class="sticky top-0 z-40 bg-emerald-900 text-white shadow-md border-b border-emerald-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- App Branding -->
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-300 flex items-center justify-center text-emerald-950 font-bold shadow-lg shadow-emerald-950/30">
+          <i class="fa-solid fa-mosque text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-bold text-lg tracking-tight">Sakinah</span>
+            <span class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-800 text-emerald-300 border border-emerald-700">Pro</span>
+          </div>
+          <p class="text-xs text-emerald-300/80">Manajemen Ibadah & Waktu Sholat</p>
+        </div>
+      </div>
+
+      <!-- Quick Location Selector & Header Actions -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <!-- City Selector Dropdown -->
+        <div class="relative">
+          <select id="citySelect" class="bg-emerald-800/90 text-xs sm:text-sm text-emerald-100 rounded-lg px-3 py-1.5 pr-8 border border-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-400 cursor-pointer appearance-none">
+            <option value="Jakarta">Jakarta (WIB)</option>
+            <option value="Bekasi">Bekasi (WIB)</option>
+            <option value="Bandung">Bandung (WIB)</option>
+            <option value="Surabaya">Surabaya (WIB)</option>
+            <option value="Semarang">Semarang (WIB)</option>
+            <option value="Yogyakarta">Yogyakarta (WIB)</option>
+            <option value="Medan">Medan (WIB)</option>
+            <option value="Palembang">Palembang (WIB)</option>
+            <option value="Makassar">Makassar (WITA)</option>
+            <option value="Denpasar">Denpasar (WITA)</option>
+            <option value="Banjarmasin">Banjarmasin (WITA)</option>
+            <option value="Jayapura">Jayapura (WIT)</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-emerald-300">
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+          </div>
+        </div>
+
+        <!-- Backup / Data Action -->
+        <button onclick="openModal('backupModal')" title="Cadangan Data" class="w-9 h-9 flex items-center justify-center rounded-lg bg-emerald-800 text-emerald-200 hover:bg-emerald-700 hover:text-white transition">
+          <i class="fa-solid fa-cloud-arrow-down text-sm"></i>
+        </button>
+
+        <!-- Audio Alert Toggle -->
+        <button id="soundToggleBtn" onclick="toggleAudioChime()" title="Tes Nada Adzan" class="w-9 h-9 flex items-center justify-center rounded-lg bg-emerald-800 text-emerald-200 hover:bg-emerald-700 hover:text-white transition">
+          <i id="soundToggleIcon" class="fa-solid fa-bell text-sm"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Desktop Navigation Bar -->
+  <nav class="hidden md:block bg-white border-b border-slate-200 sticky top-16 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex space-x-8">
+        <button onclick="switchTab('dashboard')" class="tab-link border-b-2 border-emerald-600 text-emerald-700 py-3.5 px-1 inline-flex items-center text-sm font-semibold transition" data-target="dashboard">
+          <i class="fa-solid fa-clock mr-2 text-base"></i> Ikhtisar Waktu
+        </button>
+        <button onclick="switchTab('mutabaah')" class="tab-link border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 py-3.5 px-1 inline-flex items-center text-sm font-medium transition" data-target="mutabaah">
+          <i class="fa-solid fa-calendar-check mr-2 text-base"></i> Mutaba'ah Harian
+        </button>
+        <button onclick="switchTab('qadha')" class="tab-link border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 py-3.5 px-1 inline-flex items-center text-sm font-medium transition" data-target="qadha">
+          <i class="fa-solid fa-scale-balanced mr-2 text-base"></i> Hutang Sholat (Qadha)
+        </button>
+        <button onclick="switchTab('tasbih')" class="tab-link border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 py-3.5 px-1 inline-flex items-center text-sm font-medium transition" data-target="tasbih">
+          <i class="fa-solid fa-fingerprint mr-2 text-base"></i> Tasbih & Dzikir
+        </button>
+        <button onclick="switchTab('kiblat')" class="tab-link border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 py-3.5 px-1 inline-flex items-center text-sm font-medium transition" data-target="kiblat">
+          <i class="fa-solid fa-compass mr-2 text-base"></i> Arah Kiblat & Jadwal
+        </button>
+        <button onclick="switchTab('statistik')" class="tab-link border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 py-3.5 px-1 inline-flex items-center text-sm font-medium transition" data-target="statistik">
+          <i class="fa-solid fa-chart-line mr-2 text-base"></i> Laporan Disiplin
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Viewport Container -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- HERO: Countdown & Current Status Banner -->
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-950 text-white shadow-xl p-6 sm:p-8 mb-8 border border-emerald-700/50">
+      <!-- Islamic Geometric Background Art Pattern (Inline SVG) -->
+      <div class="absolute -right-12 -bottom-12 opacity-10 pointer-events-none">
+        <svg width="280" height="280" viewBox="0 0 100 100" fill="currentColor">
+          <polygon points="50 0, 61 35, 98 35, 68 57, 79 91, 50 70, 21 91, 32 57, 2 35, 39 35" />
+          <polygon points="50 100, 61 65, 98 65, 68 43, 79 9, 50 30, 21 9, 32 43, 2 65, 39 65" />
+        </svg>
+      </div>
+
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- Left Column: Dates & Prayer Status -->
+        <div class="lg:col-span-7 space-y-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="gregorianDateBadge" class="bg-emerald-700/60 text-emerald-200 text-xs px-3 py-1 rounded-full border border-emerald-600/60 font-medium">
+              <i class="fa-regular fa-calendar mr-1"></i> Memuat tanggal...
+            </span>
+            <span id="hijriDateBadge" class="bg-amber-400/20 text-amber-300 text-xs px-3 py-1 rounded-full border border-amber-400/30 font-medium">
+              <i class="fa-solid fa-moon mr-1"></i> Memuat Hijriah...
+            </span>
+          </div>
+
+          <div class="pt-2">
+            <p class="text-xs uppercase tracking-wider text-emerald-300 font-semibold flex items-center">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-2"></span>
+              Menuju Waktu Sholat Berikutnya
+            </p>
+            <div class="flex items-baseline space-x-3 mt-1">
+              <h1 id="nextPrayerName" class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">-</h1>
+              <span id="nextPrayerTime" class="text-xl sm:text-2xl font-bold text-amber-400">--:--</span>
+            </div>
+          </div>
+
+          <p id="motivationalHadith" class="text-xs sm:text-sm text-emerald-200/90 italic pt-1 max-w-xl">
+            "Sholat adalah tiang agama; barangsiapa mendirikannya, maka sesungguhnya ia telah mendirikan agama."
+          </p>
+        </div>
+
+        <!-- Right Column: Live Clock & Countdown Progress -->
+        <div class="lg:col-span-5 bg-emerald-950/50 rounded-2xl p-4 sm:p-5 border border-emerald-700/40 flex flex-col justify-between">
+          <div class="flex justify-between items-center text-xs text-emerald-300 mb-2">
+            <span>Waktu Lokal Saat Ini</span>
+            <span id="currentCityLabel" class="font-semibold text-white">Jakarta</span>
+          </div>
+          
+          <div class="flex items-baseline justify-between mb-3">
+            <div id="liveClock" class="text-3xl sm:text-4xl font-mono font-bold tracking-tight text-white">00:00:00</div>
+            <div class="text-right">
+              <div class="text-xs text-emerald-300">Sisa Waktu</div>
+              <div id="countdownTimer" class="text-lg font-mono font-bold text-amber-300">--j --m --d</div>
+            </div>
+          </div>
+
+          <!-- Progress Bar to Next Prayer -->
+          <div>
+            <div class="w-full bg-emerald-900 rounded-full h-2 overflow-hidden">
+              <div id="prayerProgressFill" class="bg-gradient-to-r from-teal-400 to-amber-400 h-2 rounded-full transition-all duration-500" style="width: 45%;"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-emerald-400/80 mt-1">
+              <span id="prevPrayerLabel">-</span>
+              <span id="nextPrayerLabel">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 1: IKHTISAR (DASHBOARD) -->
+    <div id="tab-dashboard" class="tab-content block space-y-8">
+      <!-- 5 Daily Prayers Dynamic Cards -->
+      <section>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-slate-800 flex items-center">
+            <i class="fa-solid fa-clock-four text-emerald-600 mr-2"></i> Jadwal Sholat Hari Ini
+          </h2>
+          <span class="text-xs text-slate-500 font-medium">Metode Kemenag RI (+2m Ihtiyat)</span>
+        </div>
+
+        <div id="dailyPrayersCards" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+          <!-- Populated by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Quick Habits & Today's Mutaba'ah Summary -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Today's Score Card -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-slate-800 text-sm sm:text-base">Kepatuhan Hari Ini</h3>
+              <span id="todayScoreBadge" class="px-2.5 py-1 text-xs rounded-full font-bold bg-emerald-100 text-emerald-800">0%</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-4">Pencapaian ibadah fardhu & sunnah hari ini.</p>
+            
+            <div class="relative w-32 h-32 mx-auto mb-4 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                <path class="text-slate-100" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path id="circleProgressScore" class="text-emerald-500 transition-all duration-700 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <div class="absolute flex flex-col items-center">
+                <span id="circleScoreNumber" class="text-2xl font-black text-slate-800">0%</span>
+                <span class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Terlaksana</span>
+              </div>
+            </div>
+          </div>
+
+          <button onclick="switchTab('mutabaah')" class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-700 text-xs font-semibold transition flex items-center justify-center space-x-2">
+            <span>Buka Jurnal Mutaba'ah Lengkap</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+        </div>
+
+        <!-- Quick Fardhu Checkbox Widget -->
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="font-bold text-slate-800 text-sm sm:text-base">Centang Cepat Sholat Fardhu</h3>
+              <p class="text-xs text-slate-500">Tandai status sholat Anda untuk memperbarui jurnal harian</p>
+            </div>
+            <button onclick="resetTodayChecklist()" class="text-xs text-slate-400 hover:text-red-500 transition flex items-center">
+              <i class="fa-solid fa-rotate-left mr-1"></i> Reset Hari Ini
+            </button>
+          </div>
+
+          <div id="quickChecklistContainer" class="space-y-3">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Islamic Daily Wisdom Card -->
+      <div class="bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-teal-500/10 border border-emerald-200 rounded-2xl p-5 flex items-start space-x-4">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+          <i class="fa-solid fa-lightbulb text-lg"></i>
+        </div>
+        <div class="space-y-1">
+          <h4 class="text-sm font-bold text-slate-800">Keutamaan Sholat Tepat Waktu</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Dari Abdullah bin Mas'ud radhiyallahu 'anhu, ia berkata: "Aku bertanya kepada Rasulullah SAW: 'Amalan apakah yang paling dicintai oleh Allah?' Beliau menjawab: 'Sholat pada waktunya.' Aku bertanya lagi: 'Kemudian apa?' Beliau menjawab: 'Berbakti kepada kedua orang tua.' Aku bertanya: 'Kemudian apa?' Beliau menjawab: 'Jihad di jalan Allah.'" (HR. Bukhari dan Muslim).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: MUTABA'AH HARIAN (DETAILED JOURNAL) -->
+    <div id="tab-mutabaah" class="tab-content hidden space-y-6">
+      <!-- Date Navigator Bar -->
+      <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center space-x-2">
+          <button onclick="navigateDate(-1)" class="w-9 h-9 rounded-xl border border-slate-200 hover:bg-slate-100 flex items-center justify-center text-slate-600 transition">
+            <i class="fa-solid fa-chevron-left text-xs"></i>
+          </button>
+          <div class="text-left px-2">
+            <h3 id="mutabaahCurrentDateText" class="font-bold text-sm text-slate-800">Hari Ini</h3>
+            <p id="mutabaahCurrentHijriText" class="text-xs text-emerald-600 font-medium">-</p>
+          </div>
+          <button onclick="navigateDate(1)" class="w-9 h-9 rounded-xl border border-slate-200 hover:bg-slate-100 flex items-center justify-center text-slate-600 transition">
+            <i class="fa-solid fa-chevron-right text-xs"></i>
+          </button>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="goToToday()" class="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 text-xs font-semibold hover:bg-emerald-100 transition">
+            Kembali ke Hari Ini
+          </button>
+          <input type="date" id="mutabaahDatePicker" onchange="onDatePickerChange(this.value)" class="text-xs border border-slate-200 rounded-xl px-3 py-1.5 text-slate-600 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+        </div>
+      </div>
+
+      <!-- Fardhu Prayer Detailed Tracking -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+        <div class="border-b border-slate-100 pb-4 mb-4 flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-slate-800 text-base flex items-center">
+              <i class="fa-solid fa-kaaba text-emerald-600 mr-2"></i> 5 Sholat Fardhu
+            </h3>
+            <p class="text-xs text-slate-500">Pilih kualitas pelaksanaan sholat wajib Anda.</p>
+          </div>
+          <span class="text-xs font-semibold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg">Wajib</span>
+        </div>
+
+        <div id="fardhuDetailList" class="space-y-4">
+          <!-- Populated by JavaScript with congregation & timeliness options -->
+        </div>
+      </div>
+
+      <!-- Sunnah Prayers & Daily Adhkar Tracking -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Sunnah Prayers -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+          <div class="border-b border-slate-100 pb-4 mb-4">
+            <h3 class="font-bold text-slate-800 text-base flex items-center">
+              <i class="fa-solid fa-star-and-crescent text-amber-500 mr-2"></i> Sholat Sunnah
+            </h3>
+            <p class="text-xs text-slate-500">Amalan penyempurna sholat fardhu.</p>
+          </div>
+
+          <div id="sunnahChecklistContainer" class="space-y-3">
+            <!-- Tahajjud, Rawatib, Dhuha, Witir, etc. -->
+          </div>
+        </div>
+
+        <!-- Reflection & Notes for the Day -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="border-b border-slate-100 pb-4 mb-4">
+              <h3 class="font-bold text-slate-800 text-base flex items-center">
+                <i class="fa-solid fa-pen-fancy text-teal-600 mr-2"></i> Catatan Muhasabah Diri
+              </h3>
+              <p class="text-xs text-slate-500">Tuliskan evaluasi atau rasa syukur ibadah hari ini.</p>
+            </div>
+            <textarea id="dailyReflectionNote" rows="6" placeholder="Contoh: Hari ini sholat Subuh dan Isya berjamaah di masjid. Besok bertekad menjaga Dhuha 4 rakaat..." class="w-full p-3 rounded-xl border border-slate-200 text-xs sm:text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none resize-none"></textarea>
+          </div>
+
+          <div class="pt-4 flex justify-end">
+            <button onclick="saveDailyReflection()" class="px-4 py-2 bg-emerald-600 text-white rounded-xl text-xs font-semibold hover:bg-emerald-700 transition flex items-center space-x-2">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Simpan Catatan</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: HUTANG SHOLAT (QADHA) -->
+    <div id="tab-qadha" class="tab-content hidden space-y-6">
+      <!-- Qadha Introduction Banner -->
+      <div class="bg-gradient-to-r from-amber-900 via-amber-800 to-yellow-950 rounded-3xl p-6 sm:p-8 text-white shadow-lg border border-amber-700/50">
+        <div class="max-w-2xl">
+          <span class="px-3 py-1 bg-amber-500/20 text-amber-300 rounded-full text-xs font-semibold border border-amber-500/30">
+            Fikih Qadha Sholat
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight mt-3 mb-2">
+            Manajemen Pengganti Hutang Sholat
+          </h2>
+          <p class="text-amber-100/80 text-xs sm:text-sm leading-relaxed">
+            "Barangsiapa lupa sholat atau tertidur darinya, maka tebusannya adalah ia sholat ketika ia mengingatnya." (HR. Bukhari & Muslim). Kelola dan catat setiap rakaat yang telah Anda tunaikan kembali secara terstruktur dan terukur.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-amber-800/60">
+          <div>
+            <span class="text-xs text-amber-300">Total Hutang Awal</span>
+            <div id="qadhaTotalInitial" class="text-xl sm:text-2xl font-black text-white">0</div>
+          </div>
+          <div>
+            <span class="text-xs text-amber-300">Telah Diqadha</span>
+            <div id="qadhaTotalCompleted" class="text-xl sm:text-2xl font-black text-emerald-400">0</div>
+          </div>
+          <div>
+            <span class="text-xs text-amber-300">Sisa Hutang</span>
+            <div id="qadhaTotalRemaining" class="text-xl sm:text-2xl font-black text-amber-300">0</div>
+          </div>
+          <div>
+            <span class="text-xs text-amber-300">Persentase Selesai</span>
+            <div id="qadhaPercentCompleted" class="text-xl sm:text-2xl font-black text-teal-300">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Qadha Counters per Fardhu Prayer -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+          <div>
+            <h3 class="font-bold text-slate-800 text-base">Hitungan Sholat Fardhu yang Diqadha</h3>
+            <p class="text-xs text-slate-500">Tekan tombol (+) saat selesai mengqadha atau atur target awal Anda.</p>
+          </div>
+          <button onclick="openModal('qadhaSetupModal')" class="px-3.5 py-2 bg-amber-50 text-amber-800 border border-amber-200 rounded-xl text-xs font-semibold hover:bg-amber-100 transition flex items-center space-x-1.5">
+            <i class="fa-solid fa-sliders"></i>
+            <span>Atur Jumlah Awal</span>
+          </button>
+        </div>
+
+        <div id="qadhaCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <!-- Populated by JavaScript for Subuh, Dzuhur, Ashar, Maghrib, Isya -->
+        </div>
+      </div>
+
+      <!-- Qadha Planner & Estimation -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+        <h3 class="font-bold text-slate-800 text-base mb-2">Simulasi & Target Penyelesaian</h3>
+        <p class="text-xs text-slate-500 mb-6">Hitung berapa lama waktu yang Anda butuhkan berdasarkan komitmen harian.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+          <div class="space-y-2">
+            <label class="text-xs font-semibold text-slate-700">Rencana Qadha per Hari:</label>
+            <div class="flex items-center space-x-3">
+              <input type="range" id="qadhaPaceSlider" min="1" max="10" value="2" oninput="updateQadhaEstimation(this.value)" class="w-full accent-emerald-600">
+              <span id="qadhaPaceDisplay" class="font-bold text-emerald-700 text-sm w-12 text-center">2x/hr</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Misal: 2 kali sehari (setelah sholat fardhu sekarang mengqadha 1 kali sholat qadha).</p>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+            <span class="text-xs text-slate-500">Estimasi Waktu Selesai</span>
+            <div id="qadhaEstimatedDays" class="text-xl font-black text-slate-800 mt-1">0 Hari</div>
+            <span id="qadhaEstimatedDate" class="text-[11px] text-emerald-600 font-medium">Bulan Tahun</span>
+          </div>
+
+          <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center">
+            <span class="text-xs text-slate-500">Kunci Istiqomah</span>
+            <p class="text-xs text-slate-700 font-medium mt-1">"Amalan yang paling dicintai Allah adalah yang berkelanjutan meskipun sedikit."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: TASBIH DIGITAL & DZIKIR -->
+    <div id="tab-tasbih" class="tab-content hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Interactive Tasbih Counter Unit -->
+        <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 flex flex-col items-center justify-between">
+          <div class="w-full flex items-center justify-between mb-4">
+            <div>
+              <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Tasbih Digital</span>
+              <h3 id="currentDhikrTitle" class="font-bold text-slate-800 text-lg">Subhanallah</h3>
+            </div>
+            <!-- Target Selector -->
+            <div class="flex items-center space-x-1 bg-slate-100 p-1 rounded-xl">
+              <button onclick="setTasbihTarget(33)" class="target-btn px-2.5 py-1 text-xs rounded-lg font-bold bg-white text-emerald-700 shadow-sm" data-target="33">33</button>
+              <button onclick="setTasbihTarget(99)" class="target-btn px-2.5 py-1 text-xs rounded-lg font-medium text-slate-600 hover:text-slate-900" data-target="99">99</button>
+              <button onclick="setTasbihTarget(100)" class="target-btn px-2.5 py-1 text-xs rounded-lg font-medium text-slate-600 hover:text-slate-900" data-target="100">100</button>
+              <button onclick="setTasbihTarget(0)" class="target-btn px-2.5 py-1 text-xs rounded-lg font-medium text-slate-600 hover:text-slate-900" data-target="0">&infin;</button>
+            </div>
+          </div>
+
+          <!-- Arabic Display -->
+          <div class="my-4 text-center">
+            <div id="currentDhikrArabic" class="font-arabic text-4xl sm:text-5xl text-emerald-800 leading-relaxed">
+              سُبْحَانَ اللَّهِ
+            </div>
+            <p id="currentDhikrMeaning" class="text-xs text-slate-500 mt-2 italic">"Maha Suci Allah"</p>
+          </div>
+
+          <!-- Circular Big Touch Counter Button -->
+          <div class="my-6 relative flex items-center justify-center">
+            <button id="tasbihTapBtn" onclick="incrementTasbih()" class="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-tr from-emerald-600 via-emerald-500 to-teal-400 text-white shadow-2xl shadow-emerald-500/30 flex flex-col items-center justify-center active:scale-95 transition-transform duration-100 select-none border-4 border-white/40 focus:outline-none">
+              <span id="tasbihCounterDisplay" class="text-5xl sm:text-6xl font-black font-mono tracking-tight">0</span>
+              <span class="text-xs uppercase tracking-widest text-emerald-100 font-bold mt-1">Ketuk / Spasi</span>
+            </button>
+          </div>
+
+          <!-- Action Controls (Reset, Sound, Vibrate) -->
+          <div class="w-full flex items-center justify-between pt-4 border-t border-slate-100">
+            <button onclick="resetTasbih()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-red-600 hover:bg-red-50 transition flex items-center space-x-1.5">
+              <i class="fa-solid fa-arrow-rotate-left"></i>
+              <span>Nolkan</span>
+            </button>
+
+            <div class="text-xs text-slate-400">
+              Putaran: <span id="tasbihLapCount" class="font-bold text-slate-700">0</span>
+            </div>
+
+            <button onclick="switchDhikrNext()" class="px-4 py-2 rounded-xl text-xs font-semibold text-emerald-700 hover:bg-emerald-50 transition flex items-center space-x-1.5">
+              <span>Ganti Dzikir</span>
+              <i class="fa-solid fa-forward"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Post-Prayer Dhikr Guide -->
+        <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-4">
+          <div>
+            <h3 class="font-bold text-slate-800 text-base">Panduan Dzikir Sesudah Sholat</h3>
+            <p class="text-xs text-slate-500">Dzikir ma'tsur yang diajarkan oleh Rasulullah SAW.</p>
+          </div>
+
+          <div class="space-y-3 max-h-[460px] overflow-y-auto pr-1">
+            <!-- Dhikr 1: Istighfar -->
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-emerald-300 transition">
+              <div class="flex justify-between items-start mb-2">
+                <span class="text-xs font-bold text-emerald-700">1. Istighfar (3x)</span>
+                <button onclick="loadPresetDhikr('Astaghfirullah', 'أَسْتَغْفِرُ اللَّهَ', 'Aku memohon ampunan kepada Allah', 3)" class="text-xs text-slate-400 hover:text-emerald-600">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i> Gunakan
+                </button>
+              </div>
+              <p class="font-arabic text-2xl text-right text-slate-800 my-1">أَسْتَغْفِرُ اللَّهَ (٣×)</p>
+              <p class="text-xs text-slate-600 italic">"Astaghfirullah" (3x)</p>
+            </div>
+
+            <!-- Dhikr 2: Doa Keselamatan -->
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-emerald-300 transition">
+              <span class="text-xs font-bold text-emerald-700">2. Doa Keselamatan</span>
+              <p class="font-arabic text-xl text-right text-slate-800 my-2">اللَّهُمَّ أَنْتَ السَّلاَمُ وَمِنْكَ السَّلاَمُ تَبَارَكْتَ يَا ذَا الْجَلاَلِ وَالإِكْرَامِ</p>
+              <p class="text-xs text-slate-600 italic">"Allahumma antas salam wa minkas salam tabarakta ya dzal jalali wal ikram."</p>
+            </div>
+
+            <!-- Dhikr 3: Tasbih 33x -->
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-emerald-300 transition">
+              <div class="flex justify-between items-start mb-1">
+                <span class="text-xs font-bold text-emerald-700">3. Tasbih, Tahmid, Takbir (masing-masing 33x)</span>
+                <button onclick="loadPresetDhikr('Subhanallah', 'سُبْحَانَ اللَّهِ', 'Maha Suci Allah', 33)" class="text-xs text-slate-400 hover:text-emerald-600">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i> Gunakan
+                </button>
+              </div>
+              <p class="font-arabic text-xl text-right text-slate-800 my-1">سُبْحَانَ اللَّهِ (٣٣×) • الْحَمْدُ لِلَّهِ (٣٣×) • اللَّهُ أَكْبَرُ (٣٣×)</p>
+              <p class="text-xs text-slate-500 text-[11px] mt-1">Menghapus dosa-dosa sekalipun sebanyak buih di lautan (HR. Muslim).</p>
+            </div>
+
+            <!-- Dhikr 4: Ayat Kursi -->
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-emerald-300 transition">
+              <span class="text-xs font-bold text-emerald-700">4. Membaca Ayat Kursi</span>
+              <p class="text-xs text-slate-600 mt-1">"Barangsiapa membaca Ayat Kursi setiap selesai sholat fardhu, tiada yang menghalanginya masuk surga selain kematian." (HR. An-Nasa'i).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: ARAH KIBLAT & JADWAL LENGKAP -->
+    <div id="tab-kiblat" class="tab-content hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Qibla Direction Visualizer Card -->
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 flex flex-col items-center justify-between text-center">
+          <div>
+            <span class="text-xs uppercase tracking-wider text-emerald-600 font-bold">Arah Kiblat</span>
+            <h3 class="text-lg font-bold text-slate-800 mt-1">Kompas Arah Ka'bah</h3>
+            <p class="text-xs text-slate-500 mt-1">Berdasarkan koordinat kota terpilih.</p>
+          </div>
+
+          <!-- Animated Compass Graphic -->
+          <div class="my-6 relative w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center">
+            <!-- Dial Frame -->
+            <div class="w-full h-full rounded-full border-4 border-slate-200 bg-gradient-to-b from-slate-50 to-slate-100 relative shadow-inner flex items-center justify-center">
+              <!-- Cardinal Points -->
+              <span class="absolute top-2 text-xs font-extrabold text-red-500">U</span>
+              <span class="absolute right-3 text-xs font-extrabold text-slate-400">T</span>
+              <span class="absolute bottom-2 text-xs font-extrabold text-slate-400">S</span>
+              <span class="absolute left-3 text-xs font-extrabold text-slate-400">B</span>
+
+              <!-- Compass Needle / Kaaba Needle -->
+              <div id="compassNeedle" class="absolute w-full h-full flex items-center justify-center compass-dial pointer-events-none" style="transform: rotate(295deg);">
+                <!-- Needle Pointer -->
+                <div class="flex flex-col items-center h-full justify-between py-5">
+                  <div class="flex flex-col items-center">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-700 text-amber-300 flex items-center justify-center text-xs shadow-md border border-amber-400/60 font-bold">
+                      <i class="fa-solid fa-kaaba text-sm"></i>
+                    </div>
+                    <div class="w-1.5 h-14 bg-gradient-to-t from-emerald-600 to-emerald-400 rounded-full shadow"></div>
+                  </div>
+                  <div class="w-1.5 h-14 bg-slate-300 rounded-full"></div>
+                </div>
+              </div>
+
+              <!-- Compass Center Pin -->
+              <div class="w-4 h-4 rounded-full bg-slate-700 border-2 border-white shadow-md z-10"></div>
+            </div>
+          </div>
+
+          <!-- Qibla Degree Info -->
+          <div class="w-full bg-slate-50 rounded-2xl p-3 border border-slate-200">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-slate-500">Derajat dari Utara:</span>
+              <span id="qiblaDegreeText" class="font-bold text-emerald-800 text-sm">295.1° (Barat Laut)</span>
+            </div>
+            <div class="flex justify-between items-center text-xs mt-1">
+              <span class="text-slate-500">Jarak ke Makkah:</span>
+              <span id="qiblaDistanceText" class="font-semibold text-slate-700">~7.920 km</span>
+            </div>
+          </div>
+
+          <p class="text-[11px] text-slate-400 mt-4 leading-normal">
+            *Posisikan smartphone datar. Di Indonesia arah kiblat umumnya berkisar antara 290° - 295° searah jarum jam dari arah Utara.
+          </p>
+        </div>
+
+        <!-- Full Monthly Timetable Generator -->
+        <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="font-bold text-slate-800 text-base">Jadwal Sholat Bulanan</h3>
+              <p id="monthlyTimetableSubtitle" class="text-xs text-slate-500">Bulan Ini</p>
+            </div>
+            <!-- Month & Year Selector -->
+            <div class="flex items-center space-x-2">
+              <select id="scheduleMonthSelect" onchange="renderMonthlyTimetable()" class="text-xs border border-slate-200 rounded-xl px-2.5 py-1.5 bg-white text-slate-700 font-medium">
+                <option value="0">Januari</option>
+                <option value="1">Februari</option>
+                <option value="2">Maret</option>
+                <option value="3">April</option>
+                <option value="4">Mei</option>
+                <option value="5">Juni</option>
+                <option value="6">Juli</option>
+                <option value="7">Agustus</option>
+                <option value="8">September</option>
+                <option value="9">Oktober</option>
+                <option value="10">November</option>
+                <option value="11">Desember</option>
+              </select>
+              <select id="scheduleYearSelect" onchange="renderMonthlyTimetable()" class="text-xs border border-slate-200 rounded-xl px-2.5 py-1.5 bg-white text-slate-700 font-medium">
+                <!-- Dynamically populated -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Table with Scroll -->
+          <div class="overflow-x-auto border border-slate-200 rounded-2xl max-h-[440px] overflow-y-auto">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-100 text-slate-700 sticky top-0 font-semibold">
+                <tr>
+                  <th class="py-2.5 px-3">Tgl</th>
+                  <th class="py-2.5 px-3">Imsak</th>
+                  <th class="py-2.5 px-3 text-emerald-800">Subuh</th>
+                  <th class="py-2.5 px-3 text-slate-400">Terbit</th>
+                  <th class="py-2.5 px-3">Dzuhur</th>
+                  <th class="py-2.5 px-3">Ashar</th>
+                  <th class="py-2.5 px-3 text-amber-700">Maghrib</th>
+                  <th class="py-2.5 px-3">Isya</th>
+                </tr>
+              </thead>
+              <tbody id="monthlyTimetableBody" class="divide-y divide-slate-100">
+                <!-- Populated by JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: STATISTIK & LAPORAN DISIPLIN -->
+    <div id="tab-statistik" class="tab-content hidden space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Stat Card 1 -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-semibold">Streak Ibadah</span>
+            <i class="fa-solid fa-fire text-amber-500 text-base"></i>
+          </div>
+          <div id="statsStreakDays" class="text-2xl font-black text-slate-800">7 Hari</div>
+          <span class="text-[11px] text-emerald-600 font-medium">Pertahankan kebiasaan baik!</span>
+        </div>
+
+        <!-- Stat Card 2 -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-semibold">Tepat Waktu (7 Hari)</span>
+            <i class="fa-solid fa-bullseye text-emerald-500 text-base"></i>
+          </div>
+          <div id="statsOnTimePercent" class="text-2xl font-black text-emerald-700">85%</div>
+          <span class="text-[11px] text-slate-400">Dari seluruh fardhu tercatat</span>
+        </div>
+
+        <!-- Stat Card 3 -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-semibold">Berjamaah</span>
+            <i class="fa-solid fa-users text-teal-600 text-base"></i>
+          </div>
+          <div id="statsCongregationCount" class="text-2xl font-black text-slate-800">24x</div>
+          <span class="text-[11px] text-slate-400">Pahala 27 derajat</span>
+        </div>
+
+        <!-- Stat Card 4 -->
+        <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between text-slate-500 mb-2">
+            <span class="text-xs font-semibold">Qadha Ditunaikan</span>
+            <i class="fa-solid fa-circle-check text-amber-500 text-base"></i>
+          </div>
+          <div id="statsQadhaCleared" class="text-2xl font-black text-slate-800">12 Rakaat</div>
+          <span class="text-[11px] text-teal-600 font-medium">Kewajiban berkurang</span>
+        </div>
+      </div>
+
+      <!-- Weekly Chart Visualization (Pure Lightweight Responsive SVG) -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="font-bold text-slate-800 text-base">Grafik Konsistensi 7 Hari Terakhir</h3>
+            <p class="text-xs text-slate-500">Jumlah sholat fardhu yang terlaksana tepat waktu atau berjamaah.</p>
+          </div>
+          <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full font-medium">Maks: 5 Waktu/hari</span>
+        </div>
+
+        <div id="weeklyBarsContainer" class="grid grid-cols-7 gap-2 sm:gap-4 h-48 items-end pt-8 pb-2 px-2 bg-slate-50 rounded-xl border border-slate-100">
+          <!-- Populated by JavaScript with responsive bars -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Mobile Bottom Navigation Bar (Persistent for Seamless Smartphone Usage) -->
+  <nav class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-2 py-1 shadow-lg">
+    <div class="grid grid-cols-5 gap-1 text-center">
+      <button onclick="switchTab('dashboard')" class="mobile-tab py-1.5 px-1 flex flex-col items-center text-emerald-700 font-semibold" data-target="dashboard">
+        <i class="fa-solid fa-clock text-base"></i>
+        <span class="text-[10px] mt-0.5">Waktu</span>
+      </button>
+      <button onclick="switchTab('mutabaah')" class="mobile-tab py-1.5 px-1 flex flex-col items-center text-slate-400 hover:text-slate-700" data-target="mutabaah">
+        <i class="fa-solid fa-calendar-check text-base"></i>
+        <span class="text-[10px] mt-0.5">Jurnal</span>
+      </button>
+      <button onclick="switchTab('qadha')" class="mobile-tab py-1.5 px-1 flex flex-col items-center text-slate-400 hover:text-slate-700" data-target="qadha">
+        <i class="fa-solid fa-scale-balanced text-base"></i>
+        <span class="text-[10px] mt-0.5">Qadha</span>
+      </button>
+      <button onclick="switchTab('tasbih')" class="mobile-tab py-1.5 px-1 flex flex-col items-center text-slate-400 hover:text-slate-700" data-target="tasbih">
+        <i class="fa-solid fa-fingerprint text-base"></i>
+        <span class="text-[10px] mt-0.5">Tasbih</span>
+      </button>
+      <button onclick="switchTab('kiblat')" class="mobile-tab py-1.5 px-1 flex flex-col items-center text-slate-400 hover:text-slate-700" data-target="kiblat">
+        <i class="fa-solid fa-compass text-base"></i>
+        <span class="text-[10px] mt-0.5">Kiblat</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MODAL: Data Backup, Export & Import -->
+  <div id="backupModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center space-x-2 text-emerald-800">
+          <i class="fa-solid fa-shield-halved text-lg"></i>
+          <h3 class="font-bold text-base">Cadangan & Pemulihan Data</h3>
+        </div>
+        <button onclick="closeModal('backupModal')" class="text-slate-400 hover:text-slate-600 text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-600 leading-relaxed">
+        Simpan rekam jejak sholat, catatan mutaba'ah, dan hitungan qadha Anda dalam bentuk file JSON. Anda dapat mencadangkan atau mengembalikannya kapan saja agar data aman dalam jangka panjang.
+      </p>
+
+      <div class="space-y-3 pt-2">
+        <button onclick="exportDataToFile()" class="w-full py-2.5 px-4 rounded-xl bg-emerald-600 text-white font-semibold text-xs hover:bg-emerald-700 transition flex items-center justify-center space-x-2 shadow-sm">
+          <i class="fa-solid fa-download"></i>
+          <span>Unduh Cadangan (Export JSON)</span>
+        </button>
+
+        <label class="w-full py-2.5 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition flex items-center justify-center space-x-2 cursor-pointer">
+          <i class="fa-solid fa-upload text-emerald-600"></i>
+          <span>Pulihkan File Cadangan (Import JSON)</span>
+          <input type="file" id="importFileInput" accept=".json" onchange="importDataFromFile(event)" class="hidden">
+        </label>
+      </div>
+
+      <div class="bg-amber-50 p-3 rounded-xl border border-amber-200/80 text-[11px] text-amber-800">
+        <i class="fa-solid fa-info-circle mr-1"></i> Aplikasi tidak mengirim data ke server luar; privasi ibadah Anda sepenuhnya terjaga.
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Qadha Initial Setup Modal -->
+  <div id="qadhaSetupModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-base text-slate-800">Pengaturan Hutang Sholat Awal</h3>
+        <button onclick="closeModal('qadhaSetupModal')" class="text-slate-400 hover:text-slate-600 text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-500">
+        Masukkan perkiraan jumlah hutang sholat fardhu yang ingin Anda qadha:
+      </p>
+
+      <div class="space-y-3 text-xs">
+        <div class="flex justify-between items-center">
+          <span class="font-semibold text-slate-700">Subuh:</span>
+          <input type="number" id="setupSubuhInput" min="0" value="0" class="w-24 p-2 border border-slate-200 rounded-lg text-center font-bold text-slate-800">
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="font-semibold text-slate-700">Dzuhur:</span>
+          <input type="number" id="setupDzuhurInput" min="0" value="0" class="w-24 p-2 border border-slate-200 rounded-lg text-center font-bold text-slate-800">
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="font-semibold text-slate-700">Ashar:</span>
+          <input type="number" id="setupAsharInput" min="0" value="0" class="w-24 p-2 border border-slate-200 rounded-lg text-center font-bold text-slate-800">
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="font-semibold text-slate-700">Maghrib:</span>
+          <input type="number" id="setupMaghribInput" min="0" value="0" class="w-24 p-2 border border-slate-200 rounded-lg text-center font-bold text-slate-800">
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="font-semibold text-slate-700">Isya:</span>
+          <input type="number" id="setupIsyaInput" min="0" value="0" class="w-24 p-2 border border-slate-200 rounded-lg text-center font-bold text-slate-800">
+        </div>
+      </div>
+
+      <div class="pt-2 flex space-x-2">
+        <button onclick="closeModal('qadhaSetupModal')" class="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold">Batal</button>
+        <button onclick="saveQadhaSetup()" class="flex-1 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed top-20 right-4 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+  <script>
+    /* Indonesian City Coordinates and Timezones for Accurate Solar Equations */
+    const INDONESIAN_CITIES = {
+      "Jakarta": { lat: -6.2088, lng: 106.8456, tz: 7, qibla: 295.2 },
+      "Bekasi": { lat: -6.2383, lng: 106.9756, tz: 7, qibla: 295.2 },
+      "Bandung": { lat: -6.9175, lng: 107.6191, tz: 7, qibla: 295.0 },
+      "Surabaya": { lat: -7.2575, lng: 112.7521, tz: 7, qibla: 294.1 },
+      "Semarang": { lat: -6.9667, lng: 110.4167, tz: 7, qibla: 294.6 },
+      "Yogyakarta": { lat: -7.7956, lng: 110.3695, tz: 7, qibla: 294.8 },
+      "Medan": { lat: 3.5952, lng: 98.6722, tz: 7, qibla: 292.8 },
+      "Palembang": { lat: -2.9909, lng: 104.7565, tz: 7, qibla: 294.6 },
+      "Makassar": { lat: -5.1477, lng: 119.4327, tz: 8, qibla: 292.3 },
+      "Denpasar": { lat: -8.6705, lng: 115.2126, tz: 8, qibla: 293.4 },
+      "Banjarmasin": { lat: -3.3194, lng: 114.5908, tz: 8, qibla: 293.7 },
+      "Jayapura": { lat: -2.5916, lng: 140.6690, tz: 9, qibla: 289.4 }
+    };
+
+    /* App Global State (In-Memory Reactive Architecture) */
+    const AppState = {
+      selectedCity: "Jakarta",
+      currentDate: new Date(),
+      activeTab: "dashboard",
+      soundEnabled: true,
+      
+      // Tasbih state
+      tasbih: {
+        count: 0,
+        target: 33,
+        laps: 0,
+        dhikrIndex: 0,
+        dhikrList: [
+          { title: "Subhanallah", arabic: "سُبْحَانَ اللَّهِ", meaning: "Maha Suci Allah" },
+          { title: "Alhamdulillah", arabic: "الْحَمْدُ لِلَّهِ", meaning: "Segala puji bagi Allah" },
+          { title: "Allahu Akbar", arabic: "اللَّهُ أَكْبَرُ", meaning: "Allah Maha Besar" },
+          { title: "Astaghfirullah", arabic: "أَسْتَغْفِرُ اللَّهَ", meaning: "Aku memohon ampunan kepada Allah" },
+          { title: "Laa ilaha illallah", arabic: "لَا إِلٰهَ إِلَّا اللَّهُ", meaning: "Tiada sesembahan yang berhak disembah selain Allah" }
+        ]
+      },
+
+      // Qadha initial and completed
+      qadha: {
+        initial: { subuh: 10, dzuhur: 10, ashar: 10, maghrib: 10, isya: 10 },
+        completed: { subuh: 3, dzuhur: 2, ashar: 2, maghrib: 3, isya: 2 }
+      },
+
+      // Mutaba'ah Journal by date string 'YYYY-MM-DD'
+      journal: {},
+
+      // Seeded historical streak data for robust presentation
+      initSeeds() {
+        const todayStr = getIsoDate(new Date());
+        // Populate last 7 days with realistic initial habit data
+        for (let i = 0; i < 7; i++) {
+          const d = new Date();
+          d.setDate(d.getDate() - i);
+          const key = getIsoDate(d);
+          this.journal[key] = {
+            fardhu: {
+              subuh: { completed: true, congregation: true, onTime: true },
+              dzuhur: { completed: true, congregation: false, onTime: true },
+              ashar: { completed: true, congregation: false, onTime: i !== 2 },
+              maghrib: { completed: true, congregation: true, onTime: true },
+              isya: { completed: true, congregation: true, onTime: true }
+            },
+            sunnah: {
+              tahajjud: i % 2 === 0,
+              dhuha: true,
+              rawatib: true,
+              witir: i % 2 === 0
+            },
+            reflection: i === 0 ? "Alhamdulillah hari ini ibadah lancar dan istiqomah." : ""
+          };
+        }
+      }
+    };
+
+    // Initialize seeded data
+    AppState.initSeeds();
+
+    /* High-Precision Astronomical Calculations for Perpetual Accuracy */
+    function degToRad(deg) { return (deg * Math.PI) / 180.0; }
+    function radToDeg(rad) { return (rad * 180.0) / Math.PI; }
+
+    function getJulianDate(date) {
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      const day = date.getDate();
+      if (month <= 2) {
+        year -= 1;
+        month += 12;
+      }
+      const A = Math.floor(year / 100);
+      const B = 2 - A + Math.floor(A / 4);
+      return Math.floor(365.25 * (year + 4716)) + Math.floor(30.6001 * (month + 1)) + day + B - 1524.5;
+    }
+
+    function calculateSolarPositions(julianDate) {
+      const D = julianDate - 2451545.0;
+      const g = (357.529 + 0.98560028 * D) % 360;
+      const q = (280.459 + 0.98564736 * D) % 360;
+      const L = (q + 1.915 * Math.sin(degToRad(g)) + 0.020 * Math.sin(degToRad(2 * g))) % 360;
+      const e = 23.439 - 0.00000036 * D;
+      
+      const RA = radToDeg(Math.atan2(Math.cos(degToRad(e)) * Math.sin(degToRad(L)), Math.cos(degToRad(L)))) / 15.0;
+      const dec = radToDeg(Math.asin(Math.sin(degToRad(e)) * Math.sin(degToRad(L))));
+      const EqT = (q / 15.0) - (RA < 0 ? RA + 24 : RA);
+      return { dec, EqT };
+    }
+
+    function computeTimes(date, cityKey) {
+      const city = INDONESIAN_CITIES[cityKey] || INDONESIAN_CITIES["Jakarta"];
+      const jd = getJulianDate(date);
+      const { dec, EqT } = calculateSolarPositions(jd);
+
+      const lat = city.lat;
+      const lng = city.lng;
+      const tz = city.tz;
+
+      // Solar Noon (Dzuhur) in hours
+      const noon = 12 + tz - (lng / 15.0) - EqT;
+
+      // Calculation angle formulas (Kemenag standard: Subuh 20 deg, Isya 18 deg)
+      function getHourAngle(angle) {
+        const radLat = degToRad(lat);
+        const radDec = degToRad(dec);
+        const radAngle = degToRad(angle);
+        const cosH = (Math.sin(radAngle) - Math.sin(radLat) * Math.sin(radDec)) / (Math.cos(radLat) * Math.cos(radDec));
+        if (cosH > 1) return 0;
+        if (cosH < -1) return Math.PI;
+        return radToDeg(Math.acos(cosH)) / 15.0;
+      }
+
+      // Asr Hour Angle (Shafi'i: shadow = 1)
+      const asrAngle = radToDeg(Math.atan(1.0 / (1.0 + Math.tan(degToRad(Math.abs(lat - dec))))));
+      const asrHA = getHourAngle(-asrAngle);
+
+      const fajrHA = getHourAngle(-20.0);
+      const sunriseHA = getHourAngle(-0.833);
+      const maghribHA = getHourAngle(-0.833);
+      const ishaHA = getHourAngle(-18.0);
+
+      // Convert fractional hours to "HH:MM" with Kemenag +2 minutes ihtiyat
+      function toTimeString(hours, ihtiyat = 2) {
+        let totalMinutes = Math.round(hours * 60) + ihtiyat;
+        while (totalMinutes < 0) totalMinutes += 1440;
+        totalMinutes = totalMinutes % 1440;
+        const h = Math.floor(totalMinutes / 60);
+        const m = totalMinutes % 60;
+        return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+      }
+
+      const imsakHour = noon - fajrHA - (10 / 60);
+      const subuhHour = noon - fajrHA;
+      const terbitHour = noon - sunriseHA;
+      const dzuhurHour = noon;
+      const asharHour = noon + asrHA;
+      const maghribHour = noon + maghribHA;
+      const ishaHour = noon + ishaHA;
+
+      return {
+        imsak: toTimeString(imsakHour, 0),
+        subuh: toTimeString(subuhHour, 2),
+        terbit: toTimeString(terbitHour, -2),
+        dzuhur: toTimeString(dzuhurHour, 2),
+        ashar: toTimeString(asharHour, 2),
+        maghrib: toTimeString(maghribHour, 2),
+        isya: toTimeString(ishaHour, 2)
+      };
+    }
+
+    /* Simplified Kuwaiti / Astronomical Algorithm for Hijri Estimation */
+    function getHijriDate(date) {
+      const day = date.getDate();
+      const month = date.getMonth();
+      const year = date.getFullYear();
+
+      let m = month + 1;
+      let y = year;
+      if (m < 3) {
+        y -= 1;
+        m += 12;
+      }
+      let a = Math.floor(y / 100);
+      let b = 2 - a + Math.floor(a / 4);
+      let jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
+      
+      let l = jd - 1948440 + 10632;
+      let n = Math.floor((l - 1) / 10631);
+      l = l - 10631 * n + 354;
+      let j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719)) + (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
+      l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) - (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
+      let hm = Math.floor((24 * l) / 709);
+      let hd = l - Math.floor((709 * hm) / 24);
+      let hy = 30 * n + j - 30;
+
+      const hijriMonths = [
+        "Muharram", "Safar", "Rabi'ul Awal", "Rabi'ul Akhir",
+        "Jumadil Awal", "Jumadil Akhir", "Rajab", "Sya'ban",
+        "Ramadhan", "Syawwal", "Dzulqa'dah", "Dzulhijjah"
+      ];
+
+      return `${hd} ${hijriMonths[hm - 1] || 'Hijriah'} ${hy} H`;
+    }
+
+    function getIsoDate(date) {
+      return date.toISOString().split('T')[0];
+    }
+
+    /* Realtime Prayer Time Updates & Countdown Logic */
+    function updateHeroCountdown() {
+      const now = new Date();
+      const times = computeTimes(now, AppState.selectedCity);
+
+      // Live Clock
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('liveClock').textContent = `${h}:${m}:${s}`;
+
+      // Dates
+      const days = ["Ahad", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      const dateText = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+      document.getElementById('gregorianDateBadge').innerHTML = `<i class="fa-regular fa-calendar mr-1"></i> ${dateText}`;
+      document.getElementById('hijriDateBadge').innerHTML = `<i class="fa-solid fa-moon mr-1"></i> ${getHijriDate(now)}`;
+      document.getElementById('currentCityLabel').textContent = AppState.selectedCity;
+
+      // Ordered prayers for progression
+      const prayers = [
+        { name: "Subuh", time: times.subuh },
+        { name: "Terbit", time: times.terbit },
+        { name: "Dzuhur", time: times.dzuhur },
+        { name: "Ashar", time: times.ashar },
+        { name: "Maghrib", time: times.maghrib },
+        { name: "Isya", time: times.isya }
+      ];
+
+      const currentMinutes = now.getHours() * 60 + now.getMinutes() + (now.getSeconds() / 60);
+
+      let nextIndex = 0;
+      let found = false;
+
+      for (let i = 0; i < prayers.length; i++) {
+        const [ph, pm] = prayers[i].time.split(':').map(Number);
+        const prayerMinutes = ph * 60 + pm;
+        if (prayerMinutes > currentMinutes) {
+          nextIndex = i;
+          found = true;
+          break;
+        }
+      }
+
+      // If all passed today, next is Subuh tomorrow
+      let prevIndex = found ? (nextIndex === 0 ? prayers.length - 1 : nextIndex - 1) : prayers.length - 1;
+      let nextPrayer = found ? prayers[nextIndex] : { name: "Subuh (Besok)", time: times.subuh };
+      let prevPrayer = prayers[prevIndex];
+
+      const [nh, nm] = nextPrayer.time.split(':').map(Number);
+      let targetMinutes = nh * 60 + nm;
+      if (!found) targetMinutes += 24 * 60; // Next day
+
+      let diffMinutes = targetMinutes - currentMinutes;
+      if (diffMinutes < 0) diffMinutes += 24 * 60;
+
+      const diffHours = Math.floor(diffMinutes / 60);
+      const diffMins = Math.floor(diffMinutes % 60);
+      const diffSecs = Math.floor((diffMinutes * 60) % 60);
+
+      document.getElementById('nextPrayerName').textContent = nextPrayer.name;
+      document.getElementById('nextPrayerTime').textContent = nextPrayer.time;
+      document.getElementById('countdownTimer').textContent = `${diffHours}j ${diffMins}m ${diffSecs}d`;
+
+      // Progress bar percentage
+      const [prh, prm] = prevPrayer.time.split(':').map(Number);
+      let startM = prh * 60 + prm;
+      if (targetMinutes < startM) startM -= 24 * 60;
+      const totalSpan = targetMinutes - startM;
+      const progressPercent = Math.min(100, Math.max(0, ((totalSpan - diffMinutes) / totalSpan) * 100));
+
+      document.getElementById('prayerProgressFill').style.width = `${progressPercent}%`;
+      document.getElementById('prevPrayerLabel').textContent = `${prevPrayer.name} (${prevPrayer.time})`;
+      document.getElementById('nextPrayerLabel').textContent = `${nextPrayer.name} (${nextPrayer.time})`;
+    }
+
+    /* Render 6 Prayer Cards (Subuh, Terbit, Dzuhur, Ashar, Maghrib, Isya) */
+    function renderDashboardCards() {
+      const now = new Date();
+      const times = computeTimes(now, AppState.selectedCity);
+      const container = document.getElementById('dailyPrayersCards');
+      if (!container) return;
+
+      const items = [
+        { key: 'imsak', label: 'Imsak', time: times.imsak, icon: 'fa-cloud-sun', color: 'slate' },
+        { key: 'subuh', label: 'Subuh', time: times.subuh, icon: 'fa-sun', color: 'emerald' },
+        { key: 'terbit', label: 'Terbit', time: times.terbit, icon: 'fa-sun-plant-wilt', color: 'amber' },
+        { key: 'dzuhur', label: 'Dzuhur', time: times.dzuhur, icon: 'fa-sun', color: 'teal' },
+        { key: 'ashar', label: 'Ashar', time: times.ashar, icon: 'fa-cloud-sun', color: 'cyan' },
+        { key: 'maghrib', label: 'Maghrib', time: times.maghrib, icon: 'fa-moon', color: 'amber' },
+        { key: 'isya', label: 'Isya', time: times.isya, icon: 'fa-star-and-crescent', color: 'emerald' }
+      ];
+
+      container.innerHTML = items.map(p => `
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 hover:border-emerald-400 transition-all text-center">
+          <div class="text-xs text-slate-500 font-semibold mb-1">${p.label}</div>
+          <div class="text-xl sm:text-2xl font-black text-slate-800 tracking-tight">${p.time}</div>
+          <div class="mt-2 text-[10px] text-slate-400 uppercase tracking-wider font-bold">WIB</div>
+        </div>
+      `).join('');
+
+      renderQuickChecklist();
+      updateScoreRing();
+    }
+
+    /* Quick Checklist on Dashboard */
+    function renderQuickChecklist() {
+      const container = document.getElementById('quickChecklistContainer');
+      if (!container) return;
+
+      const todayStr = getIsoDate(new Date());
+      if (!AppState.journal[todayStr]) {
+        AppState.journal[todayStr] = {
+          fardhu: {
+            subuh: { completed: false, congregation: false, onTime: true },
+            dzuhur: { completed: false, congregation: false, onTime: true },
+            ashar: { completed: false, congregation: false, onTime: true },
+            maghrib: { completed: false, congregation: false, onTime: true },
+            isya: { completed: false, congregation: false, onTime: true }
+          },
+          sunnah: { tahajjud: false, dhuha: false, rawatib: false, witir: false },
+          reflection: ""
+        };
+      }
+
+      const prayers = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'];
+      const current = AppState.journal[todayStr].fardhu;
+
+      container.innerHTML = prayers.map(name => {
+        const isDone = current[name]?.completed;
+        const isCong = current[name]?.congregation;
+        const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+
+        return `
+          <div class="flex items-center justify-between p-3 rounded-xl border ${isDone ? 'bg-emerald-50/70 border-emerald-300' : 'bg-slate-50 border-slate-200'} transition">
+            <div class="flex items-center space-x-3">
+              <button onclick="toggleFardhuQuick('${name}')" class="w-6 h-6 rounded-lg border flex items-center justify-center transition ${isDone ? 'bg-emerald-600 border-emerald-600 text-white' : 'border-slate-300 bg-white hover:border-emerald-400'}">
+                ${isDone ? '<i class="fa-solid fa-check text-xs"></i>' : ''}
+              </button>
+              <span class="text-xs sm:text-sm font-bold ${isDone ? 'text-emerald-900 line-through opacity-80' : 'text-slate-800'}">${capitalized}</span>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <button onclick="toggleCongregationQuick('${name}')" class="px-2 py-1 rounded-lg text-[11px] font-semibold border transition ${isCong ? 'bg-teal-600 text-white border-teal-600' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-100'}">
+                <i class="fa-solid fa-users text-[10px] mr-1"></i> Berjamaah
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleFardhuQuick(prayer) {
+      const todayStr = getIsoDate(new Date());
+      const p = AppState.journal[todayStr].fardhu[prayer];
+      p.completed = !p.completed;
+      renderQuickChecklist();
+      updateScoreRing();
+      renderDetailedMutabaah();
+      renderWeeklyStats();
+      showToast(`Status sholat ${prayer.toUpperCase()} diperbarui`, "success");
+    }
+
+    function toggleCongregationQuick(prayer) {
+      const todayStr = getIsoDate(new Date());
+      const p = AppState.journal[todayStr].fardhu[prayer];
+      p.congregation = !p.congregation;
+      if (p.congregation && !p.completed) p.completed = true;
+      renderQuickChecklist();
+      updateScoreRing();
+      renderDetailedMutabaah();
+      renderWeeklyStats();
+      showToast(`Status berjamaah ${prayer.toUpperCase()} diperbarui`, "info");
+    }
+
+    function resetTodayChecklist() {
+      const todayStr = getIsoDate(new Date());
+      AppState.journal[todayStr] = {
+        fardhu: {
+          subuh: { completed: false, congregation: false, onTime: true },
+          dzuhur: { completed: false, congregation: false, onTime: true },
+          ashar: { completed: false, congregation: false, onTime: true },
+          maghrib: { completed: false, congregation: false, onTime: true },
+          isya: { completed: false, congregation: false, onTime: true }
+        },
+        sunnah: { tahajjud: false, dhuha: false, rawatib: false, witir: false },
+        reflection: ""
+      };
+      renderQuickChecklist();
+      updateScoreRing();
+      renderDetailedMutabaah();
+      renderWeeklyStats();
+      showToast("Jurnal hari ini telah di-reset", "warning");
+    }
+
+    function updateScoreRing() {
+      const todayStr = getIsoDate(new Date());
+      const dayData = AppState.journal[todayStr];
+      if (!dayData) return;
+
+      let score = 0;
+      let total = 5; // 5 fardhu prayers base
+      const prayers = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'];
+      prayers.forEach(p => {
+        if (dayData.fardhu[p]?.completed) score += 1;
+      });
+
+      const percent = Math.round((score / total) * 100);
+      document.getElementById('todayScoreBadge').textContent = `${percent}%`;
+      document.getElementById('circleScoreNumber').textContent = `${percent}%`;
+
+      const circle = document.getElementById('circleProgressScore');
+      if (circle) {
+        circle.setAttribute('stroke-dasharray', `${percent}, 100`);
+      }
+    }
+
+    /* Detailed Mutaba'ah Journal for any Selected Date */
+    function renderDetailedMutabaah() {
+      const dateStr = getIsoDate(AppState.currentDate);
+      const isToday = dateStr === getIsoDate(new Date());
+
+      // Update Header Text
+      const days = ["Ahad", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      const text = `${days[AppState.currentDate.getDay()]}, ${AppState.currentDate.getDate()} ${months[AppState.currentDate.getMonth()]} ${AppState.currentDate.getFullYear()}`;
+      document.getElementById('mutabaahCurrentDateText').textContent = isToday ? `Hari Ini (${text})` : text;
+      document.getElementById('mutabaahCurrentHijriText').textContent = getHijriDate(AppState.currentDate);
+      document.getElementById('mutabaahDatePicker').value = dateStr;
+
+      if (!AppState.journal[dateStr]) {
+        AppState.journal[dateStr] = {
+          fardhu: {
+            subuh: { completed: false, congregation: false, onTime: true },
+            dzuhur: { completed: false, congregation: false, onTime: true },
+            ashar: { completed: false, congregation: false, onTime: true },
+            maghrib: { completed: false, congregation: false, onTime: true },
+            isya: { completed: false, congregation: false, onTime: true }
+          },
+          sunnah: { tahajjud: false, dhuha: false, rawatib: false, witir: false },
+          reflection: ""
+        };
+      }
+
+      const dayData = AppState.journal[dateStr];
+
+      // Render 5 Fardhu detailed inputs
+      const fardhuList = document.getElementById('fardhuDetailList');
+      const prayers = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'];
+
+      fardhuList.innerHTML = prayers.map(p => {
+        const item = dayData.fardhu[p];
+        const cap = p.charAt(0).toUpperCase() + p.slice(1);
+        return `
+          <div class="p-4 rounded-xl border ${item.completed ? 'bg-emerald-50/50 border-emerald-200' : 'bg-slate-50 border-slate-200'} flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+              <input type="checkbox" ${item.completed ? 'checked' : ''} onchange="updateFardhuDetail('${dateStr}', '${p}', 'completed', this.checked)" class="w-5 h-5 rounded text-emerald-600 accent-emerald-600 cursor-pointer">
+              <span class="font-bold text-sm text-slate-800">${cap}</span>
+            </div>
+
+            <div class="flex items-center space-x-2 text-xs">
+              <label class="flex items-center space-x-1.5 cursor-pointer px-2.5 py-1 rounded-lg bg-white border border-slate-200">
+                <input type="checkbox" ${item.congregation ? 'checked' : ''} onchange="updateFardhuDetail('${dateStr}', '${p}', 'congregation', this.checked)" class="accent-teal-600">
+                <span class="text-slate-700">Berjamaah</span>
+              </label>
+
+              <label class="flex items-center space-x-1.5 cursor-pointer px-2.5 py-1 rounded-lg bg-white border border-slate-200">
+                <input type="checkbox" ${item.onTime ? 'checked' : ''} onchange="updateFardhuDetail('${dateStr}', '${p}', 'onTime', this.checked)" class="accent-emerald-600">
+                <span class="text-slate-700">Tepat Waktu</span>
+              </label>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Sunnah Checklist
+      const sunnahContainer = document.getElementById('sunnahChecklistContainer');
+      const sunnahKeys = [
+        { key: 'tahajjud', label: 'Sholat Tahajjud / Qiyamul Lail' },
+        { key: 'dhuha', label: 'Sholat Dhuha' },
+        { key: 'rawatib', label: 'Sholat Sunnah Rawatib (Qobliyah / Ba\'diyah)' },
+        { key: 'witir', label: 'Sholat Witir Penutup' }
+      ];
+
+      sunnahContainer.innerHTML = sunnahKeys.map(s => {
+        const checked = dayData.sunnah[s.key];
+        return `
+          <label class="flex items-center justify-between p-3 rounded-xl border ${checked ? 'bg-amber-50/60 border-amber-300' : 'bg-slate-50 border-slate-200'} cursor-pointer hover:bg-slate-100 transition">
+            <span class="text-xs sm:text-sm font-medium text-slate-800">${s.label}</span>
+            <input type="checkbox" ${checked ? 'checked' : ''} onchange="updateSunnahDetail('${dateStr}', '${s.key}', this.checked)" class="w-4 h-4 accent-amber-500 rounded">
+          </label>
+        `;
+      }).join('');
+
+      // Reflection
+      document.getElementById('dailyReflectionNote').value = dayData.reflection || '';
+    }
+
+    function updateFardhuDetail(dateStr, prayer, field, val) {
+      AppState.journal[dateStr].fardhu[prayer][field] = val;
+      if (field === 'congregation' && val) AppState.journal[dateStr].fardhu[prayer].completed = true;
+      if (getIsoDate(new Date()) === dateStr) {
+        renderQuickChecklist();
+        updateScoreRing();
+      }
+      renderWeeklyStats();
+    }
+
+    function updateSunnahDetail(dateStr, key, val) {
+      AppState.journal[dateStr].sunnah[key] = val;
+    }
+
+    function saveDailyReflection() {
+      const dateStr = getIsoDate(AppState.currentDate);
+      const note = document.getElementById('dailyReflectionNote').value;
+      if (AppState.journal[dateStr]) {
+        AppState.journal[dateStr].reflection = note;
+        showToast("Catatan muhasabah berhasil disimpan", "success");
+      }
+    }
+
+    function navigateDate(offset) {
+      AppState.currentDate.setDate(AppState.currentDate.getDate() + offset);
+      renderDetailedMutabaah();
+    }
+
+    function goToToday() {
+      AppState.currentDate = new Date();
+      renderDetailedMutabaah();
+    }
+
+    function onDatePickerChange(val) {
+      if (val) {
+        AppState.currentDate = new Date(val + 'T00:00:00');
+        renderDetailedMutabaah();
+      }
+    }
+
+    /* Qadha (Missed Prayers) Management System */
+    function renderQadhaSection() {
+      const prayers = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'];
+      let totalInitial = 0;
+      let totalCompleted = 0;
+
+      prayers.forEach(p => {
+        totalInitial += (AppState.qadha.initial[p] || 0);
+        totalCompleted += (AppState.qadha.completed[p] || 0);
+      });
+
+      const totalRemaining = Math.max(0, totalInitial - totalCompleted);
+      const percent = totalInitial > 0 ? Math.round((totalCompleted / totalInitial) * 100) : 0;
+
+      document.getElementById('qadhaTotalInitial').textContent = `${totalInitial} Wkt`;
+      document.getElementById('qadhaTotalCompleted').textContent = `${totalCompleted} Wkt`;
+      document.getElementById('qadhaTotalRemaining').textContent = `${totalRemaining} Wkt`;
+      document.getElementById('qadhaPercentCompleted').textContent = `${percent}%`;
+
+      const container = document.getElementById('qadhaCardsContainer');
+      container.innerHTML = prayers.map(p => {
+        const init = AppState.qadha.initial[p] || 0;
+        const done = AppState.qadha.completed[p] || 0;
+        const remain = Math.max(0, init - done);
+        const cap = p.charAt(0).toUpperCase() + p.slice(1);
+
+        return `
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold text-slate-700">${cap}</span>
+              <div class="text-2xl font-black text-slate-800 my-1">${remain}</div>
+              <span class="text-[11px] text-slate-400">Sisa dari ${init}</span>
+            </div>
+
+            <div class="flex items-center justify-center space-x-2 mt-4">
+              <button onclick="decrementQadha('${p}')" class="w-8 h-8 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 flex items-center justify-center text-xs">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <button onclick="incrementQadha('${p}')" class="flex-1 py-1.5 px-3 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 text-xs font-semibold flex items-center justify-center space-x-1 shadow-sm">
+                <i class="fa-solid fa-plus text-[10px]"></i>
+                <span>Qadha</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      updateQadhaEstimation(document.getElementById('qadhaPaceSlider').value);
+    }
+
+    function incrementQadha(prayer) {
+      AppState.qadha.completed[prayer] = (AppState.qadha.completed[prayer] || 0) + 1;
+      renderQadhaSection();
+      renderWeeklyStats();
+      playSoftChime();
+      showToast(`Alhamdulillah! 1 Qadha ${prayer.toUpperCase()} tercatat`, "success");
+    }
+
+    function decrementQadha(prayer) {
+      if ((AppState.qadha.completed[prayer] || 0) > 0) {
+        AppState.qadha.completed[prayer]--;
+        renderQadhaSection();
+        renderWeeklyStats();
+      }
+    }
+
+    function updateQadhaEstimation(pace) {
+      document.getElementById('qadhaPaceDisplay').textContent = `${pace}x/hr`;
+      let totalRemaining = 0;
+      const prayers = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'];
+      prayers.forEach(p => {
+        totalRemaining += Math.max(0, (AppState.qadha.initial[p] || 0) - (AppState.qadha.completed[p] || 0));
+      });
+
+      const days = pace > 0 ? Math.ceil(totalRemaining / pace) : 0;
+      document.getElementById('qadhaEstimatedDays').textContent = `${days} Hari`;
+
+      const finishDate = new Date();
+      finishDate.setDate(finishDate.getDate() + days);
+      const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      document.getElementById('qadhaEstimatedDate').textContent = `Target: ${finishDate.getDate()} ${months[finishDate.getMonth()]} ${finishDate.getFullYear()}`;
+    }
+
+    function saveQadhaSetup() {
+      AppState.qadha.initial.subuh = parseInt(document.getElementById('setupSubuhInput').value) || 0;
+      AppState.qadha.initial.dzuhur = parseInt(document.getElementById('setupDzuhurInput').value) || 0;
+      AppState.qadha.initial.ashar = parseInt(document.getElementById('setupAsharInput').value) || 0;
+      AppState.qadha.initial.maghrib = parseInt(document.getElementById('setupMaghribInput').value) || 0;
+      AppState.qadha.initial.isya = parseInt(document.getElementById('setupIsyaInput').value) || 0;
+
+      closeModal('qadhaSetupModal');
+      renderQadhaSection();
+      showToast("Data target hutang sholat awal disimpan", "success");
+    }
+
+    /* Digital Tasbih & Web Audio Tone Feedback */
+    let audioCtx = null;
+
+    function playSoftChime(frequency = 587.33, duration = 0.15) {
+      if (!AppState.soundEnabled) return;
+      try {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // Audio unsupported or restricted
+      }
+    }
+
+    function toggleAudioChime() {
+      AppState.soundEnabled = !AppState.soundEnabled;
+      const icon = document.getElementById('soundToggleIcon');
+      if (AppState.soundEnabled) {
+        icon.className = "fa-solid fa-bell text-sm";
+        playSoftChime(880, 0.25);
+        showToast("Audio notifikasi dan tasbih aktif", "info");
+      } else {
+        icon.className = "fa-solid fa-bell-slash text-sm text-amber-400";
+        showToast("Audio dinonaktifkan", "info");
+      }
+    }
+
+    function incrementTasbih() {
+      AppState.tasbih.count++;
+      playSoftChime(659.25, 0.08); // E5 soft tone
+
+      // Vibrate if mobile supported
+      if ("vibrate" in navigator) {
+        navigator.vibrate(20);
+      }
+
+      const target = AppState.tasbih.target;
+      if (target > 0 && AppState.tasbih.count >= target) {
+        AppState.tasbih.laps++;
+        AppState.tasbih.count = 0;
+        playSoftChime(880, 0.35); // Milestone chime
+        if ("vibrate" in navigator) navigator.vibrate([40, 60, 40]);
+        showToast("Target tercapai! Putaran bertambah.", "success");
+      }
+
+      document.getElementById('tasbihCounterDisplay').textContent = AppState.tasbih.count;
+      document.getElementById('tasbihLapCount').textContent = AppState.tasbih.laps;
+    }
+
+    function resetTasbih() {
+      AppState.tasbih.count = 0;
+      AppState.tasbih.laps = 0;
+      document.getElementById('tasbihCounterDisplay').textContent = "0";
+      document.getElementById('tasbihLapCount').textContent = "0";
+    }
+
+    function setTasbihTarget(val) {
+      AppState.tasbih.target = val;
+      document.querySelectorAll('.target-btn').forEach(btn => {
+        if (btn.getAttribute('data-target') == val) {
+          btn.className = "target-btn px-2.5 py-1 text-xs rounded-lg font-bold bg-white text-emerald-700 shadow-sm";
+        } else {
+          btn.className = "target-btn px-2.5 py-1 text-xs rounded-lg font-medium text-slate-600 hover:text-slate-900";
+        }
+      });
+      resetTasbih();
+    }
+
+    function switchDhikrNext() {
+      AppState.tasbih.dhikrIndex = (AppState.tasbih.dhikrIndex + 1) % AppState.tasbih.dhikrList.length;
+      const cur = AppState.tasbih.dhikrList[AppState.tasbih.dhikrIndex];
+      document.getElementById('currentDhikrTitle').textContent = cur.title;
+      document.getElementById('currentDhikrArabic').textContent = cur.arabic;
+      document.getElementById('currentDhikrMeaning').textContent = `"${cur.meaning}"`;
+      resetTasbih();
+    }
+
+    function loadPresetDhikr(title, arabic, meaning, target) {
+      document.getElementById('currentDhikrTitle').textContent = title;
+      document.getElementById('currentDhikrArabic').textContent = arabic;
+      document.getElementById('currentDhikrMeaning').textContent = `"${meaning}"`;
+      setTasbihTarget(target);
+      switchTab('tasbih');
+      showToast(`Dzikir ${title} (${target}x) disiapkan`, "info");
+    }
+
+    /* Qibla Direction Visualizer */
+    function updateQiblaCompass() {
+      const city = INDONESIAN_CITIES[AppState.selectedCity] || INDONESIAN_CITIES["Jakarta"];
+      const qiblaDeg = city.qibla;
+      const needle = document.getElementById('compassNeedle');
+      if (needle) {
+        needle.style.transform = `rotate(${qiblaDeg}deg)`;
+      }
+      document.getElementById('qiblaDegreeText').textContent = `${qiblaDeg}° (Barat Laut)`;
+    }
+
+    /* Full Monthly Prayer Table for Any Selected Month & Year */
+    function renderMonthlyTimetable() {
+      const mSelect = document.getElementById('scheduleMonthSelect');
+      const ySelect = document.getElementById('scheduleYearSelect');
+      const month = parseInt(mSelect.value);
+      const year = parseInt(ySelect.value);
+
+      const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      document.getElementById('monthlyTimetableSubtitle').textContent = `${AppState.selectedCity} - ${months[month]} ${year}`;
+
+      const tbody = document.getElementById('monthlyTimetableBody');
+      const totalDays = new Date(year, month + 1, 0).getDate();
+      const today = new Date();
+
+      let rows = '';
+      for (let day = 1; day <= totalDays; day++) {
+        const d = new Date(year, month, day);
+        const times = computeTimes(d, AppState.selectedCity);
+        const isCurrentDay = d.getDate() === today.getDate() && d.getMonth() === today.getMonth() && d.getFullYear() === today.getFullYear();
+
+        rows += `
+          <tr class="${isCurrentDay ? 'bg-emerald-50/80 font-bold text-emerald-950' : 'hover:bg-slate-50 text-slate-700'}">
+            <td class="py-2 px-3">${day}</td>
+            <td class="py-2 px-3 text-slate-500">${times.imsak}</td>
+            <td class="py-2 px-3 font-semibold text-emerald-700">${times.subuh}</td>
+            <td class="py-2 px-3 text-slate-400">${times.terbit}</td>
+            <td class="py-2 px-3">${times.dzuhur}</td>
+            <td class="py-2 px-3">${times.ashar}</td>
+            <td class="py-2 px-3 font-semibold text-amber-700">${times.maghrib}</td>
+            <td class="py-2 px-3">${times.isya}</td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = rows;
+    }
+
+    /* Statistics & 7-Day Consistency Bars */
+    function renderWeeklyStats() {
+      const container = document.getElementById('weeklyBarsContainer');
+      if (!container) return;
+
+      const days = [];
+      let congregationCount = 0;
+      let onTimeCount = 0;
+      let totalRecorded = 0;
+
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const iso = getIsoDate(d);
+        const dayData = AppState.journal[iso] || { fardhu: {} };
+
+        let completed = 0;
+        const prayers = ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'];
+        prayers.forEach(p => {
+          if (dayData.fardhu[p]?.completed) {
+            completed++;
+            totalRecorded++;
+            if (dayData.fardhu[p]?.congregation) congregationCount++;
+            if (dayData.fardhu[p]?.onTime) onTimeCount++;
+          }
+        });
+
+        const dayNames = ["Ahd", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
+        days.push({
+          label: dayNames[d.getDay()],
+          date: d.getDate(),
+          completed: completed,
+          heightPercent: (completed / 5) * 100
+        });
+      }
+
+      container.innerHTML = days.map(day => `
+        <div class="flex flex-col items-center h-full justify-end group">
+          <span class="text-[10px] font-bold text-slate-600 mb-1 opacity-80 group-hover:opacity-100">${day.completed}/5</span>
+          <div class="w-full max-w-[38px] bg-slate-200 rounded-t-lg h-36 flex items-end overflow-hidden p-0.5">
+            <div class="w-full bg-gradient-to-t from-emerald-600 to-teal-400 rounded-t-md transition-all duration-500" style="height: ${day.heightPercent}%"></div>
+          </div>
+          <span class="text-[11px] font-semibold text-slate-700 mt-2">${day.label}</span>
+          <span class="text-[9px] text-slate-400">${day.date}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('statsCongregationCount').textContent = `${congregationCount}x`;
+      const onTimeRate = totalRecorded > 0 ? Math.round((onTimeCount / totalRecorded) * 100) : 100;
+      document.getElementById('statsOnTimePercent').textContent = `${onTimeRate}%`;
+
+      let totalQadha = 0;
+      ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'].forEach(p => {
+        totalQadha += (AppState.qadha.completed[p] || 0);
+      });
+      document.getElementById('statsQadhaCleared').textContent = `${totalQadha} Waktu`;
+    }
+
+    /* Backup, Export & Import Methods */
+    function exportDataToFile() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(AppState, null, 2));
+      const downloadAnchor = document.createElement('a');
+      const filename = `sakinah_backup_${getIsoDate(new Date())}.json`;
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", filename);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      closeModal('backupModal');
+      showToast("File cadangan JSON berhasil diunduh", "success");
+    }
+
+    function importDataFromFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed.journal && parsed.qadha) {
+            AppState.journal = parsed.journal;
+            AppState.qadha = parsed.qadha;
+            if (parsed.selectedCity) AppState.selectedCity = parsed.selectedCity;
+            
+            // Refresh views
+            document.getElementById('citySelect').value = AppState.selectedCity;
+            renderDashboardCards();
+            renderDetailedMutabaah();
+            renderQadhaSection();
+            renderWeeklyStats();
+            updateQiblaCompass();
+            closeModal('backupModal');
+            showToast("Data cadangan berhasil dipulihkan!", "success");
+          } else {
+            showToast("Format file JSON tidak valid!", "warning");
+          }
+        } catch (err) {
+          showToast("Gagal membaca file!", "warning");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    /* Tab Switching System */
+    function switchTab(tabId) {
+      AppState.activeTab = tabId;
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      const activeEl = document.getElementById(`tab-${tabId}`);
+      if (activeEl) activeEl.classList.remove('hidden');
+
+      // Desktop nav links styling
+      document.querySelectorAll('.tab-link').forEach(link => {
+        if (link.getAttribute('data-target') === tabId) {
+          link.className = "tab-link border-b-2 border-emerald-600 text-emerald-700 py-3.5 px-1 inline-flex items-center text-sm font-semibold transition";
+        } else {
+          link.className = "tab-link border-b-2 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 py-3.5 px-1 inline-flex items-center text-sm font-medium transition";
+        }
+      });
+
+      // Mobile nav links styling
+      document.querySelectorAll('.mobile-tab').forEach(btn => {
+        if (btn.getAttribute('data-target') === tabId) {
+          btn.className = "mobile-tab py-1.5 px-1 flex flex-col items-center text-emerald-700 font-semibold";
+        } else {
+          btn.className = "mobile-tab py-1.5 px-1 flex flex-col items-center text-slate-400 hover:text-slate-700";
+        }
+      });
+
+      // Trigger lazy tab updates
+      if (tabId === 'mutabaah') renderDetailedMutabaah();
+      if (tabId === 'qadha') renderQadhaSection();
+      if (tabId === 'kiblat') {
+        updateQiblaCompass();
+        renderMonthlyTimetable();
+      }
+      if (tabId === 'statistik') renderWeeklyStats();
+    }
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.remove('hidden');
+
+      if (id === 'qadhaSetupModal') {
+        document.getElementById('setupSubuhInput').value = AppState.qadha.initial.subuh || 0;
+        document.getElementById('setupDzuhurInput').value = AppState.qadha.initial.dzuhur || 0;
+        document.getElementById('setupAsharInput').value = AppState.qadha.initial.ashar || 0;
+        document.getElementById('setupMaghribInput').value = AppState.qadha.initial.maghrib || 0;
+        document.getElementById('setupIsyaInput').value = AppState.qadha.initial.isya || 0;
+      }
+    }
+
+    function closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function showToast(message, type = "info") {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      
+      const colors = {
+        success: "bg-emerald-800 text-white border-emerald-600",
+        warning: "bg-amber-800 text-white border-amber-600",
+        info: "bg-slate-800 text-white border-slate-700"
+      };
+
+      toast.className = `${colors[type] || colors.info} border px-4 py-2.5 rounded-2xl shadow-xl text-xs font-medium flex items-center space-x-2 transition-all transform translate-y-2 opacity-0`;
+      toast.innerHTML = `<i class="fa-solid fa-circle-check text-xs"></i> <span>${message}</span>`;
+      
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      }, 10);
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    /* Initialize App on Window Load */
+    window.addEventListener('DOMContentLoaded', () => {
+      // Setup Year Options for Timetable
+      const currentYear = new Date().getFullYear();
+      const ySelect = document.getElementById('scheduleYearSelect');
+      for (let y = currentYear - 1; y <= currentYear + 5; y++) {
+        const opt = document.createElement('option');
+        opt.value = y;
+        opt.textContent = y;
+        if (y === currentYear) opt.selected = true;
+        ySelect.appendChild(opt);
+      }
+      document.getElementById('scheduleMonthSelect').value = new Date().getMonth();
+
+      // City select listener
+      document.getElementById('citySelect').addEventListener('change', (e) => {
+        AppState.selectedCity = e.target.value;
+        updateHeroCountdown();
+        renderDashboardCards();
+        updateQiblaCompass();
+        renderMonthlyTimetable();
+        showToast(`Lokasi diperbarui: ${AppState.selectedCity}`, "info");
+      });
+
+      // Keyboard spacebar shortcut for Tasbih
+      window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space' && AppState.activeTab === 'tasbih' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          incrementTasbih();
+        }
+      });
+
+      // Initial Renders
+      updateHeroCountdown();
+      renderDashboardCards();
+      renderDetailedMutabaah();
+      renderQadhaSection();
+      renderWeeklyStats();
+      updateQiblaCompass();
+      renderMonthlyTimetable();
+
+      // Start Countdown Interval every 1 second
+      setInterval(updateHeroCountdown, 1000);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinFlow - Sistem Manajemen Keuangan & Cash Flow Perusahaan</title>
+  <meta name="description" content="Aplikasi manajemen arus kas, pencatatan transaksi dengan bukti nota, budgeting limit kategori, dan pelaporan keuangan real-time dengan multi-role access control.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/views.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       1. Login & Role Selection Overlay (Initial Screen / Logout target)
+       ====================================================================== -->
+  <div id="loginOverlay" class="login-overlay hidden">
+    <div class="login-card glass-card">
+      <div class="login-brand">
+        <div class="brand-icon-wrapper">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+            <polyline points="16 7 22 7 22 13"></polyline>
+          </svg>
+        </div>
+        <h2>FinFlow Portal</h2>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);">Enterprise Cash Flow & Financial Intelligence</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email Perusahaan</label>
+          <input type="email" id="loginEmail" class="form-control" value="staff.finance@nusantara.id" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Kata Sandi</label>
+          <input type="password" id="loginPassword" class="form-control" value="••••••••" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginRoleSelect">Pilih Hak Akses (Role Demo)</label>
+          <select id="loginRoleSelect" class="form-control">
+            <option value="STAFF">Finance Staff / Admin (Input, Edit & Kelola)</option>
+            <option value="CEO">Management / CEO (Read-only & Ekspor Laporan)</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+          Masuk ke Dashboard
+        </button>
+      </form>
+
+      <!-- Instant One-Click Demo Access -->
+      <div class="demo-credentials-box">
+        <div class="demo-title">⚡ Akses Instan Demo Role</div>
+        <div class="demo-buttons-grid">
+          <button id="btnDemoStaff" class="btn btn-sm btn-secondary" style="border-left: 3px solid var(--primary);">
+            👤 Finance Staff
+          </button>
+          <button id="btnDemoCeo" class="btn btn-sm btn-secondary" style="border-left: 3px solid var(--warning);">
+            👔 Management / CEO
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       2. Application Shell Layout
+       ====================================================================== -->
+  <div class="app-wrapper">
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside id="appSidebar" class="app-sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <div class="brand-icon-wrapper">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+              <polyline points="16 7 22 7 22 13"></polyline>
+            </svg>
+          </div>
+          <span class="brand-text">FinFlow</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Menu Utama</div>
+
+        <!-- 1. Dashboard Overview -->
+        <a href="#dashboard" class="nav-item active" data-view="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <!-- 2. Manajemen Transaksi -->
+        <a href="#transactions" class="nav-item" data-view="transactions">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          <span>Transaksi Kas</span>
+        </a>
+
+        <!-- 3. Kategori & Anggaran (Budgeting) -->
+        <a href="#budget" class="nav-item" data-view="budget">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+            <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+          </svg>
+          <span>Kategori & Budget</span>
+        </a>
+
+        <!-- 4. Laporan Keuangan (Reporting) -->
+        <a href="#reports" class="nav-item" data-view="reports">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>Laporan Keuangan</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer: Active User & Logout -->
+      <div class="sidebar-footer">
+        <div class="user-profile-card">
+          <div id="sidebarUserAvatar" class="user-avatar">DW</div>
+          <div class="user-info">
+            <div id="sidebarUserName" class="user-name">Dimas Wicaksono</div>
+            <div id="sidebarUserRole" class="user-role-badge role-admin">Finance Staff</div>
+          </div>
+          <button id="btnLogout" class="btn btn-sm btn-outline btn-icon-only" title="Keluar Akun" style="border: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Container Area -->
+    <div class="app-main">
+      <!-- Global Topbar -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Buka Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          
+          <div class="page-title-group">
+            <h1 id="topbarPageTitle" class="page-title">Dashboard Keuangan</h1>
+            <span id="topbarPageSubtitle" class="page-subtitle">Ringkasan eksekutif KPI kas, tren cash flow, dan peringatan batas anggaran</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Role Switcher Pill -->
+          <div class="role-switcher-pill" title="Ubah simulasi hak akses role">
+            <button id="roleBtnStaff" class="role-option-btn active">
+              <span>👤</span>
+              <span class="label-text">Staff (CRUD)</span>
+            </button>
+            <button id="roleBtnCeo" class="role-option-btn">
+              <span>👔</span>
+              <span class="label-text">CEO (Read-Only)</span>
+            </button>
+          </div>
+
+          <!-- Theme Toggle (Dark / Light) -->
+          <button id="themeToggleBtn" class="theme-toggle-btn" title="Ganti Tema Gelap / Terang">
+            <span id="themeIcon">☀️</span>
+          </button>
+
+          <!-- Quick Action CTA Button: + Tambah Transaksi -->
+          <button id="btnQuickAdd" class="btn-quick-add" title="Catat Transaksi Baru">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>+ Tambah Transaksi</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dynamic Page View Container -->
+      <main id="viewContainer" class="view-container"></main>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       3. Modal Form: Tambah / Edit Transaksi Kas
+       ====================================================================== -->
+  <div id="txModal" class="modal-backdrop">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="txModalTitle" class="modal-title">Catat Transaksi Baru</h3>
+        <button id="closeTxModal" class="modal-close-btn" aria-label="Tutup Modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="txForm">
+        <div class="modal-body">
+          <!-- Segmented Type Selector -->
+          <div class="form-group">
+            <label class="form-label">Jenis Mutasi Transaksi</label>
+            <div class="segmented-control">
+              <input type="hidden" id="txTypeInput" value="expense">
+              <button type="button" id="btnTypeExpense" class="segment-btn active-expense">
+                🔴 Pengeluaran (Expense)
+              </button>
+              <button type="button" id="btnTypeIncome" class="segment-btn">
+                🟢 Pemasukan (Income)
+              </button>
+            </div>
+          </div>
+
+          <!-- Nominal with Rp Prefix and Live Formatter -->
+          <div class="form-group">
+            <label class="form-label" for="txAmountInput">Nominal Transaksi (IDR)</label>
+            <div class="currency-input-wrap">
+              <span class="currency-prefix">Rp</span>
+              <input 
+                type="text" 
+                id="txAmountInput" 
+                class="form-control tabular-nums" 
+                placeholder="0" 
+                required 
+                autocomplete="off"
+              >
+            </div>
+          </div>
+
+          <!-- Date & Category Grid -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="txDateInput">Tanggal Mutasi</label>
+              <input type="date" id="txDateInput" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="txCategoryInput">Kategori</label>
+              <select id="txCategoryInput" class="form-control" required></select>
+            </div>
+          </div>
+
+          <!-- Description / Catatan -->
+          <div class="form-group">
+            <label class="form-label" for="txDescInput">Deskripsi / Catatan Transaksi</label>
+            <textarea 
+              id="txDescInput" 
+              class="form-control" 
+              rows="2" 
+              placeholder="Contoh: Pembayaran invoice tagihan cloud AWS bulan berjalan..."
+            ></textarea>
+          </div>
+
+          <!-- Upload Bukti Transaksi -->
+          <div class="form-group">
+            <label class="form-label">Lampiran Bukti Nota / Kuitansi / Transfer</label>
+            <input type="file" id="receiptFileInput" accept="image/*" class="hidden">
+            
+            <div id="receiptDropzone" class="file-dropzone">
+              <div class="dropzone-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+              </div>
+              <div class="dropzone-text">Tarik foto bukti ke sini atau klik untuk memilih</div>
+              <div class="dropzone-hint">Mendukung format JPG, PNG, atau WebP</div>
+            </div>
+
+            <!-- Preview uploaded image box -->
+            <div id="receiptPreviewWrap" class="receipt-preview-box hidden">
+              <div class="receipt-thumb-wrap">
+                <img id="receiptPreviewImg" src="" alt="Thumbnail Bukti" class="receipt-thumb-img">
+                <div>
+                  <div id="receiptFileName" style="font-weight: 700; font-size: 0.85rem;">bukti.jpg</div>
+                  <div style="font-size: 0.74rem; color: var(--income);">✓ Berhasil dilampirkan</div>
+                </div>
+              </div>
+              <button type="button" id="removeReceiptBtn" class="btn btn-sm btn-danger">Hapus</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancelTxModal" class="btn btn-secondary">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       4. Modal Form: Atur Batas Anggaran (Budgeting)
+       ====================================================================== -->
+  <div id="catModal" class="modal-backdrop">
+    <div class="modal-dialog" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3 id="catModalTitle" class="modal-title">Atur Batas Anggaran Kategori</h3>
+        <button id="closeCatModal" class="modal-close-btn" aria-label="Tutup">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="catForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="catNameInput">Nama Kategori</label>
+            <input type="text" id="catNameInput" class="form-control" placeholder="Contoh: Operasional Kantor" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label" for="catIconInput">Ikon Emoji</label>
+              <input type="text" id="catIconInput" class="form-control" placeholder="🏢" value="🏢" maxlength="2">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="catColorInput">Warna Aksen</label>
+              <input type="color" id="catColorInput" class="form-control" value="#6366f1" style="height: 42px; padding: 2px;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="catLimitInput">Batas Anggaran Bulanan (Plafond IDR)</label>
+            <div class="currency-input-wrap">
+              <span class="currency-prefix">Rp</span>
+              <input type="text" id="catLimitInput" class="form-control tabular-nums" placeholder="Contoh: 15.000.000">
+            </div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: block;">
+              Biarkan kosong atau 0 jika kategori ini tidak dibatasi pagu anggarannya.
+            </span>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="cancelCatModal" class="btn btn-secondary">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       5. Lightbox Modal: Fullscreen View Bukti Nota / Kuitansi
+       ====================================================================== -->
+  <div id="lightboxModal" class="modal-backdrop">
+    <div class="modal-dialog lightbox-content">
+      <div class="modal-header">
+        <h3 id="lightboxTitle" class="modal-title">Bukti Pembayaran Transaksi</h3>
+        <button id="closeLightboxBtn" class="modal-close-btn" aria-label="Tutup Lightbox">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: center; padding: 2rem;">
+        <img id="lightboxImg" src="" alt="Pratinjau Bukti" class="lightbox-img">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('lightboxModal').classList.remove('open')">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       6. Toast Notification Engine Stack
+       ====================================================================== -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ======================================================================
+       7. Application Core Script
+       ====================================================================== -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

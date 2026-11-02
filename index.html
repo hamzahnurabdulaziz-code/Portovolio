@@ -1,0 +1,1739 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hamzah Nur Abdul Aziz | High-Performance FullStack & Systems Engineer (Rust, Vue, React, Next.js)</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Portfolio profesional Hamzah Nur Abdul Aziz. FullStack Systems & Web Engineer dengan keahlian mendalam pada Rust, Next.js, React, dan Vue 3. Dilengkapi sertifikasi resmi Santrikoding.">
+  <meta name="keywords" content="Hamzah Nur Abdul Aziz, Rust Developer, FullStack Developer, Next.js Developer, Vue 3, React 19, WebGL 3D Portfolio, Santrikoding">
+  <meta name="author" content="Hamzah Nur Abdul Aziz">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Hamzah Nur Abdul Aziz | 3D Interactive Portfolio">
+  <meta property="og:description" content="Eksplorasi perjalanan rekayasa perangkat lunak dari 0 hingga ahli di ekosistem Rust, Next.js, React, dan Vue.">
+  <meta property="og:image" content="assets/profile.png">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- Favicon icon -->
+  <link rel="icon" type="image/png" href="assets/profile.png">
+</head>
+<body>
+
+  <!-- ===================================================================
+       1. CINEMATIC 3D INTRO SEQUENCE (ULTRA HD PRELOADER)
+       =================================================================== -->
+  <div id="cyber-intro-overlay">
+    <!-- Top-Left 4K Telemetry HUD -->
+    <div class="intro-telemetry-corner top-left">
+      <span class="hud-label"><i data-lucide="monitor"></i> DISPLAY: 4K UHD NATIVE</span>
+      <span class="hud-value">3840×2160 • 120 FPS ENGINE</span>
+      <span class="hud-status"><span class="hud-dot live"></span> WEBGL 2.0 QUANTUM READY</span>
+    </div>
+
+    <!-- Top-Right Controls -->
+    <div class="intro-top-right-group">
+      <div class="intro-audio-hint"><i data-lucide="volume-2"></i> <span>AUDIO SYNTH ACTIVE</span></div>
+      <button class="intro-skip-corner" onclick="dismissIntroOverlay()" type="button" aria-label="Lewati Intro">
+        <span>Lewati</span> ✕
+      </button>
+    </div>
+
+    <!-- Bottom-Left Live Terminal Boot Stream -->
+    <div class="intro-telemetry-corner bottom-left">
+      <div class="hud-terminal-log">
+        <div class="log-line"><span class="log-ok">[OK]</span> 3D WebGL Hyperspace Gateway Online</div>
+        <div class="log-line"><span class="log-ok">[OK]</span> Laravel 13 &amp; Livewire 3 Enterprise Stack Active</div>
+        <div class="log-line"><span class="log-ok">[OK]</span> Rust Systems Engine Calibrated</div>
+        <div class="log-line"><span class="log-ok">[OK]</span> Anamorphic 3D Pop-Out Hologram Ready</div>
+      </div>
+    </div>
+
+    <!-- Bottom-Right Verification -->
+    <div class="intro-telemetry-corner bottom-right">
+      <span class="hud-label">ENGINEERING CREDENTIAL</span>
+      <span class="hud-value">HAMZAH NUR ABDUL AZIZ</span>
+      <span class="hud-status"><i data-lucide="shield-check"></i> VERIFIED PRINCIPAL DEVELOPER</span>
+    </div>
+
+    <div class="intro-cyber-grid"></div>
+
+    <div class="intro-hud-box">
+      <div class="intro-badge-status">
+        <span class="pulse-indicator"></span>
+        <span>QUANTUM 3D NEURAL PORTAL • ULTRA HD 4K EXPERIENCE</span>
+      </div>
+
+      <h1 class="intro-main-title">
+        HAMZAH NUR ABDUL AZIZ
+      </h1>
+      
+      <p class="intro-subtext">
+        Principal FullStack &amp; High-Performance Systems Architect<br>
+        <span class="intro-subtext-focus">Laravel 13 • Livewire 3 • Rust • Next.js 15 • 3D WebGL</span>
+      </p>
+
+      <div class="intro-tech-tags">
+        <span class="intro-tag tag-laravel"><span class="intro-tag-dot red"></span> Laravel 13 &amp; Livewire</span>
+        <span class="intro-tag tag-rust"><span class="intro-tag-dot orange"></span> Rust</span>
+        <span class="intro-tag tag-nextjs"><span class="intro-tag-dot white"></span> Next.js 15</span>
+        <span class="intro-tag tag-vue"><span class="intro-tag-dot green"></span> Vue 3</span>
+        <span class="intro-tag tag-mysql"><span class="intro-tag-dot blue"></span> MySQL</span>
+        <span class="intro-tag tag-threejs"><span class="intro-tag-dot cyan"></span> Three.js 4K 3D</span>
+      </div>
+
+      <div class="intro-progress-wrapper">
+        <div class="intro-progress-header">
+          <span class="intro-progress-label">HYPERSPACE SYNCHRONIZATION</span>
+          <span id="intro-progress-text" class="intro-progress-val">0%</span>
+        </div>
+        <div class="intro-progress-track">
+          <div class="intro-progress-fill" id="intro-progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="intro-actions">
+        <button class="intro-btn-enter" id="intro-btn-enter" onclick="enterPortfolioHyperspace()" type="button">
+          <i data-lucide="sparkles"></i>
+          <span>MASUK KE PORTOFOLIO (4K 3D)</span>
+        </button>
+        <button class="intro-btn-skip" id="intro-btn-skip" onclick="dismissIntroOverlay()" type="button">
+          <span>Lewati Langsung</span>
+        </button>
+      </div>
+
+      <div class="intro-keyboard-hint">
+        Tekan <kbd>ENTER</kbd> atau <kbd>SPASI</kbd> untuk menyelam ke dimensi 3D
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       PLAYABLE 3D MINI-GAME HUD & OVERLAYS
+       =================================================================== -->
+  <div id="game-hud">
+    <div class="game-hud-top">
+      <div class="game-stats-box">
+        <div style="font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono);">SCORE</div>
+        <div class="game-score-display" id="game-hud-score-val">0</div>
+        <div style="font-size: 0.72rem; color: var(--text-dim); font-family: var(--font-mono); margin-top: 0.3rem;">SHIELD INTEGRITY</div>
+        <div class="game-shield-bar-wrap">
+          <div class="game-shield-bar-fill" id="game-shield-fill"></div>
+        </div>
+      </div>
+
+      <button class="game-hud-exit-btn" id="game-hud-exit-btn">
+        <i data-lucide="x-circle"></i>
+        <span>Keluar Game (ESC)</span>
+      </button>
+    </div>
+
+    <div class="game-hud-bottom">
+      <div class="game-instruction-pill">
+        🎮 <b>KONTROL:</b> W/A/S/D atau Panah = Kemudi | Spasi = Nitro Boost | Hindari Glitch Merah!
+      </div>
+
+      <div class="game-mobile-dpad">
+        <button class="game-touch-btn" id="btn-dpad-left">◀</button>
+        <button class="game-touch-btn" id="btn-dpad-boost">⚡</button>
+        <button class="game-touch-btn" id="btn-dpad-right">▶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Victory Promo Voucher Modal -->
+  <div class="game-victory-modal" id="game-victory-modal">
+    <div class="game-victory-card">
+      <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>
+      <h3 style="font-size: 1.8rem; font-weight: 800; color: #fff;">MISSION COMPLETE!</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.4rem;">
+        Hebat! Anda berhasil mengumpulkan token arsitektur web dan menaklukkan Cyber Runner 3D.
+      </p>
+
+      <div class="game-voucher-code-box">
+        KODE VOUCHER: DEV-HAMZAH2026
+      </div>
+
+      <p style="color: var(--primary); font-size: 0.9rem; margin-bottom: 1.5rem;">
+        ✨ Dapatkan <b>DISKON 15%</b> untuk Jasa Pembuatan Website / Aplikasi Kustom!
+      </p>
+
+      <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
+        <button class="btn-wa-hero" id="game-claim-wa-btn" style="padding: 0.8rem 1.6rem; font-size: 0.95rem;">
+          <i data-lucide="message-circle"></i>
+          <span>Klaim Diskon via WhatsApp (08132172119)</span>
+        </button>
+        <button class="btn-secondary" onclick="window.exit3DGame();" style="padding: 0.8rem 1.4rem;">
+          <span>Lanjut Eksplorasi</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       FLOATING WHATSAPP ACTION BUTTON (08132172119)
+       =================================================================== -->
+  <div class="whatsapp-float-widget">
+    <div class="whatsapp-float-tooltip">
+      <span>Konsultasi Web:</span>
+      <span class="number-highlight">08132172119</span>
+    </div>
+    <a href="https://wa.me/628132172119?text=Halo%20Mas%20Hamzah,%20saya%20tertarik%20untuk%20konsultasi%20pembuatan%20website" target="_blank" rel="noopener noreferrer" class="whatsapp-float-btn" aria-label="Hubungi WhatsApp Hamzah">
+      <div class="whatsapp-pulse-ring"></div>
+      <i data-lucide="message-circle"></i>
+    </a>
+  </div>
+
+  <!-- Custom Cursor Elements -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-circle"></div>
+
+  <!-- Background Ambient Glows -->
+  <div class="ambient-glow ambient-1"></div>
+  <div class="ambient-glow ambient-2"></div>
+  <div class="ambient-glow ambient-3"></div>
+
+  <!-- Three.js 3D WebGL Canvas Layer -->
+  <div id="webgl-canvas-container">
+    <canvas id="three-canvas"></canvas>
+  </div>
+
+  <!-- Top Sticky Glass Navbar -->
+  <header>
+    <nav class="site-nav" aria-label="Main Navigation">
+      <a href="#hero" class="nav-brand" id="nav-brand">
+        <div class="nav-brand-logo">H</div>
+        <span>Hamzah<span style="color: var(--primary);">.dev</span></span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#hero" class="nav-link active" data-id="Beranda" data-en="Home">Beranda</a></li>
+        <li><a href="#promo" class="nav-link" style="color: #ff8566;" data-id="Jasa Web" data-en="Web Services">Jasa Web</a></li>
+        <li><a href="#journey" class="nav-link" data-id="Perjalanan" data-en="Journey">Perjalanan</a></li>
+        <li><a href="#certs" class="nav-link" data-id="Sertifikat" data-en="Certificates">Sertifikat</a></li>
+        <li><a href="#projects" class="nav-link" data-id="Projek" data-en="Projects">Projek</a></li>
+        <li><a href="#skills" class="nav-link" data-id="Keahlian" data-en="Skills">Keahlian</a></li>
+        <li><a href="#terminal" class="nav-link" data-id="Terminal" data-en="Terminal">Terminal</a></li>
+        <li><a href="#contact" class="nav-link" data-id="Kontak" data-en="Contact">Kontak</a></li>
+        <li><a href="#game" class="nav-link nav-game-link" id="nav-game-link" title="Mainkan Game 3D"><i data-lucide="gamepad-2"></i> <span>Game 3D</span></a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Direct WhatsApp Pill in Header -->
+        <a href="https://wa.me/628132172119?text=Halo%20Mas%20Hamzah,%20saya%20ingin%20konsultasi%20pembuatan%20website" target="_blank" rel="noopener noreferrer" class="nav-wa-pill" title="Hubungi via WhatsApp">
+          <i data-lucide="phone"></i>
+          <span>08132172119</span>
+        </a>
+
+        <!-- Sci-Fi Audio FX Toggle -->
+        <button class="btn-icon-nav" id="audio-toggle" title="Nyalakan / Matikan Efek Suara 3D" aria-label="Toggle Audio Effects">
+          <i data-lucide="volume-2"></i>
+        </button>
+
+        <!-- Bilingual Switcher -->
+        <button class="btn-lang" id="lang-toggle" title="Switch Language" aria-label="Toggle Language">ID ⇄ EN</button>
+
+        <!-- Mobile Menu Trigger -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Navigation Menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content Structure -->
+  <div class="content-wrapper">
+    <main>
+
+      <!-- ===================================================================
+           HERO SECTION
+           =================================================================== -->
+      <section class="hero-section" id="hero">
+        <div class="hero-grid">
+          
+          <!-- Left Hero Text Info -->
+          <div class="hero-content">
+            <div class="hero-status-pill">
+              <span class="pulse-indicator"></span>
+              <span data-id="Tersedia untuk Rekayasa Skala Besar" data-en="Available for High-Impact Roles">Tersedia untuk Rekayasa Skala Besar</span>
+            </div>
+
+            <h1 class="hero-title">
+              <span data-id="Halo, Saya" data-en="Hello, I am">Halo, Saya</span> <br>
+              <span class="gradient-text">Hamzah Nur Abdul Aziz</span>
+            </h1>
+
+            <p class="hero-subtitle" data-id="Full-Stack & Systems Engineer yang berfokus pada arsitektur berkecepatan tinggi, keamanan memori tanpa overhead, dan aplikasi web modern berskala enterprise." data-en="High-performance FullStack & Systems Engineer specializing in memory-safe architectures, lightning-fast microservices, and modern enterprise web platforms.">
+              Full-Stack & Systems Engineer yang berfokus pada arsitektur berkecepatan tinggi, keamanan memori tanpa overhead, dan aplikasi web modern berskala enterprise.
+            </p>
+
+            <!-- Real-World Certified Tech Chips -->
+            <div class="tech-chips">
+              <span class="tech-chip laravel"><i data-lucide="layers"></i> Laravel 13 & Livewire</span>
+              <span class="tech-chip rust"><i data-lucide="cpu"></i> Rust Systems</span>
+              <span class="tech-chip next"><i data-lucide="layers"></i> Next.js 15</span>
+              <span class="tech-chip react"><i data-lucide="atom"></i> React 19</span>
+              <span class="tech-chip vue"><i data-lucide="compass"></i> Vue 3 Composition</span>
+              <span class="tech-chip mysql"><i data-lucide="database"></i> MySQL & PostgreSQL</span>
+              <span class="tech-chip"><i data-lucide="box"></i> Docker & Cloud</span>
+            </div>
+
+            <!-- Hero Action Buttons -->
+            <div class="hero-cta">
+              <a href="#promo" class="btn-promo-hero">
+                <i data-lucide="sparkles"></i>
+                <span data-id="Jasa Pembuatan Web" data-en="Web Dev Services">Jasa Pembuatan Web</span>
+              </a>
+              <button class="btn-game-launch" id="btn-launch-game-hero" title="Mainkan Game 3D Cyber Runner">
+                <i data-lucide="gamepad-2"></i>
+                <span data-id="🎮 Main Game 3D" data-en="🎮 Play 3D Game">🎮 Main Game 3D</span>
+              </button>
+              <a href="https://wa.me/628132172119?text=Halo%20Mas%20Hamzah,%20saya%20tertarik%20konsultasi%20pembuatan%20website" target="_blank" rel="noopener noreferrer" class="btn-wa-hero" title="Chat WhatsApp Langsung">
+                <i data-lucide="phone"></i>
+                <span>08132172119</span>
+              </a>
+              <a href="#projects" class="btn-primary" id="hero-btn-projects">
+                <i data-lucide="code-2"></i>
+                <span data-id="Jelajahi Projek" data-en="Explore Projects">Jelajahi Projek</span>
+              </a>
+              <a href="#certs" class="btn-secondary" id="hero-btn-certs">
+                <i data-lucide="award"></i>
+                <span data-id="Lihat 3 Sertifikat" data-en="View 3 Certificates">Lihat 3 Sertifikat</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Hero Visual with Anamorphic 3D Pop-Out Hologram Projector -->
+          <div class="hero-visual">
+            
+            <div class="popout-stage">
+              <!-- Hologram Projector Emitter Base & Light Beam -->
+              <div class="holo-projector-base"></div>
+              <div class="holo-beam-cone"></div>
+
+              <!-- Top-Right 3D Protruding Laravel 13 & Livewire Badge -->
+              <div class="depth-chip-float chip-laravel">
+                <i data-lucide="layers" style="color: #ff3e30;"></i>
+                <span>Laravel 13 & Livewire</span>
+              </div>
+
+              <!-- Top-Left 3D Protruding Rust Safety Badge -->
+              <div class="depth-chip-float chip-rust">
+                <i data-lucide="cpu" style="color: #ff8566;"></i>
+                <span>Rust Systems • Safe</span>
+              </div>
+
+              <!-- Bottom-Left 3D Livewire Full Reactive SPA Badge -->
+              <div class="depth-chip-float chip-livewire">
+                <i data-lucide="sparkles" style="color: #34d399;"></i>
+                <span>Livewire 3 • SPA</span>
+              </div>
+
+              <!-- Bottom-Right 3D Sub-10ms Latency Badge -->
+              <div class="depth-chip-float chip-speed">
+                <i data-lucide="zap" style="color: #00f2fe;"></i>
+                <span>Sub-10ms Latency</span>
+              </div>
+
+              <!-- 3D Perspective Card with Anamorphic Pop-Out -->
+              <div class="avatar-3d-card" id="avatar-card">
+                <div class="avatar-photo-wrapper">
+                  <img src="assets/profile.png" alt="Hamzah Nur Abdul Aziz" class="avatar-img" id="avatar-image">
+                  <div class="avatar-scanner"></div>
+
+                  <div class="avatar-overlay-data">
+                    <span class="tag">VERIFIED ENGINEER</span>
+                    <span class="cert-count">3 SANTRIKODING CERTS</span>
+                  </div>
+                </div>
+
+                <div class="avatar-card-info">
+                  <div class="avatar-card-name">
+                    <span>Hamzah Nur Abdul Aziz</span>
+                    <i data-lucide="badge-check"></i>
+                  </div>
+                  <div class="avatar-card-role" data-id="FullStack Web (Laravel 13 & Livewire) & Systems Specialist" data-en="FullStack Web (Laravel 13 & Livewire) & Systems Specialist">
+                    FullStack Web (Laravel 13 & Livewire) & Systems Specialist
+                  </div>
+                </div>
+
+                <!-- Real-time 3D Scene Geometry Switcher -->
+                <div class="scene-3d-controls">
+                  <div class="scene-control-label">
+                    <i data-lucide="orbit"></i>
+                    <span>3D Mode:</span>
+                  </div>
+                  <div class="scene-modes">
+                    <button class="scene-mode-btn active" data-mode="core" title="Quantum Core 3D Geometry">Core</button>
+                    <button class="scene-mode-btn" data-mode="torus" title="Torus Knot Cyber Ribbon">Torus</button>
+                    <button class="scene-mode-btn" data-mode="neural" title="Neural Constellation Mesh">Neural</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- High-Impact Engineering Metrics Banner -->
+        <div class="stats-banner">
+          <div class="stat-card">
+            <div class="stat-number gradient-cyan">3</div>
+            <div class="stat-label" data-id="Sertifikasi Resmi Santrikoding" data-en="Official Santrikoding Certs">Sertifikasi Resmi Santrikoding</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number gradient-rust">12ms</div>
+            <div class="stat-label" data-id="Rata-rata Respon API (Rust)" data-en="Avg API Latency (Rust)">Rata-rata Respon API (Rust)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number gradient-text">100%</div>
+            <div class="stat-label" data-id="Jaminan Keamanan Memori" data-en="Guaranteed Memory Safety">Jaminan Keamanan Memori</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number gradient-cyan">&lt;1 Detik</div>
+            <div class="stat-label" data-id="Kecepatan Loading Web (4K)" data-en="Web Load Speed (4K)">Kecepatan Loading Web (4K)</div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===================================================================
+           PROMO SECTION: JASA PEMBUATAN WEBSITE & SISTEM KUSTOM
+           =================================================================== -->
+      <section class="promo-section" id="promo">
+        <div class="promo-banner-card">
+          
+          <div class="promo-grid">
+            <div>
+              <div class="promo-top-badge">
+                <i data-lucide="sparkles"></i>
+                <span data-id="Penawaran Eksklusif & Profesional" data-en="Exclusive & Professional Web Solutions">Penawaran Eksklusif & Profesional</span>
+              </div>
+
+              <h2 class="promo-title">
+                <span data-id="Jasa Pembuatan Web Modern &" data-en="Modern Web Development &">Jasa Pembuatan Web Modern &</span><br>
+                <span class="gradient-text" data-id="Sistem Kustom Berkelas Dunia" data-en="World-Class Custom Systems">Sistem Kustom Berkelas Dunia</span>
+              </h2>
+
+              <p class="promo-description" data-id="Bukan sekadar website biasa. Bangun website dan aplikasi impian Anda dengan standar performa enterprise (Laravel 13, Livewire 3, Next.js 15, Vue 3, Rust). Tampilan mewah 4K, kecepatan super (< 1 detik), keamanan data maksimal, dan 100% responsif di semua perangkat." data-en="Not just an ordinary website. Engineer your dream digital platform with enterprise standards (Laravel 13, Livewire 3, Next.js 15, Vue 3, Rust). Ultra-crisp 4K aesthetics, sub-second load times, hardened data security, and flawless responsive layouts.">
+                Bukan sekadar website biasa. Bangun website dan aplikasi impian Anda dengan standar performa enterprise (Laravel 13, Livewire 3, Next.js 15, Vue 3, Rust). Tampilan mewah 4K, kecepatan super (&lt; 1 detik), keamanan data maksimal, dan 100% responsif di semua perangkat.
+              </p>
+
+              <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="https://wa.me/628132172119?text=Halo%20Mas%20Hamzah,%20saya%20tertarik%20untuk%20konsultasi%20pembuatan%20website" target="_blank" rel="noopener noreferrer" class="btn-wa-hero" style="padding: 1rem 1.8rem; font-size: 1.05rem;">
+                  <i data-lucide="message-circle"></i>
+                  <span>Konsultasi WhatsApp (08132172119)</span>
+                </a>
+                <a href="#projects" class="btn-secondary" style="padding: 1rem 1.6rem; font-size: 1rem;">
+                  <i data-lucide="layers"></i>
+                  <span>Lihat Contoh Sistem Nyata</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- 4K Studio Mockup Showcase Card -->
+            <div class="promo-showcase-box">
+              <img src="assets/promo-web-dev.jpg" alt="Showcase Jasa Pembuatan Website Profesional Modern 4K" class="promo-showcase-img">
+              <div class="promo-showcase-overlay">
+                <div>
+                  <div style="font-weight: 800; font-size: 1.1rem; color: #fff;">Custom Web & App Architecture</div>
+                  <div style="font-size: 0.85rem; color: var(--text-muted);">Laravel 13 • Livewire 3 • Next.js 15 • Vue 3 • MySQL</div>
+                </div>
+                <span class="promo-showcase-tag">HD 4K RESOLUTION</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6 Key Value Pillars -->
+          <h3 class="promo-pillars-title">
+            <span data-id="6 Keunggulan Mengapa Memilih Layanan Kami" data-en="6 Key Pillars of Engineering Excellence">6 Keunggulan Mengapa Memilih Layanan Kami</span>
+          </h3>
+
+          <div class="promo-pillars-grid">
+            
+            <div class="promo-pillar-card">
+              <div class="promo-pillar-icon"><i data-lucide="zap"></i></div>
+              <div class="promo-pillar-name">Ultra Cepat (&lt; 1 Detik)</div>
+              <div class="promo-pillar-desc">Skor Google Lighthouse 95-100. Pengunjung anti-kabur karena website lambat. Optimasi aset dan query database tingkat lanjut.</div>
+            </div>
+
+            <div class="promo-pillar-card">
+              <div class="promo-pillar-icon" style="color: var(--rust); background: rgba(255, 107, 74, 0.1);"><i data-lucide="shield-check"></i></div>
+              <div class="promo-pillar-name">Keamanan Standar Enterprise</div>
+              <div class="promo-pillar-desc">Arsitektur Laravel terproteksi dari ancaman SQL Injection, CSRF, dan XSS. Enkripsi data sensitif & sanitasi input ketat.</div>
+            </div>
+
+            <div class="promo-pillar-card">
+              <div class="promo-pillar-icon" style="color: var(--vue); background: rgba(66, 184, 131, 0.1);"><i data-lucide="layout"></i></div>
+              <div class="promo-pillar-name">Desain Eksklusif (Bukan AI Slop)</div>
+              <div class="promo-pillar-desc">Tampilan antarmuka modern, estetik, dan interaktif dengan elemen 3D halus. 100% responsif di layar smartphone, tablet, hingga monitor 4K.</div>
+            </div>
+
+            <div class="promo-pillar-card">
+              <div class="promo-pillar-icon" style="color: var(--purple); background: rgba(139, 92, 246, 0.1);"><i data-lucide="trending-up"></i></div>
+              <div class="promo-pillar-name">SEO Google & Konversi Tinggi</div>
+              <div class="promo-pillar-desc">Struktur OpenGraph, Meta Tags dinamis, sitemap XML, dan Call-To-Action terarah untuk memikat prospek dan pelanggan baru.</div>
+            </div>
+
+            <div class="promo-pillar-card">
+              <div class="promo-pillar-icon" style="color: #38bdf8; background: rgba(56, 189, 248, 0.1);"><i data-lucide="sliders"></i></div>
+              <div class="promo-pillar-name">Kustom Sesuai Alur Bisnis</div>
+              <div class="promo-pillar-desc">Bisa membuat Sistem LMS TK/Sekolah, PPDB Online, E-Commerce Multi-Cabang, Dashboard Admin, hingga integrasi WhatsApp Gateway.</div>
+            </div>
+
+            <div class="promo-pillar-card">
+              <div class="promo-pillar-icon" style="color: #f59e0b; background: rgba(245, 158, 11, 0.1);"><i data-lucide="award"></i></div>
+              <div class="promo-pillar-name">Garansi & Pendampingan</div>
+              <div class="promo-pillar-desc">Garansi perbaikan bug, panduan video/manual cara pakai, serta konsultasi teknis gratis pasca-peluncuran website.</div>
+            </div>
+
+          </div>
+
+          <!-- 3 Paket Solusi Pilihan -->
+          <h3 class="promo-packages-title">
+            <span data-id="Paket Solusi Pembuatan Website & Sistem" data-en="Web & System Development Solution Packages">Paket Solusi Pembuatan Website & Sistem</span>
+          </h3>
+          <p class="promo-packages-subtitle" data-id="Pilih paket yang paling sesuai dengan kebutuhan instansi, sekolah, atau bisnis Anda" data-en="Select the package tailored to your organization, school, or business requirements">
+            Pilih paket yang paling sesuai dengan kebutuhan instansi, sekolah, atau bisnis Anda
+          </p>
+
+          <div class="promo-packages-grid">
+            
+            <!-- Paket 1 -->
+            <div class="promo-pkg-card">
+              <div>
+                <h4 class="promo-pkg-title">Company Profile & Landing Page</h4>
+                <p class="promo-pkg-desc">Solusi elegan untuk profil perusahaan, bisnis UMKM, yayasan, atau portofolio profesional.</p>
+                <ul class="promo-pkg-features">
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Desain Modern 4K & Mobile-Friendly</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Formulir Terhubung Langsung ke WhatsApp</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Optimasi Kecepatan & SEO Google</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Hosting & Domain Setup Lengkap</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Garansi Maintenance 3 Bulan</span></li>
+                </ul>
+              </div>
+              <a href="https://wa.me/628132172119?text=Halo%20Mas%20Hamzah,%20saya%20tertarik%20Paket%20Company%20Profile%20/%20Landing%20Page" target="_blank" rel="noopener noreferrer" class="btn-primary promo-pkg-btn">
+                <i data-lucide="message-square"></i> <span>Konsultasi Paket Ini</span>
+              </a>
+            </div>
+
+            <!-- Paket 2 (POPULAR - LMS TK & EDUKASI) -->
+            <div class="promo-pkg-card popular">
+              <span class="promo-pkg-popular-badge">PALING DIMINATI • TERUJI</span>
+              <div>
+                <h4 class="promo-pkg-title" style="color: #ff8566;">Sistem LMS Sekolah / TK & PPDB Online</h4>
+                <p class="promo-pkg-desc">Sistem akademik lengkap terbukti (seperti projek LMS TKIT). Digitalisasi penuh kegiatan sekolah & komunikasi wali murid.</p>
+                <ul class="promo-pkg-features">
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Presensi Harian Berbasis Foto Siswa</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Rapor Digital Naratif (Kurikulum Merdeka PAUD/TK)</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Manajemen Tagihan SPP & Notifikasi WhatsApp</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Portal Khusus Wali Murid & Galeri Kelas</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Sistem PPDB Online & Cetak Berkas PDF</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Garansi Maintenance & Pelatihan Guru</span></li>
+                </ul>
+              </div>
+              <a href="https://wa.me/628132172119?text=Halo%20Mas%20Hamzah,%20saya%20tertarik%20Paket%20Sistem%20LMS%20Sekolah%20/%20TK%20dan%20PPDB" target="_blank" rel="noopener noreferrer" class="btn-promo-hero promo-pkg-btn" style="justify-content: center;">
+                <i data-lucide="award"></i> <span>Pesan Sistem Sekolah Ini</span>
+              </a>
+            </div>
+
+            <!-- Paket 3 -->
+            <div class="promo-pkg-card">
+              <div>
+                <h4 class="promo-pkg-title">Custom Web App & E-Commerce</h4>
+                <p class="promo-pkg-desc">Aplikasi web kustom berskala besar dengan backend Laravel 13 & Livewire 3 / Rust dan dashboard interaktif Vue 3 / Next.js.</p>
+                <ul class="promo-pkg-features">
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Arsitektur Kustom Sesuai Permintaan</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Integrasi Payment Gateway (Midtrans, Xendit, QRIS)</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Dashboard Real-Time & Multi-Role User</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Database Skalabilitas Tinggi (MySQL/PostgreSQL)</span></li>
+                  <li class="promo-pkg-feature"><i data-lucide="check-circle-2"></i> <span>Dokumentasi API & Source Code Penuh</span></li>
+                </ul>
+              </div>
+              <a href="https://wa.me/628132172119?text=Halo%20Mas%20Hamzah,%20saya%20tertarik%20Paket%20Custom%20Web%20App%20/%20E-Commerce" target="_blank" rel="noopener noreferrer" class="btn-primary promo-pkg-btn">
+                <i data-lucide="cpu"></i> <span>Diskusikan Arsitektur</span>
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Direct CTA WhatsApp Banner -->
+          <div class="promo-direct-cta">
+            <div>
+              <div class="promo-direct-cta-title">
+                Siap Mewujudkan Website & Sistem Unggulan Anda?
+              </div>
+              <div class="promo-direct-cta-desc">
+                Konsultasikan langsung dengan developer. Diskusikan alur, fitur, estimasi waktu, dan demo sistem tanpa biaya.
+              </div>
+            </div>
+            <a href="https://wa.me/628132172119?text=Halo%20Mas%20Hamzah,%20saya%20ingin%20konsultasi%20pembuatan%20website" target="_blank" rel="noopener noreferrer" class="promo-wa-btn-big">
+              <i data-lucide="phone-call"></i>
+              <span>Hubungi WA: 08132172119</span>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           JOURNEY SECTION - "Perjalanan Dari 0 Menjadi Jago IT"
+           =================================================================== -->
+      <section class="journey-section" id="journey">
+        <div class="section-header">
+          <div class="section-badge">
+            <i data-lucide="milestone"></i>
+            <span data-id="Kronologi Evolusi" data-en="Evolution Chronology">Kronologi Evolusi</span>
+          </div>
+          <h2 class="section-title">
+            <span data-id="Perjalanan Saya Dari" data-en="My Journey From">Perjalanan Saya Dari</span> 
+            <span class="gradient-text" data-id="0 Menjadi Jago" data-en="Zero to Master">0 Menjadi Jago</span>
+          </h2>
+          <p class="section-desc" data-id="Kisah dedikasi Hamzah Nur Abdul Aziz dalam menaklukkan kompleksitas software engineering, dari baris kode pertama hingga menguasai sistem mutakhir." data-en="The story of dedication by Hamzah Nur Abdul Aziz in conquering software engineering complexity, from Day 1 curiosity to mastering bleeding-edge architectures.">
+            Kisah dedikasi Hamzah Nur Abdul Aziz dalam menaklukkan kompleksitas software engineering, dari baris kode pertama hingga menguasai sistem mutakhir.
+          </p>
+        </div>
+
+        <div class="journey-timeline">
+          
+          <!-- Chapter 1 -->
+          <article class="timeline-item start-node">
+            <div class="timeline-node">
+              <i data-lucide="sparkles"></i>
+            </div>
+            <div class="timeline-card">
+              <span class="timeline-badge badge-start">FASE 01 • FONDASI DASAR</span>
+              <div class="timeline-card-title">
+                <span data-id="Titik Awal & Fondasi Algoritma" data-en="The Genesis: Algorithmic Foundations">Titik Awal & Fondasi Algoritma</span>
+                <span class="year">2021 - 2022</span>
+              </div>
+              <p class="timeline-card-desc" data-id="Semua bermula dari nol dengan dedikasi tinggi memahami logika komputasi. Mempelajari algoritma dasar, struktur data, pseudocode, manipulasi DOM murni, dan arsitektur Git version control untuk membangun pondasi engineering yang kokoh." data-en="It all started from absolute zero with a passionate dedication to compute logic. Mastered foundational algorithms, data structures, pure DOM manipulation, and Git workflows to build an unshakeable engineering core.">
+                Semua bermula dari nol dengan dedikasi tinggi memahami logika komputasi. Mempelajari algoritma dasar, struktur data, pseudocode, manipulasi DOM murni, dan arsitektur Git version control untuk membangun pondasi engineering yang kokoh.
+              </p>
+              <ul class="timeline-keypoints">
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Membangun pola pikir computational problem solving terstruktur & efisien.</span></li>
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Prototipe web statis pertama dengan HTML5 semantik, modern CSS, dan Vanilla JS.</span></li>
+              </ul>
+              <div class="timeline-tech-chips">
+                <span>Logic & Algoritma</span>
+                <span>JavaScript ES6+</span>
+                <span>Git & GitHub</span>
+                <span>Data Structures</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Chapter 2 -->
+          <article class="timeline-item vue-node">
+            <div class="timeline-node">
+              <i data-lucide="layout"></i>
+            </div>
+            <div class="timeline-card">
+              <span class="timeline-badge badge-vue">FASE 02 • FRONTEND REAKTIF</span>
+              <div class="timeline-card-title">
+                <span data-id="Penguasaan Modern Reactive Frontend" data-en="Mastering Modern Reactive Frontend">Penguasaan Modern Reactive Frontend</span>
+                <span class="year">2022 - 2023</span>
+              </div>
+              <p class="timeline-card-desc" data-id="Meningkatkan level ke pengembangan antarmuka reaktif. Menguasai Vue 3 dengan Composition API dan React modern. Mengimplementasikan state management tersentralisasi (Pinia/Redux), component lifecycle modular, dan styling presisi dengan Tailwind CSS." data-en="Elevated capabilities into high-reactive interfaces. Mastered Vue 3 with Composition API and modern React. Conquered centralized state management (Pinia/Redux), modular component lifecycles, and Tailwind CSS.">
+                Meningkatkan level ke pengembangan antarmuka reaktif. Menguasai Vue 3 dengan Composition API dan React modern. Mengimplementasikan state management tersentralisasi (Pinia/Redux), component lifecycle modular, dan styling presisi dengan Tailwind CSS.
+              </p>
+              <ul class="timeline-keypoints">
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Desain UI responsif mobile-first berbasis komponen reusable bebas bloatware.</span></li>
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Integrasi API asinkron dengan penanganan error tangguh dan instant optimistic UI.</span></li>
+              </ul>
+              <div class="timeline-tech-chips">
+                <span>Vue 3 Composition API</span>
+                <span>React 19</span>
+                <span>Pinia Store</span>
+                <span>Tailwind CSS</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Chapter 3 -->
+          <article class="timeline-item rust-node">
+            <div class="timeline-node">
+              <i data-lucide="cpu"></i>
+            </div>
+            <div class="timeline-card">
+              <span class="timeline-badge badge-rust">FASE 03 • HIGH-PERFORMANCE RUST</span>
+              <div class="timeline-card-title">
+                <span data-id="Menaklukkan Rust, Sistem & Concurrency" data-en="Conquering Rust, Systems & Concurrency">Menaklukkan Rust, Sistem & Concurrency</span>
+                <span class="year">2023 - 2024</span>
+              </div>
+              <p class="timeline-card-desc" data-id="Melangkah melampaui bahasa interpreted menuju performa komputasi bare-metal: Rust. Menaklukkan Borrow Checker, ownership, zero-cost abstractions, memory safety tanpa GC, dan multithreading tanpa data races." data-en="Stepped beyond interpreted runtimes into bare-metal systems engineering with Rust. Befriended the Borrow Checker, mastered zero-cost abstractions, memory safety without GC, and race-free concurrency.">
+                Melangkah melampaui bahasa interpreted menuju performa komputasi bare-metal: Rust. Menaklukkan Borrow Checker, ownership, zero-cost abstractions, memory safety tanpa GC, dan multithreading tanpa data races.
+              </p>
+              <ul class="timeline-keypoints">
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Backend microservices ultra-cepat dengan Actix-web, Axum, SQLx, dan Tokio runtime.</span></li>
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Lulus sertifikasi resmi Santrikoding: 'FullStack Rust + Vue' & 'FullStack Rust + React'.</span></li>
+              </ul>
+              <div class="timeline-tech-chips">
+                <span>Rust Systems</span>
+                <span>Actix-web</span>
+                <span>Axum</span>
+                <span>SQLx & PostgreSQL</span>
+                <span>Santrikoding Verified</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Chapter 4 -->
+          <article class="timeline-item next-node">
+            <div class="timeline-node">
+              <i data-lucide="layers"></i>
+            </div>
+            <div class="timeline-card">
+              <span class="timeline-badge badge-next">FASE 04 • NEXT-GEN FULLSTACK</span>
+              <div class="timeline-card-title">
+                <span data-id="Arsitektur Full-Stack Modern: Next.js 15" data-en="Modern Full-Stack: Next.js 15 Scale">Arsitektur Full-Stack Modern: Next.js 15</span>
+                <span class="year">2024 - 2025</span>
+              </div>
+              <p class="timeline-card-desc" data-id="Menyatukan ekosistem frontend dan backend dengan arsitektur Next.js 15 App Router modern. Menerapkan React Server Components (RSC), Server Actions mutakhir, Edge Middleware, dan arsitektur database terdistribusi untuk performa tinggi." data-en="Unified frontend and backend architectures with Next.js 15 App Router. Engineered React Server Components, Server Actions, Edge Middleware, and distributed database schemas for massive scale.">
+                Menyatukan ekosistem frontend dan backend dengan arsitektur Next.js 15 App Router modern. Menerapkan React Server Components (RSC), Server Actions mutakhir, Edge Middleware, dan arsitektur database terdistribusi untuk performa tinggi.
+              </p>
+              <ul class="timeline-keypoints">
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Optimasi Core Web Vitals prima (LCP < 1.0s) dan SEO semantik terstruktur.</span></li>
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Sertifikasi resmi 'FullStack Next.js Developer' terverifikasi di Santrikoding.</span></li>
+              </ul>
+              <div class="timeline-tech-chips">
+                <span>Next.js 15</span>
+                <span>Server Components</span>
+                <span>Server Actions</span>
+                <span>Edge Middleware</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Chapter 5 -->
+          <article class="timeline-item laravel-node">
+            <div class="timeline-node">
+              <i data-lucide="flame"></i>
+            </div>
+            <div class="timeline-card">
+              <span class="timeline-badge badge-laravel">FASE 05 • ENTERPRISE FRAMEWORK</span>
+              <div class="timeline-card-title">
+                <span data-id="Penguasaan Enterprise: Laravel 13 & Livewire 3" data-en="Enterprise Mastery: Laravel 13 & Livewire 3">Penguasaan Enterprise: Laravel 13 & Livewire 3</span>
+                <span class="year">2025</span>
+              </div>
+              <p class="timeline-card-desc" data-id="Menguasai ekosistem enterprise paling terpercaya: Laravel 13 dipadukan dengan Livewire 3 & Alpine.js untuk pengalaman SPA reaktif tanpa overhead build tools yang rumit. Mengimplementasikan Repository Pattern, Service Layer, dan Filament v4 Admin Panel." data-en="Mastered the definitive enterprise web standard: Laravel 13 paired with Livewire 3 & Alpine.js for instantaneous reactive single-page feel without client-side bloat. Implemented Repository Pattern and Filament v4.">
+                Menguasai ekosistem enterprise paling terpercaya: Laravel 13 dipadukan dengan Livewire 3 & Alpine.js untuk pengalaman SPA reaktif tanpa overhead build tools yang rumit. Mengimplementasikan Repository Pattern, Service Layer, dan Filament v4 Admin Panel.
+              </p>
+              <ul class="timeline-keypoints">
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Membangun sistem nyata: LMS TKIT Terpadu & Portal PPDB Online dengan WhatsApp Gateway otomatis.</span></li>
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Job Queueing Redis, Eloquent query optimization, dan relasi database MySQL multi-tier.</span></li>
+              </ul>
+              <div class="timeline-tech-chips">
+                <span>Laravel 13</span>
+                <span>Livewire 3</span>
+                <span>Filament v4</span>
+                <span>MySQL Relational</span>
+                <span>WhatsApp API</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Chapter 6 -->
+          <article class="timeline-item webgl-node">
+            <div class="timeline-node">
+              <i data-lucide="box"></i>
+            </div>
+            <div class="timeline-card">
+              <span class="timeline-badge badge-webgl">FASE 06 • 3D WEBGL & GAMIFIKASI 4K</span>
+              <div class="timeline-card-title">
+                <span data-id="Grafis 3D WebGL (Three.js), Gamifikasi & Visual 4K" data-en="3D WebGL Graphics, Gamification & 4K Visuals">Grafis 3D WebGL (Three.js), Gamifikasi & Visual 4K</span>
+                <span class="year">2025 - 2026</span>
+              </div>
+              <p class="timeline-card-desc" data-id="Membawa antarmuka web ke dimensi spasial 3D dengan WebGL dan Three.js. Menciptakan ilusi Anamorphic 3D Pop-Out yang seolah keluar dari monitor, shader kustom, pencahayaan dinamis, dan playable mini-game Cyber Runner 3D dengan performa 60-120 FPS mulus di resolusi 4K." data-en="Elevated the web experience into spatial 3D realms using WebGL and Three.js. Built Anamorphic 3D Pop-Out holograms, custom lighting shaders, and the playable Cyber Runner 3D mini-game running at silky 60-120 FPS in 4K resolution.">
+                Membawa antarmuka web ke dimensi spasial 3D dengan WebGL dan Three.js. Menciptakan ilusi Anamorphic 3D Pop-Out yang seolah keluar dari monitor, shader kustom, pencahayaan dinamis, dan playable mini-game Cyber Runner 3D dengan performa 60-120 FPS mulus di resolusi 4K.
+              </p>
+              <ul class="timeline-keypoints">
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>BufferGeometry prosedural, galaksi partikel 1500+ node, dan depth warp parallax.</span></li>
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Sintesis audio Web Audio API interaktif tanpa dependensi eksternal.</span></li>
+              </ul>
+              <div class="timeline-tech-chips">
+                <span>Three.js WebGL</span>
+                <span>4K Spatial 3D</span>
+                <span>Procedural Geometry</span>
+                <span>Web Audio API</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Chapter 7 -->
+          <article class="timeline-item future-node">
+            <div class="timeline-node">
+              <i data-lucide="shield-check"></i>
+            </div>
+            <div class="timeline-card">
+              <span class="timeline-badge badge-future">FASE 07 • PRINCIPAL ARCHITECT & FUTURE</span>
+              <div class="timeline-card-title">
+                <span data-id="Principal Systems Architect & Enterprise Solutions Lead" data-en="Principal Systems Architect & Solutions Lead">Principal Systems Architect & Enterprise Solutions Lead</span>
+                <span class="year">2026 & MASA DEPAN</span>
+              </div>
+              <p class="timeline-card-desc" data-id="Menjadi software engineer komprehensif yang memadukan keandalan sistem bare-metal (Rust), kecepatan delivery enterprise (Laravel 13 & Livewire 3), kemewahan antarmuka (Next.js 15 & Vue 3), serta visual interaktif spasial 3D 4K. Membuka layanan konsultasi dan pembuatan web profesional bergaransi via 08132172119." data-en="A comprehensive principal engineer bridging bare-metal systems reliability (Rust), enterprise agility (Laravel 13 & Livewire 3), reactive interfaces (Next.js 15 & Vue 3), and spatial 4K 3D graphics. Providing professional web consultation & engineering via 08132172119.">
+                Menjadi software engineer komprehensif yang memadukan keandalan sistem bare-metal (Rust), kecepatan delivery enterprise (Laravel 13 & Livewire 3), kemewahan antarmuka (Next.js 15 & Vue 3), serta visual interaktif spasial 3D 4K. Membuka layanan konsultasi dan pembuatan web profesional bergaransi via 08132172119.
+              </p>
+              <ul class="timeline-keypoints">
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Rekayasa sistem mission-critical, arsitektur microservice, dan high-traffic concurrency.</span></li>
+                <li class="timeline-keypoint"><i data-lucide="check"></i> <span>Konsultasi & jasa pembuatan website kustom bergaransi: WhatsApp 08132172119.</span></li>
+              </ul>
+              <div class="timeline-tech-chips">
+                <span>Distributed Systems</span>
+                <span>Laravel 13 & Livewire 3</span>
+                <span>Rust Bare-Metal</span>
+                <span>WhatsApp: 08132172119</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           CERTIFICATES SECTION - VERIFIED SANTRIKODING CREDENTIALS
+           =================================================================== -->
+      <section class="certs-section" id="certs">
+        <div class="section-header">
+          <div class="section-badge">
+            <i data-lucide="badge-check"></i>
+            <span data-id="Kredensial Terverifikasi" data-en="Verified Credentials">Kredensial Terverifikasi</span>
+          </div>
+          <h2 class="section-title">
+            <span data-id="Sertifikasi Resmi" data-en="Official Certificates">Sertifikasi Resmi</span> 
+            <span class="gradient-rust">Santrikoding</span>
+          </h2>
+          <p class="section-desc" data-id="Tiga sertifikasi kelulusan resmi atas nama Hamzah Nur Abdul Aziz dengan bukti ID unik yang dapat divalidasi langsung di portal Santrikoding." data-en="Three official graduation certificates awarded to Hamzah Nur Abdul Aziz with unique verification IDs verifiable on Santrikoding portal.">
+            Tiga sertifikasi kelulusan resmi atas nama Hamzah Nur Abdul Aziz dengan bukti ID unik yang dapat divalidasi langsung di portal Santrikoding.
+          </p>
+        </div>
+
+        <div class="certs-grid">
+
+          <!-- Certificate 1: Rust + Vue -->
+          <article class="cert-card" id="cert-card-rust-vue">
+            <div class="cert-image-container" data-cert-key="rust-vue">
+              <img src="assets/cert-rust-vue.png" alt="Sertifikat FullStack Developer Dengan Rust dan Vue - Hamzah Nur Abdul Aziz" class="cert-image">
+              <div class="cert-shine"></div>
+              <div class="cert-hover-btn">
+                <span><i data-lucide="maximize-2"></i> Detail Sertifikat</span>
+              </div>
+            </div>
+
+            <div class="cert-body">
+              <div>
+                <div class="cert-meta-header">
+                  <div class="cert-issuer-badge">
+                    <span>Oleh: <strong>Santrikoding.com</strong></span>
+                  </div>
+                  <div class="cert-verified-pill">
+                    <i data-lucide="check-circle-2"></i>
+                    <span>TERVERIFIKASI</span>
+                  </div>
+                </div>
+
+                <h3 class="cert-course-title">FullStack Developer Dengan Rust dan Vue</h3>
+                <div class="cert-recipient">
+                  <span>Penerima: <strong>hamzah nur abdul aziz</strong></span>
+                </div>
+
+                <div class="cert-id-box">
+                  <div>
+                    <div class="cert-id-label">ID Sertifikat</div>
+                    <div class="cert-id-code">SK-6KDZFQ0UVVR1VN3</div>
+                  </div>
+                  <button class="btn-copy-id" data-copy="SK-6KDZFQ0UVVR1VN3" title="Salin ID Sertifikat" aria-label="Copy Certificate ID">
+                    <i data-lucide="copy"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="cert-actions">
+                <button class="btn-cert-action btn-cert-view" data-cert-key="rust-vue">
+                  <i data-lucide="eye"></i> <span>Lihat HD</span>
+                </button>
+                <a href="https://santrikoding.com/cek-sertifikat" target="_blank" rel="noopener noreferrer" class="btn-cert-action btn-cert-verify">
+                  <i data-lucide="external-link"></i> <span>Cek Validitas</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Certificate 2: Rust + React -->
+          <article class="cert-card" id="cert-card-rust-react">
+            <div class="cert-image-container" data-cert-key="rust-react">
+              <img src="assets/cert-rust-react.png" alt="Sertifikat FullStack Developer Dengan Rust dan React - Hamzah Nur Abdul Aziz" class="cert-image">
+              <div class="cert-shine"></div>
+              <div class="cert-hover-btn">
+                <span><i data-lucide="maximize-2"></i> Detail Sertifikat</span>
+              </div>
+            </div>
+
+            <div class="cert-body">
+              <div>
+                <div class="cert-meta-header">
+                  <div class="cert-issuer-badge">
+                    <span>Oleh: <strong>Santrikoding.com</strong></span>
+                  </div>
+                  <div class="cert-verified-pill">
+                    <i data-lucide="check-circle-2"></i>
+                    <span>TERVERIFIKASI</span>
+                  </div>
+                </div>
+
+                <h3 class="cert-course-title">FullStack Developer Dengan Rust dan React</h3>
+                <div class="cert-recipient">
+                  <span>Penerima: <strong>hamzah nur abdul aziz</strong></span>
+                </div>
+
+                <div class="cert-id-box">
+                  <div>
+                    <div class="cert-id-label">ID Sertifikat</div>
+                    <div class="cert-id-code">SK-40QUSQEIH8P1SHE</div>
+                  </div>
+                  <button class="btn-copy-id" data-copy="SK-40QUSQEIH8P1SHE" title="Salin ID Sertifikat" aria-label="Copy Certificate ID">
+                    <i data-lucide="copy"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="cert-actions">
+                <button class="btn-cert-action btn-cert-view" data-cert-key="rust-react">
+                  <i data-lucide="eye"></i> <span>Lihat HD</span>
+                </button>
+                <a href="https://santrikoding.com/cek-sertifikat" target="_blank" rel="noopener noreferrer" class="btn-cert-action btn-cert-verify">
+                  <i data-lucide="external-link"></i> <span>Cek Validitas</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Certificate 3: Next.js -->
+          <article class="cert-card" id="cert-card-nextjs">
+            <div class="cert-image-container" data-cert-key="nextjs">
+              <img src="assets/cert-nextjs.png" alt="Sertifikat FullStack Next.js Developer - Hamzah Nur Abdul Aziz" class="cert-image">
+              <div class="cert-shine"></div>
+              <div class="cert-hover-btn">
+                <span><i data-lucide="maximize-2"></i> Detail Sertifikat</span>
+              </div>
+            </div>
+
+            <div class="cert-body">
+              <div>
+                <div class="cert-meta-header">
+                  <div class="cert-issuer-badge">
+                    <span>Oleh: <strong>Santrikoding.com</strong></span>
+                  </div>
+                  <div class="cert-verified-pill">
+                    <i data-lucide="check-circle-2"></i>
+                    <span>TERVERIFIKASI</span>
+                  </div>
+                </div>
+
+                <h3 class="cert-course-title">FullStack Next.js Developer</h3>
+                <div class="cert-recipient">
+                  <span>Penerima: <strong>hamzah nur abdul aziz</strong></span>
+                </div>
+
+                <div class="cert-id-box">
+                  <div>
+                    <div class="cert-id-label">ID Sertifikat</div>
+                    <div class="cert-id-code">SK-16H6P9EJX2FMHQF</div>
+                  </div>
+                  <button class="btn-copy-id" data-copy="SK-16H6P9EJX2FMHQF" title="Salin ID Sertifikat" aria-label="Copy Certificate ID">
+                    <i data-lucide="copy"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="cert-actions">
+                <button class="btn-cert-action btn-cert-view" data-cert-key="nextjs">
+                  <i data-lucide="eye"></i> <span>Lihat HD</span>
+                </button>
+                <a href="https://santrikoding.com/cek-sertifikat" target="_blank" rel="noopener noreferrer" class="btn-cert-action btn-cert-verify">
+                  <i data-lucide="external-link"></i> <span>Cek Validitas</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PROJECTS SHOWCASE SECTION
+           =================================================================== -->
+      <section class="projects-section" id="projects">
+        <div class="section-header">
+          <div class="section-badge">
+            <i data-lucide="terminal"></i>
+            <span data-id="Hasil Karya Nyata" data-en="Production Artifacts">Hasil Karya Nyata</span>
+          </div>
+          <h2 class="section-title">
+            <span data-id="Projek Unggulan" data-en="Featured Projects">Projek Unggulan</span> 
+            <span class="gradient-cyan">& Arsitektur</span>
+          </h2>
+          <p class="section-desc" data-id="Aplikasi rekayasa tingkat tinggi yang merefleksikan keahlian pada Rust, Vue 3, React 19, dan Next.js 15." data-en="High-throughput applications reflecting expertise across Rust, Vue 3, React 19, and Next.js 15.">
+            Aplikasi rekayasa tingkat tinggi yang merefleksikan keahlian pada Rust, Vue 3, React 19, dan Next.js 15.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          
+          <!-- Project 0: LMS TKIT & PAUD Terpadu (FEATURED REAL PROJECT) -->
+          <article class="project-card" id="project-card-lms-tk" style="border-color: rgba(66, 184, 131, 0.4); box-shadow: 0 10px 30px rgba(66, 184, 131, 0.15);">
+            <div class="project-thumbnail">
+              <img src="assets/project-lms-tk.jpg" alt="Sistem Informasi & LMS TKIT / PAUD Terpadu" class="project-img">
+              <span class="project-pill-tag" style="color: var(--vue); border-color: rgba(66, 184, 131, 0.5); background: rgba(66, 184, 131, 0.15);">LARAVEL 13 + LIVEWIRE 3 + MYSQL</span>
+            </div>
+            <div class="project-body">
+              <div>
+                <h3 class="project-title" style="color: #42b883;">Sistem LMS & Portal Sekolah TKIT / PAUD</h3>
+                <p class="project-desc" data-id="Sistem informasi akademik komprehensif sekolah TK/PAUD: presensi foto siswa, rapor kurikulum merdeka PAUD naratif, dan integrasi notifikasi tagihan SPP via WhatsApp." data-en="Comprehensive preschool LMS & academic portal: photo attendance, narrative curriculum evaluation, and automated WhatsApp tuition invoicing.">
+                  Sistem informasi akademik komprehensif sekolah TK/PAUD: presensi foto siswa, rapor kurikulum merdeka PAUD naratif, dan integrasi notifikasi tagihan SPP via WhatsApp.
+                </p>
+
+                <div class="project-metrics">
+                  <div class="metric-box">
+                    <div class="label">PRESENSI FOTO</div>
+                    <div class="val" style="color: var(--vue);">98% Akurat</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="label">PENGGUNA AKTIF</div>
+                    <div class="val">350+ Siswa/Guru</div>
+                  </div>
+                </div>
+
+                <div class="project-tags">
+                  <span class="project-tag" style="color: #ff4438; border-color: rgba(255, 68, 56, 0.3);">Laravel 13</span>
+                  <span class="project-tag" style="color: #fb7185; border-color: rgba(251, 113, 133, 0.3);">Livewire 3</span>
+                  <span class="project-tag">MySQL</span>
+                  <span class="project-tag">Vue 3</span>
+                  <span class="project-tag">Tailwind CSS</span>
+                  <span class="project-tag" style="color: #25d366; border-color: rgba(37, 211, 102, 0.3);">WhatsApp Gateway</span>
+                  <span class="project-tag">Kurikulum Merdeka</span>
+                </div>
+              </div>
+
+              <button class="btn-project-detail" data-project-key="lms-tk">
+                <i data-lucide="external-link"></i> <span>Eksplorasi Detail Projek</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Project 0.5: PPDB Online -->
+          <article class="project-card" id="project-card-ppdb">
+            <div class="project-thumbnail">
+              <img src="assets/promo-web-dev.jpg" alt="Sistem Informasi & PPDB Online Sekolah" class="project-img">
+              <span class="project-pill-tag" style="color: #ff8566;">LARAVEL 13 + LIVEWIRE 3</span>
+            </div>
+            <div class="project-body">
+              <div>
+                <h3 class="project-title">Sistem PPDB Online & Seleksi Siswa</h3>
+                <p class="project-desc" data-id="Platform Penerimaan Peserta Didik Baru (PPDB) multi-step, upload digital dokumen, cetak kartu seleksi PDF, dan notifikasi kelulusan WhatsApp." data-en="Online student enrollment portal with multi-step registration, digital document upload, automated PDF test cards, and WhatsApp alerts.">
+                  Platform Penerimaan Peserta Didik Baru (PPDB) multi-step, upload digital dokumen, cetak kartu seleksi PDF, dan notifikasi kelulusan WhatsApp.
+                </p>
+
+                <div class="project-metrics">
+                  <div class="metric-box">
+                    <div class="label">CALON SISWA</div>
+                    <div class="val" style="color: #ff8566;">1,200+ Pendaftar</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="label">VERIFIKASI</div>
+                    <div class="val">Real-time Admin</div>
+                  </div>
+                </div>
+
+                <div class="project-tags">
+                  <span class="project-tag">Laravel 13</span>
+                  <span class="project-tag">Livewire 3</span>
+                  <span class="project-tag">MySQL</span>
+                  <span class="project-tag">PDF Automation</span>
+                  <span class="project-tag">Tailwind</span>
+                </div>
+              </div>
+
+              <button class="btn-project-detail" data-project-key="ppdb-online">
+                <i data-lucide="external-link"></i> <span>Eksplorasi Detail Projek</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Project 1: RustyCommerce -->
+          <article class="project-card" id="project-card-rustycommerce">
+            <div class="project-thumbnail">
+              <img src="assets/project-rustycommerce.jpg" alt="RustyCommerce Dashboard Preview" class="project-img">
+              <span class="project-pill-tag">RUST + VUE 3</span>
+            </div>
+            <div class="project-body">
+              <div>
+                <h3 class="project-title">RustyCommerce Engine</h3>
+                <p class="project-desc" data-id="Mikroservis backend e-commerce berkecepatan tinggi dengan Rust Actix-web dan frontend reactive dashboard Vue 3 + Pinia." data-en="High-performance e-commerce microservice with Rust Actix-web and reactive Vue 3 + Pinia dashboard.">
+                  Mikroservis backend e-commerce berkecepatan tinggi dengan Rust Actix-web dan frontend reactive dashboard Vue 3 + Pinia.
+                </p>
+
+                <div class="project-metrics">
+                  <div class="metric-box">
+                    <div class="label">API LATENCY</div>
+                    <div class="val">12ms avg</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="label">THROUGHPUT</div>
+                    <div class="val">48k req/s</div>
+                  </div>
+                </div>
+
+                <div class="project-tags">
+                  <span class="project-tag">Rust</span>
+                  <span class="project-tag">Actix-web</span>
+                  <span class="project-tag">Vue 3</span>
+                  <span class="project-tag">Pinia</span>
+                  <span class="project-tag">SQLx</span>
+                </div>
+              </div>
+
+              <button class="btn-project-detail" data-project-key="rustycommerce">
+                <i data-lucide="external-link"></i> <span>Eksplorasi Detail Projek</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Project 2: RustPulse -->
+          <article class="project-card" id="project-card-rustpulse">
+            <div class="project-thumbnail">
+              <img src="assets/project-rustpulse.jpg" alt="RustPulse Cloud Telemetry Preview" class="project-img">
+              <span class="project-pill-tag" style="color: var(--emerald);">RUST + REACT 19</span>
+            </div>
+            <div class="project-body">
+              <div>
+                <h3 class="project-title">RustPulse Telemetry Monitor</h3>
+                <p class="project-desc" data-id="Platform visualisasi topologi cloud terdistribusi dengan konkurensi data stream tinggi (Axum + Tokio) dan visual WebGL React." data-en="Distributed cloud topology monitor with high concurrency data streams (Axum + Tokio) and React 19 WebGL graphs.">
+                  Platform visualisasi topologi cloud terdistribusi dengan konkurensi data stream tinggi (Axum + Tokio) dan visual WebGL React.
+                </p>
+
+                <div class="project-metrics">
+                  <div class="metric-box">
+                    <div class="label">MEMORY INTEGRITY</div>
+                    <div class="val" style="color: var(--emerald);">100% Rust</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="label">ACTIVE NODES</div>
+                    <div class="val">9,840 Nodes</div>
+                  </div>
+                </div>
+
+                <div class="project-tags">
+                  <span class="project-tag">Rust</span>
+                  <span class="project-tag">Axum</span>
+                  <span class="project-tag">React 19</span>
+                  <span class="project-tag">WebGL</span>
+                  <span class="project-tag">Tokio</span>
+                </div>
+              </div>
+
+              <button class="btn-project-detail" data-project-key="rustpulse">
+                <i data-lucide="external-link"></i> <span>Eksplorasi Detail Projek</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Project 3: WorkflowIQ -->
+          <article class="project-card" id="project-card-workflowiq">
+            <div class="project-thumbnail">
+              <img src="assets/project-workflowiq.jpg" alt="WorkflowIQ SaaS Platform Preview" class="project-img">
+              <span class="project-pill-tag" style="color: var(--purple);">NEXT.JS 15 ENTERPRISE</span>
+            </div>
+            <div class="project-body">
+              <div>
+                <h3 class="project-title">WorkflowIQ AI SaaS</h3>
+                <p class="project-desc" data-id="Platform otomatisasi alur kerja digital bertenaga Next.js 15 App Router, Server Actions, edge caching, dan basis data PostgreSQL." data-en="Enterprise workflow automation SaaS powered by Next.js 15 App Router, Server Actions, edge caching, and PostgreSQL.">
+                  Platform otomatisasi alur kerja digital bertenaga Next.js 15 App Router, Server Actions, edge caching, dan basis data PostgreSQL.
+                </p>
+
+                <div class="project-metrics">
+                  <div class="metric-box">
+                    <div class="label">AUTOMATION</div>
+                    <div class="val" style="color: var(--purple);">98.7% Success</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="label">LIGHTHOUSE</div>
+                    <div class="val">100 / 100</div>
+                  </div>
+                </div>
+
+                <div class="project-tags">
+                  <span class="project-tag">Next.js 15</span>
+                  <span class="project-tag">React Server Comp</span>
+                  <span class="project-tag">TypeScript</span>
+                  <span class="project-tag">PostgreSQL</span>
+                  <span class="project-tag">Edge</span>
+                </div>
+              </div>
+
+              <button class="btn-project-detail" data-project-key="workflowiq">
+                <i data-lucide="external-link"></i> <span>Eksplorasi Detail Projek</span>
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           TECH STACK & SKILLS MATRIX
+           =================================================================== -->
+      <section class="skills-section" id="skills">
+        <div class="section-header">
+          <div class="section-badge">
+            <i data-lucide="cpu"></i>
+            <span data-id="Matrix Kemampuan" data-en="Skill Matrix">Matrix Kemampuan</span>
+          </div>
+          <h2 class="section-title">
+            <span data-id="Keahlian &" data-en="Expertise &">Keahlian &</span> 
+            <span class="gradient-text" data-id="Teknologi" data-en="Technologies">Teknologi</span>
+          </h2>
+          <p class="section-desc" data-id="Kompetensi teruji yang dikuasai secara mendalam sesuai dengan sertifikasi dan pengalaman pengembangan sistem nyata." data-en="Tested competencies mastered in-depth according to verified certifications and production development experience.">
+            Kompetensi teruji yang dikuasai secara mendalam sesuai dengan sertifikasi dan pengalaman pengembangan sistem nyata.
+          </p>
+        </div>
+
+        <div class="skills-filter">
+          <button class="btn-skill-filter active" data-category="all">Semua Stack</button>
+          <button class="btn-skill-filter" data-category="laravel">Laravel & PHP</button>
+          <button class="btn-skill-filter" data-category="backend">Systems & Backend</button>
+          <button class="btn-skill-filter" data-category="frontend">Frontend & Reactive</button>
+          <button class="btn-skill-filter" data-category="database">Database & Infra</button>
+        </div>
+
+        <div class="skills-grid">
+          
+          <!-- Skill: Laravel 13 & Livewire 3 -->
+          <div class="skill-card" data-category="laravel">
+            <div class="skill-header">
+              <div class="skill-icon-wrap" style="color: #ff4438;">
+                <i data-lucide="layers"></i>
+              </div>
+              <span class="skill-level-text" style="color: #ff4438;">98% EXPERT</span>
+            </div>
+            <div>
+              <div class="skill-name">Laravel 13 & Livewire 3</div>
+              <div class="skill-desc">Livewire 3 (Volt & Alpine.js), Eloquent ORM, Blade, Filament v4 Admin, Pest Testing, Sanctum Auth, Migration & Seeding, High-Throughput REST API, Clean Architecture.</div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="width: 98%; background: linear-gradient(90deg, #ff4438, #ff8566);"></div>
+            </div>
+          </div>
+
+          <!-- Skill: Rust -->
+          <div class="skill-card" data-category="backend">
+            <div class="skill-header">
+              <div class="skill-icon-wrap" style="color: var(--rust);">
+                <i data-lucide="cpu"></i>
+              </div>
+              <span class="skill-level-text">95% EXPERT</span>
+            </div>
+            <div>
+              <div class="skill-name">Rust Language</div>
+              <div class="skill-desc">Memory safety tanpa GC, Actix-web, Axum, Tokio async runtime, zero-cost abstractions, multi-threading.</div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="width: 95%;"></div>
+            </div>
+          </div>
+
+          <!-- Skill: Vue 3 -->
+          <div class="skill-card" data-category="frontend">
+            <div class="skill-header">
+              <div class="skill-icon-wrap" style="color: var(--vue);">
+                <i data-lucide="compass"></i>
+              </div>
+              <span class="skill-level-text">94% ADVANCED</span>
+            </div>
+            <div>
+              <div class="skill-name">Vue 3 Composition</div>
+              <div class="skill-desc">Composition API, Pinia state store, Vite bundling, Vue Router, reactive UI components, composables.</div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="width: 94%; background: linear-gradient(90deg, var(--vue), var(--primary));"></div>
+            </div>
+          </div>
+
+          <!-- Skill: React 19 -->
+          <div class="skill-card" data-category="frontend">
+            <div class="skill-header">
+              <div class="skill-icon-wrap" style="color: var(--react);">
+                <i data-lucide="atom"></i>
+              </div>
+              <span class="skill-level-text">92% ADVANCED</span>
+            </div>
+            <div>
+              <div class="skill-name">React 19 & Ecosystem</div>
+              <div class="skill-desc">Server Actions, custom hooks, concurrent rendering, state management (Zustand, Redux), Three.js integration.</div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="width: 92%; background: linear-gradient(90deg, var(--react), var(--primary));"></div>
+            </div>
+          </div>
+
+          <!-- Skill: Next.js 15 -->
+          <div class="skill-card" data-category="frontend">
+            <div class="skill-header">
+              <div class="skill-icon-wrap" style="color: #fff;">
+                <i data-lucide="layers"></i>
+              </div>
+              <span class="skill-level-text">93% ADVANCED</span>
+            </div>
+            <div>
+              <div class="skill-name">Next.js 15 App Router</div>
+              <div class="skill-desc">Server Components (RSC), Server Actions, Edge Middleware, Static Site Generation (SSG), SSR, ISR, Vercel edge deployment.</div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="width: 93%;"></div>
+            </div>
+          </div>
+
+          <!-- Skill: MySQL Relational Database -->
+          <div class="skill-card" data-category="database">
+            <div class="skill-header">
+              <div class="skill-icon-wrap" style="color: #38bdf8;">
+                <i data-lucide="database"></i>
+              </div>
+              <span class="skill-level-text">92% ADVANCED</span>
+            </div>
+            <div>
+              <div class="skill-name">MySQL Database</div>
+              <div class="skill-desc">Relational database design, query optimization, indexing, foreign keys, stored procedures, ACID transactions, data backup.</div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="width: 92%; background: linear-gradient(90deg, #38bdf8, var(--primary));"></div>
+            </div>
+          </div>
+
+          <!-- Skill: Tailwind CSS -->
+          <div class="skill-card" data-category="frontend">
+            <div class="skill-header">
+              <div class="skill-icon-wrap" style="color: #38bdf8;">
+                <i data-lucide="layout"></i>
+              </div>
+              <span class="skill-level-text">95% EXPERT</span>
+            </div>
+            <div>
+              <div class="skill-name">Tailwind CSS & UI Systems</div>
+              <div class="skill-desc">Responsive layouts, glassmorphism, custom micro-animations, dark mode design systems, modern CSS grid & flexbox architecture.</div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="width: 95%; background: linear-gradient(90deg, #38bdf8, var(--vue));"></div>
+            </div>
+          </div>
+
+          <!-- Skill: Three.js & 3D WebGL -->
+          <div class="skill-card" data-category="frontend">
+            <div class="skill-header">
+              <div class="skill-icon-wrap" style="color: var(--primary);">
+                <i data-lucide="orbit"></i>
+              </div>
+              <span class="skill-level-text">88% PROFICIENT</span>
+            </div>
+            <div>
+              <div class="skill-name">Three.js & WebGL 3D</div>
+              <div class="skill-desc">Interactive 3D geometry rendering, custom particle systems, dynamic lighting, camera animation & GPU acceleration.</div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="width: 88%;"></div>
+            </div>
+          </div>
+
+          <!-- Skill: REST & GraphQL API -->
+          <div class="skill-card" data-category="backend">
+            <div class="skill-header">
+              <div class="skill-icon-wrap" style="color: var(--amber);">
+                <i data-lucide="network"></i>
+              </div>
+              <span class="skill-level-text">94% ADVANCED</span>
+            </div>
+            <div>
+              <div class="skill-name">API Architecture</div>
+              <div class="skill-desc">RESTful microservices, WebSockets real-time sync, JWT auth security, OpenAPI/Swagger specs, rate limiting.</div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="width: 94%;"></div>
+            </div>
+          </div>
+
+          <!-- Skill: Docker & DevOps -->
+          <div class="skill-card" data-category="database">
+            <div class="skill-header">
+              <div class="skill-icon-wrap" style="color: #06b6d4;">
+                <i data-lucide="box"></i>
+              </div>
+              <span class="skill-level-text">87% PROFICIENT</span>
+            </div>
+            <div>
+              <div class="skill-name">Docker & CI/CD</div>
+              <div class="skill-desc">Multi-stage minimal Docker builds untuk Rust binary, GitHub Actions automated CI pipelines, Linux server administration.</div>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="skill-bar-fill" style="width: 87%;"></div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           INTERACTIVE CYBER TERMINAL ("hamzah-cli")
+           =================================================================== -->
+      <section class="terminal-section" id="terminal">
+        <div class="section-header">
+          <div class="section-badge">
+            <i data-lucide="terminal"></i>
+            <span>Interactive CLI</span>
+          </div>
+          <h2 class="section-title">
+            <span>Terminal Interaktif</span> 
+            <span class="gradient-text">hamzah-cli</span>
+          </h2>
+          <p class="section-desc">
+            Coba ketik perintah di bawah atau klik tombol aksi cepat untuk mengeksplorasi telemetry, biografi, sertifikat, dan arsitektur sistem.
+          </p>
+        </div>
+
+        <div class="terminal-window">
+          <div class="terminal-topbar">
+            <div class="terminal-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="terminal-title">hamzah@workstation: ~/portfolio (zsh)</div>
+            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--emerald);">STATUS: ONLINE</div>
+          </div>
+
+          <div class="terminal-screen" id="terminal-screen">
+            <div class="terminal-entry">
+              <div style="color: var(--primary); font-weight: bold;">
+                Hamzah OS Shell v3.8.0-release [Architecture: x86_64-rust & laravel-core]
+              </div>
+              <div style="color: var(--text-muted); margin-top: 0.25rem;">
+                Selamat datang! Ketik <span style="color: var(--rust); font-weight: bold;">help</span> untuk melihat opsi navigasi command-line, atau gunakan tombol cepat di bawah.
+              </div>
+            </div>
+          </div>
+
+          <div class="terminal-input-wrapper">
+            <span style="color: var(--vue); font-family: var(--font-mono); font-weight: bold;">visitor@hamzah:~$</span>
+            <input type="text" id="terminal-input" placeholder="Ketik perintah (contoh: promo, play, lms, skills, contact)..." autocomplete="off" spellcheck="false">
+          </div>
+
+          <div class="terminal-quick-buttons">
+            <span>Perintah Cepat:</span>
+            <button class="btn-term-cmd" data-cmd="promo">promo</button>
+            <button class="btn-term-cmd" data-cmd="play">play (3d game)</button>
+            <button class="btn-term-cmd" data-cmd="lms">lms tk</button>
+            <button class="btn-term-cmd" data-cmd="skills">skills</button>
+            <button class="btn-term-cmd" data-cmd="projects">projects</button>
+            <button class="btn-term-cmd" data-cmd="certs">certs</button>
+            <button class="btn-term-cmd" data-cmd="contact">contact</button>
+            <button class="btn-term-cmd" data-cmd="clear">clear</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           CONTACT SECTION & FOOTER
+           =================================================================== -->
+      <section class="contact-section" id="contact">
+        <div class="contact-card">
+          
+          <div class="contact-info">
+            <div class="section-badge" style="width: fit-content; margin-bottom: 0;">
+              <i data-lucide="send"></i>
+              <span data-id="Mari Berkolaborasi" data-en="Let's Connect">Mari Berkolaborasi</span>
+            </div>
+            <h3 data-id="Siap Membangun Solusi IT Skala Besar Bersama?" data-en="Ready to Build Scalable IT Systems Together?">
+              Siap Membangun Solusi IT Skala Besar Bersama?
+            </h3>
+            <p data-id="Apakah Anda membutuhkan website modern dengan Laravel 13 & Livewire / Next.js / Vue / React, sistem edukasi/LMS, backend berkecepatan tinggi dengan Rust, atau konsultasi pembuatan aplikasi, pintu kolaborasi selalu terbuka." data-en="Whether you need modern web applications with Laravel 13 & Livewire, Next.js, Vue, React, educational LMS, high-performance backends in Rust, or web consulting, let's collaborate.">
+              Apakah Anda membutuhkan website modern dengan Laravel 13 & Livewire / Next.js / Vue / React, sistem edukasi/LMS, backend berkecepatan tinggi dengan Rust, atau konsultasi pembuatan aplikasi, pintu kolaborasi selalu terbuka.
+            </p>
+
+            <div class="contact-channels">
+              <!-- WhatsApp / Phone Direct Channel (08132172119) -->
+              <a href="https://wa.me/628132172119?text=Halo%20Mas%20Hamzah,%20saya%20ingin%20konsultasi%20pembuatan%20website" target="_blank" rel="noopener noreferrer" class="channel-item" style="border-color: rgba(37, 211, 102, 0.4); background: rgba(37, 211, 102, 0.08);">
+                <div class="channel-icon" style="color: #25d366; background: rgba(37, 211, 102, 0.15);"><i data-lucide="phone"></i></div>
+                <div>
+                  <div style="font-size: 0.75rem; color: #25d366; font-family: var(--font-mono); font-weight: 700;">WHATSAPP & TELEPON (FAST RESPONSE)</div>
+                  <div style="font-weight: 700; font-size: 1.15rem; color: #fff;">08132172119</div>
+                </div>
+              </a>
+
+              <a href="mailto:hamzahnurabdulaziz@gmail.com" class="channel-item">
+                <div class="channel-icon"><i data-lucide="mail"></i></div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono);">EMAIL RESMI</div>
+                  <div style="font-weight: 600;">hamzahnurabdulaziz@gmail.com</div>
+                </div>
+              </a>
+
+              <a href="https://santrikoding.com/cek-sertifikat" target="_blank" rel="noopener noreferrer" class="channel-item">
+                <div class="channel-icon" style="color: var(--rust); background: rgba(255, 107, 74, 0.1);"><i data-lucide="award"></i></div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono);">VERIFIKASI SERTIFIKAT</div>
+                  <div style="font-weight: 600;">Santrikoding Credential Portal</div>
+                </div>
+              </a>
+
+              <div class="channel-item">
+                <div class="channel-icon" style="color: var(--emerald); background: rgba(16, 185, 129, 0.1);"><i data-lucide="map-pin"></i></div>
+                <div>
+                  <div style="font-size: 0.75rem; color: var(--text-dim); font-family: var(--font-mono);">DOMISILI / LOKASI</div>
+                  <div style="font-weight: 600;">Indonesia (Available Remote / Onsite)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact Form -->
+          <form class="contact-form" id="contact-form">
+            <div class="form-group">
+              <label for="contact-name" class="form-label" data-id="Nama Lengkap" data-en="Full Name">Nama Lengkap</label>
+              <input type="text" id="contact-name" class="form-control" placeholder="Contoh: Alex Pratama" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-email" class="form-label" data-id="Alamat Email" data-en="Email Address">Alamat Email</label>
+              <input type="email" id="contact-email" class="form-control" placeholder="alex@company.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-message" class="form-label" data-id="Pesan / Detail Kebutuhan Projek" data-en="Message / Project Inquiries">Pesan / Detail Kebutuhan Projek</label>
+              <textarea id="contact-message" class="form-control" placeholder="Ceritakan tentang visi projek Anda atau peluang kerjasama..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;" id="contact-submit-btn">
+              <i data-lucide="send"></i>
+              <span data-id="Kirim Pesan Sekarang" data-en="Send Message Now">Kirim Pesan Sekarang</span>
+            </button>
+
+            <div style="text-align: center; margin-top: 1.25rem; font-size: 0.9rem; color: var(--text-muted);">
+              ⚡ Butuh respon instan? Hubungi WhatsApp langsung: 
+              <a href="https://wa.me/628132172119?text=Halo%20Mas%20Hamzah,%20saya%20ingin%20konsultasi%20pembuatan%20website" target="_blank" rel="noopener noreferrer" style="color: #25d366; font-weight: 700; text-decoration: underline; margin-left: 0.25rem;">
+                08132172119
+              </a>
+            </div>
+          </form>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+          <div>
+            &copy; 2026 <strong>Hamzah Nur Abdul Aziz</strong>. High-Performance FullStack Web & Systems Engineer. 
+            WhatsApp: <a href="https://wa.me/628132172119" target="_blank" style="color: #25d366; font-weight: 700;">08132172119</a>.
+          </div>
+          <div class="footer-links">
+            <a href="#hero">Beranda</a>
+            <a href="#promo">Jasa Web</a>
+            <a href="#journey">Perjalanan</a>
+            <a href="#certs">Sertifikat</a>
+            <a href="#projects">Projek</a>
+            <a href="https://wa.me/628132172119" target="_blank" rel="noopener noreferrer" style="color: #25d366;">WhatsApp</a>
+            <a href="https://santrikoding.com/cek-sertifikat" target="_blank" rel="noopener noreferrer">Santrikoding</a>
+          </div>
+        </footer>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 1: CERTIFICATE LIGHTBOX (HIGH DEFINITION)
+       =================================================================== -->
+  <div class="modal-overlay" id="cert-modal" role="dialog" aria-modal="true" aria-labelledby="modal-cert-title">
+    <div class="modal-content">
+      <button class="modal-close-btn" aria-label="Tutup Modal">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-cert-body">
+        <div class="modal-cert-img-wrap">
+          <img src="" alt="Sertifikat HD" id="modal-cert-img">
+        </div>
+
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+          <div>
+            <div class="cert-verified-pill" style="margin-bottom: 0.5rem;">
+              <i data-lucide="shield-check"></i>
+              <span>OFFICIAL CERTIFIED CREDENTIAL</span>
+            </div>
+            <h3 style="font-size: 1.6rem; font-weight: 800;" id="modal-cert-title">Course Title</h3>
+            <div style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.25rem;">
+              Diberikan dengan bangga kepada: <strong style="color: var(--primary);" id="modal-cert-recipient">hamzah nur abdul aziz</strong>
+            </div>
+            <div style="color: var(--text-dim); font-size: 0.85rem; margin-top: 0.2rem;">
+              Oleh: Santrikoding.com | Penandatangan: <span id="modal-cert-signer">Fika Ridaul Maulayya</span>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <div class="cert-id-box" style="margin-bottom: 0; min-width: 260px;">
+              <div>
+                <div class="cert-id-label">KODE VERIFIKASI RESMI</div>
+                <div class="cert-id-code" id="modal-cert-id">SK-XXXXXX</div>
+              </div>
+              <button class="btn-copy-id" id="modal-cert-copy-btn" title="Salin ID">
+                <i data-lucide="copy"></i>
+              </button>
+            </div>
+
+            <a href="https://santrikoding.com/cek-sertifikat" target="_blank" rel="noopener noreferrer" class="btn-primary" id="modal-cert-verify-link" style="padding: 0.6rem 1.2rem; font-size: 0.88rem; justify-content: center;">
+              <i data-lucide="external-link"></i>
+              <span>Validasi di Santrikoding</span>
+            </a>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-subtle);">
+          <div style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.6rem;">
+            KOMPETENSI TEKNIS YANG DILATIH:
+          </div>
+          <div class="project-tags" id="modal-cert-skills"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL 2: PROJECT DETAILS LIGHTBOX
+       =================================================================== -->
+  <div class="modal-overlay" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-proj-title">
+    <div class="modal-content">
+      <button class="modal-close-btn" aria-label="Tutup Modal">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="modal-cert-body">
+        <div class="modal-cert-img-wrap">
+          <img src="" alt="Project Preview HD" id="modal-proj-img">
+        </div>
+
+        <h3 style="font-size: 1.8rem; font-weight: 800;" id="modal-proj-title">Project Title</h3>
+        <div style="color: var(--primary); font-family: var(--font-mono); font-size: 0.95rem; margin-top: 0.25rem; margin-bottom: 1rem;" id="modal-proj-subtitle">
+          Tech Subtitle
+        </div>
+
+        <p style="color: var(--text-muted); line-height: 1.7; font-size: 1rem; margin-bottom: 1.5rem;" id="modal-proj-desc">
+          Project Description
+        </p>
+
+        <div style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.6rem;">
+          TEKNOLOGI & ARSITEKTUR YANG DIGUNAKAN:
+        </div>
+        <div class="project-tags" id="modal-proj-tags" style="margin-bottom: 1.5rem;"></div>
+
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="#contact" class="btn-primary" style="padding: 0.75rem 1.5rem; font-size: 0.9rem;" onclick="document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));">
+            <i data-lucide="message-square"></i>
+            <span>Diskusikan Arsitektur Serupa</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js Library CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Fail-safe Inline Intro Controller & Auto-Progress -->
+  <script>
+    function enterPortfolioHyperspace() {
+      try {
+        if (typeof window.diveIntoPortfolio === 'function') {
+          window.diveIntoPortfolio();
+          return;
+        }
+      } catch (e) {
+        console.warn('Hyperspace dive error, fallback to instant dismiss:', e);
+      }
+      dismissIntroOverlay();
+    }
+    window.enterPortfolioHyperspace = enterPortfolioHyperspace;
+
+    function dismissIntroOverlay() {
+      try {
+        var overlay = document.getElementById('cyber-intro-overlay');
+        if (overlay) {
+          overlay.classList.add('hide-intro');
+          setTimeout(function () {
+            overlay.style.display = 'none';
+          }, 350);
+        }
+        document.body.style.overflow = '';
+        if (window.AudioController && window.AudioController.playSuccess) {
+          try { window.AudioController.playSuccess(); } catch (e) {}
+        }
+        if (typeof window.dismissIntro === 'function' && window.dismissIntro !== dismissIntroOverlay) {
+          try { window.dismissIntro(); } catch (e) {}
+        }
+      } catch (err) {
+        var el = document.getElementById('cyber-intro-overlay');
+        if (el) el.style.display = 'none';
+      }
+    }
+    window.dismissIntroOverlay = dismissIntroOverlay;
+
+    // Self-running progress bar that accelerates to 100%
+    (function () {
+      var pct = 0;
+      var fillEl = document.getElementById('intro-progress-fill');
+      var textEl = document.getElementById('intro-progress-text');
+      var enterBtn = document.getElementById('intro-btn-enter');
+      var timer = setInterval(function () {
+        pct += 5;
+        if (pct > 100) pct = 100;
+        if (fillEl) fillEl.style.width = pct + '%';
+        if (textEl) textEl.innerText = pct + '%';
+        if (pct >= 100) {
+          clearInterval(timer);
+          if (textEl) textEl.innerText = '100% QUANTUM READY';
+          if (enterBtn) enterBtn.classList.add('pulse-ready');
+        }
+      }, 35);
+
+      // Keyboard listener: Enter / Space triggers hyperspace dive; Escape immediately dismisses
+      window.addEventListener('keydown', function (e) {
+        var overlay = document.getElementById('cyber-intro-overlay');
+        if (overlay && overlay.style.display !== 'none' && !overlay.classList.contains('hide-intro')) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            enterPortfolioHyperspace();
+          } else if (e.key === 'Escape') {
+            e.preventDefault();
+            dismissIntroOverlay();
+          }
+        }
+      });
+    })();
+  </script>
+
+  <!-- Interactive 3D WebGL Script -->
+  <script src="js/three-scene.js"></script>
+  <!-- Main Interactive Experience Script -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>
