@@ -1,4 +1,4 @@
-﻿/**
+/**
  * HAMZAH NUR ABDUL AZIZ - PORTFOLIO INTERACTION LOGIC
  * Features:
  * - 3D Card Tilt with Specular Glare & Anamorphic Depth
@@ -237,7 +237,7 @@
       help: () => `
 <div style="color: #00f2fe; font-weight: bold;">[DAFTAR PERINTAH HAMZAH-CLI]</div>
   <span style="color: #ff6b4a;">about</span>     : Menampilkan biografi singkat Hamzah
-  <span style="color: #ff6b4a;">skills</span>    : Tech stack (Laravel, Rust, Vue, React, Next.js, MySQL)
+  <span style="color: #ff6b4a;">skills</span>    : 4 Keahlian Utama (HTML5, CSS3, Tailwind CSS, Laravel 13)
   <span style="color: #ff6b4a;">promo</span>     : Paket Jasa Pembuatan Website & Aplikasi Kustom
   <span style="color: #ff6b4a;">play</span>      : 🎮 Mainkan Game 3D Cyber Runner IT Quest
   <span style="color: #ff6b4a;">lms</span>       : Informasi Projek Sistem LMS TKIT Terpadu
@@ -248,18 +248,16 @@
   <span style="color: #ff6b4a;">clear</span>     : Bersihkan layar terminal
       `,
       about: () => `
-<span style="color: #42b883; font-weight: bold;">Hamzah Nur Abdul Aziz</span>
-Full-Stack & Systems Engineer yang berfokus pada performa ekstrem, memory safety, dan pembuatan website modern berstandar enterprise.
-Menguasai <span style="color: #ff2d20; font-weight: bold;">Laravel 13</span> & <span style="color: #fb7185; font-weight: bold;">Livewire 3</span>, <span style="color: #ff6b4a; font-weight: bold;">Rust</span>, <span style="color: #42b883; font-weight: bold;">Vue 3</span>, <span style="color: #61dafb; font-weight: bold;">React 19</span>, dan <span style="color: #ffffff; font-weight: bold;">Next.js 15</span>.
+<span style="color: #00f2fe; font-weight: bold;">Hamzah Nur Abdul Aziz</span>
+Web Developer yang berfokus pada pengembangan website modern, responsif, dan sistem informasi menggunakan HTML, CSS, Tailwind CSS, serta Laravel 13.
 WhatsApp / Telepon: <a href="https://wa.me/628132172119" target="_blank" style="color: #25d366; font-weight: bold;">08132172119</a>.
       `,
       skills: () => `
-<div style="color: #00f2fe;">=== CORE STACK & EXPERTISE ===</div>
-⚡ <b style="color: #ff2d20;">PHP & Reactive Fullstack:</b> Laravel 13, Livewire 3 (Volt & Alpine.js), Filament v4, Eloquent ORM, Sanctum Auth
-⚡ <b style="color: #ff6b4a;">Systems & Backend:</b> Rust (Actix-web, Axum, Tokio async), SQLx, RESTful API, WebSockets
-⚡ <b style="color: #42b883;">Modern Frontend:</b> Vue 3 (Composition API), React 19, Next.js 15 App Router, Tailwind CSS
-⚡ <b style="color: #38bdf8;">Database & Infra:</b> MySQL, PostgreSQL, Redis, Docker, Git, CI/CD, Nginx
-⚡ <b style="color: #f59e0b;">Performance & 3D:</b> Three.js WebGL, sub-10ms latency, SEO 100/100, Core Web Vitals
+<div style="color: #00f2fe; font-weight: bold;">=== 4 KEAHLIAN & TEKNOLOGI UTAMA ===</div>
+⚡ <b style="color: #e34f26;">HTML5:</b> Struktur website yang rapi dan semantik.
+⚡ <b style="color: #264de4;">CSS3:</b> Desain website modern, menarik, dan responsif.
+⚡ <b style="color: #38bdf8;">Tailwind CSS:</b> Styling antarmuka yang cepat, konsisten, dan responsif.
+⚡ <b style="color: #ff2d20;">Laravel 13:</b> Pengembangan aplikasi web dan sistem informasi berbasis PHP.
       `,
       promo: () => `
 <div style="color: #ff6b4a; font-weight: bold;">=== JASA PEMBUATAN WEBSITE & SISTEM KUSTOM ===</div>
@@ -329,16 +327,15 @@ Klik link: <a href="https://wa.me/628132172119" target="_blank" style="color: #2
 • LinkedIn            : linkedin.com/in/hamzahnurabdulaziz
 • Domisili            : Indonesia (Tersedia Onsite / Remote)
       `,
-      whoami: () => `guest@hamzah-workstation: FullStack Web & Systems Engineer (Hamzah Nur Abdul Aziz)`,
+      whoami: () => `guest@hamzah-workstation: Web Developer (HTML5, CSS3, Tailwind CSS, Laravel 13) [Hamzah Nur Abdul Aziz]`,
       neofetch: () => `
 <pre style="color: #00f2fe; font-size: 0.8rem; line-height: 1.25;">
      _______      <b>User</b>: Hamzah Nur Abdul Aziz
-    / _____ \\     <b>Role</b>: FullStack Web & Systems Engineer
-   / /     \\ \\    <b>Core Stack</b>: Laravel 11, PHP 8+, Rust, Next.js 15
-  | |   O   | |   <b>Frontend</b>: Vue 3, React 19, Tailwind CSS, Three.js
-   \\ \\_____/ /    <b>WhatsApp</b>: 08132172119
-    \\_______/     <b>Certifications</b>: 3 Verified (Santrikoding)
-                  <b>Avg API Latency</b>: 12ms (Rust) / <1s Page Load
+    / _____ \\     <b>Role</b>: Web Developer
+   / /     \\ \\    <b>Core Stack</b>: HTML5, CSS3, Tailwind CSS, Laravel 13
+  | |   O   | |   <b>WhatsApp</b>: 08132172119
+   \\ \\_____/ /    <b>Certifications</b>: 3 Verified (Santrikoding)
+    \\_______/     <b>Responsiveness</b>: Mobile, Tablet & Desktop Ready
                   <b>Uptime Ready</b>: 99.98% High Availability
 </pre>
       `,

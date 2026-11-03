@@ -1,4 +1,4 @@
-﻿/* ===================================================================
+/* ===================================================================
    HAMZAH NUR ABDUL AZIZ - ULTRA HD 3D PORTFOLIO
    Theme: Obsidian Cyberpunk & High-Performance Engineering
    Aesthetic: Glassmorphism, 3D Transforms, Vivid Neon Highlights
@@ -473,36 +473,35 @@ h1, h2, h3, h4 {
   background: rgba(255, 255, 255, 0.03);
   transition: all var(--transition-fast);
 }
-.tech-chip.rust {
-  color: #ff8566;
-  border-color: rgba(255, 107, 74, 0.3);
-  background: rgba(255, 107, 74, 0.07);
+.tech-chip.html5 {
+  color: #e34f26;
+  border-color: rgba(227, 79, 38, 0.45);
+  background: rgba(227, 79, 38, 0.1);
+  box-shadow: 0 0 12px rgba(227, 79, 38, 0.18);
+}
+.tech-chip.css3 {
+  color: #38bdf8;
+  border-color: rgba(38, 77, 228, 0.45);
+  background: rgba(38, 77, 228, 0.1);
+  box-shadow: 0 0 12px rgba(38, 77, 228, 0.18);
+}
+.tech-chip.tailwind {
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(56, 189, 248, 0.1);
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.18);
 }
 .tech-chip.laravel {
   color: #ff4438;
-  border-color: rgba(255, 68, 56, 0.4);
+  border-color: rgba(255, 68, 56, 0.45);
   background: rgba(255, 68, 56, 0.1);
-  box-shadow: 0 0 10px rgba(255, 68, 56, 0.15);
+  box-shadow: 0 0 12px rgba(255, 68, 56, 0.18);
 }
-.tech-chip.vue {
-  color: #42b883;
-  border-color: rgba(66, 184, 131, 0.3);
-  background: rgba(66, 184, 131, 0.07);
-}
-.tech-chip.react {
-  color: #61dafb;
-  border-color: rgba(97, 218, 251, 0.3);
-  background: rgba(97, 218, 251, 0.07);
-}
-.tech-chip.next {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.07);
-}
-.tech-chip.mysql {
-  color: #38bdf8;
-  border-color: rgba(56, 189, 248, 0.3);
-  background: rgba(56, 189, 248, 0.08);
+.chip-icon-img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  vertical-align: middle;
 }
 
 .hero-cta {
@@ -1606,22 +1605,39 @@ h1, h2, h3, h4 {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
   border-radius: 18px;
-  padding: 1.5rem;
+  padding: 1.6rem;
   backdrop-filter: blur(14px);
-  transition: all var(--transition-smooth);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.1rem;
 }
 .skill-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   border-color: var(--border-glow);
   box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 242, 254, 0.15);
 }
 
+.skill-card-html5:hover {
+  border-color: rgba(227, 79, 38, 0.6);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(227, 79, 38, 0.22);
+}
+.skill-card-css3:hover {
+  border-color: rgba(38, 77, 228, 0.6);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(38, 77, 228, 0.22);
+}
+.skill-card-tailwind:hover {
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.22);
+}
+.skill-card-laravel:hover {
+  border-color: rgba(255, 45, 32, 0.6);
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 45, 32, 0.22);
+}
+
 .skill-icon-wrap {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-subtle);
@@ -1629,6 +1645,16 @@ h1, h2, h3, h4 {
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.skill-card:hover .skill-icon-wrap {
+  transform: scale(1.08);
+}
+.skill-icon-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
 }
 .skill-header {
   display: flex;
@@ -2067,7 +2093,7 @@ textarea.form-control {
     grid-template-columns: repeat(2, 1fr);
   }
   .skills-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
   .contact-card {
     grid-template-columns: 1fr;
@@ -2441,12 +2467,10 @@ textarea.form-control {
   background: rgba(255, 255, 255, 0.08);
   transform: translateY(-2px);
 }
+.intro-tag.tag-html5 { border-color: rgba(227, 79, 38, 0.45); color: #f97316; }
+.intro-tag.tag-css3 { border-color: rgba(38, 77, 228, 0.45); color: #60a5fa; }
+.intro-tag.tag-tailwind { border-color: rgba(56, 189, 248, 0.45); color: #38bdf8; }
 .intro-tag.tag-laravel { border-color: rgba(255, 45, 32, 0.45); color: #ff6b60; }
-.intro-tag.tag-rust { border-color: rgba(255, 107, 74, 0.45); color: #ff8c73; }
-.intro-tag.tag-nextjs { border-color: rgba(255, 255, 255, 0.35); color: #ffffff; }
-.intro-tag.tag-vue { border-color: rgba(66, 184, 131, 0.45); color: #42b883; }
-.intro-tag.tag-mysql { border-color: rgba(0, 117, 143, 0.55); color: #38bdf8; }
-.intro-tag.tag-threejs { border-color: rgba(0, 242, 254, 0.45); color: #00f2fe; }
 
 .intro-tag-dot {
   width: 6px;
@@ -2623,6 +2647,11 @@ textarea.form-control {
   pointer-events: none;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
+.depth-chip-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
 .depth-chip-float.chip-laravel {
   top: -18px;
   right: -30px;
@@ -2631,29 +2660,29 @@ textarea.form-control {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 45, 32, 0.45);
   transform: translateZ(65px);
 }
-.depth-chip-float.chip-rust {
+.depth-chip-float.chip-html5 {
   top: -22px;
   left: -32px;
-  color: #ff8566;
-  border-color: rgba(255, 107, 74, 0.6);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 107, 74, 0.4);
+  color: #f97316;
+  border-color: rgba(227, 79, 38, 0.6);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75), 0 0 25px rgba(227, 79, 38, 0.45);
   transform: translateZ(55px);
 }
-.depth-chip-float.chip-speed {
-  bottom: -20px;
-  right: -25px;
-  color: #00f2fe;
-  border-color: rgba(0, 242, 254, 0.6);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75), 0 0 25px rgba(0, 242, 254, 0.4);
-  transform: translateZ(60px);
-}
-.depth-chip-float.chip-livewire {
+.depth-chip-float.chip-tailwind {
   bottom: -20px;
   left: -28px;
-  color: #34d399;
-  border-color: rgba(52, 211, 153, 0.6);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75), 0 0 25px rgba(52, 211, 153, 0.4);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75), 0 0 25px rgba(56, 189, 248, 0.45);
   transform: translateZ(50px);
+}
+.depth-chip-float.chip-css3 {
+  bottom: -20px;
+  right: -25px;
+  color: #60a5fa;
+  border-color: rgba(38, 77, 228, 0.6);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75), 0 0 25px rgba(38, 77, 228, 0.45);
+  transform: translateZ(60px);
 }
 
 .avatar-3d-card {
